@@ -7,7 +7,7 @@
         - to: girder
           completed:
             - !type:SnapToGrid
-              southRotation: false
+              southRotation: true
           steps:
             - material: Steel
               amount: 2
@@ -43,7 +43,7 @@
         - to: reinforcedGirder
           completed:
             - !type:SnapToGrid
-              southRotation: false
+              southRotation: true
           conditions:
             - !type:EntityAnchored {}
           steps:
@@ -59,17 +59,6 @@
             - !type:EntityAnchored {}
           steps:
             - material: WoodPlank
-              amount: 2
-              doAfter: 2
-        
-        - to: paperWall
-          completed:
-            - !type:SnapToGrid
-              southRotation: true
-          conditions:
-            - !type:EntityAnchored {}
-          steps:
-            - material: Paper
               amount: 2
               doAfter: 2
 
@@ -132,7 +121,42 @@
             - tool: Welding
               doAfter: 20
 
-        - to: shuttleInteriorWall
+        - to: bananiumWall
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          conditions:
+            - !type:EntityAnchored {}
+          steps:
+            - material: Bananium
+              amount: 2
+              doAfter: 2
+            - tool: Welding
+              doAfter: 20
+
+        - to: meatWall
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          conditions:
+            - !type:EntityAnchored {}
+          steps:
+            - material: MeatSheets
+              amount: 2
+              doAfter: 2
+
+        - to: paperWall #Nyano
+          completed:
+            - !type:SnapToGrid
+              southRotation: true
+          conditions:
+            - !type:EntityAnchored {}
+          steps:
+            - material: Paper
+              amount: 2
+              doAfter: 2
+
+        - to: shuttleInteriorWall #Nyano
           completed:
             - !type:SnapToGrid
               southRotation: true
@@ -147,17 +171,6 @@
             - material: Steel
               amount: 2
               doAfter: 1
-
-        - to: meatWall
-          completed:
-            - !type:SnapToGrid
-              southRotation: true
-          conditions:
-            - !type:EntityAnchored {}
-          steps:
-            - material: MeatSheets
-              amount: 2
-              doAfter: 2
 
     - node: wall
       entity: WallSolid
@@ -178,18 +191,6 @@
           completed:
             - !type:GivePrototype
               prototype: MaterialWoodPlank1
-              amount: 2
-          steps:
-            - tool: Prying
-              doAfter: 10
-
-    - node: paperWall
-      entity: WallPaper
-      edges:
-        - to: girder
-          completed:
-            - !type:GivePrototype
-              prototype: SheetPaper1
               amount: 2
           steps:
             - tool: Prying
@@ -263,7 +264,33 @@
             - tool: Prying
               doAfter: 10
 
-    - node: shuttleInteriorWall
+    - node: bananiumWall
+      entity: WallClown
+      edges:
+        - to: girder
+          completed:
+            - !type:GivePrototype
+              prototype: MaterialBananium1
+              amount: 2
+          steps:
+            - tool: Welding
+              doAfter: 20
+            - tool: Prying
+              doAfter: 10
+
+    - node: meatWall
+      entity: WallMeat
+      edges:
+        - to: girder
+          completed:
+            - !type:GivePrototype
+              prototype: MaterialSheetMeat1
+              amount: 2
+          steps:
+            - tool: Prying
+              doAfter: 5
+
+    - node: shuttleInteriorWall #Nyano
       entity: WallShuttleInterior
       edges:
         - to: girder
@@ -280,18 +307,6 @@
             - tool: Screwing
               doAfter: 1
 
-    - node: meatWall
-      entity: WallMeat
-      edges:
-        - to: girder
-          completed:
-            - !type:GivePrototype
-              prototype: MaterialSheetMeat1
-              amount: 2
-          steps:
-            - tool: Prying
-              doAfter: 5
-
     - node: reinforcedGirder
       entity: ReinforcedGirder
       edges:
@@ -306,7 +321,7 @@
               amount: 2
               doAfter: 1
 
-        - to: shuttleWall
+        - to: shuttleWall #Nyano
           completed:
             - !type:SnapToGrid
               southRotation: true
@@ -322,7 +337,7 @@
               amount: 2
               doAfter: 1
         
-        - to: diagonalshuttleWall
+        - to: diagonalshuttleWall #Nyano
           completed:
             - !type:SnapToGrid
               southRotation: false
@@ -403,7 +418,7 @@
             - tool: Cutting
               doAfter: 1
 
-    - node: shuttleWall
+    - node: shuttleWall #Nyano
       entity: WallShuttle
       edges:
         - to: reinforcedGirder
@@ -460,7 +475,7 @@
             - tool: Cutting
               doAfter: 4
 
-    - node: diagonalshuttleWall
+    - node: diagonalshuttleWall #Nyano
       entity: WallShuttleDiagonal
       edges:
         - to: reinforcedGirder
@@ -524,3 +539,15 @@
           steps:
             - tool: Welding
               doAfter: 5
+
+    - node: paperWall #Nyano
+      entity: WallPaper
+      edges:
+        - to: girder
+          completed:
+            - !type:GivePrototype
+              prototype: SheetPaper1
+              amount: 2
+          steps:
+            - tool: Prying
+              doAfter: 10

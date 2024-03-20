@@ -3,19 +3,21 @@
   name: job-name-psychologist
   description: job-description-psychologist
   playTimeTracker: JobPsychologist
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 36000 #DeltaV 10 hours
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 #DeltaV 4 hrs
   startingGear: PsychologistGear
-  setPreference: false
-  icon: "Psychologist"
+  icon: "JobIconPsychologist"
   supervisors: job-supervisors-cmo
   access:
   - Medical
+  - Maintenance
+  - Psychologist # DeltaV - Add Psychologist access
   extendedAccess:
   - Chemistry
-  - Maintenance
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: MedicalTraining
 
 - type: startingGear
   id: PsychologistGear
@@ -25,6 +27,6 @@
     shoes: ClothingShoesLeather
     id: PsychologistPDA
     ears: ClothingHeadsetMedical
-  innerclothingskirt: ClothingUniformJumpsuitPsychologist
+  innerClothingSkirt: ClothingUniformJumpsuitPsychologist
   satchel: ClothingBackpackSatchelMedicalFilled
   duffelbag: ClothingBackpackDuffelMedicalFilled

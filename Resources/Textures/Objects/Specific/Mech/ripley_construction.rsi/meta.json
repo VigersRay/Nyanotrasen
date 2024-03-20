@@ -8,6 +8,9 @@
   },
   "states": [
     {
+      "name": "ripley_chassis"
+    },
+    {
       "name": "ripley_harness"
     },
     {
@@ -36,9 +39,6 @@
     },
     {
       "name": "ripley_l_leg+o"
-    },
-    {
-      "name": "ripley_chassis"
     },
     {
       "name": "ripley0"

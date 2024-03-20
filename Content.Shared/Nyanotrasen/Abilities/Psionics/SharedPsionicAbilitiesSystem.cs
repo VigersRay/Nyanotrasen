@@ -68,7 +68,12 @@ namespace Content.Shared.Abilities.Psionics
             if (component.PsionicAbility == null)
                 return;
 
-            _actions.SetEnabled(component.PsionicAbility, IsEligibleForPsionics(uid));
+            _actions.TryGetActionData( component.PsionicAbility, out var actionData );
+
+            if (actionData == null)
+                return;
+
+            _actions.SetEnabled(actionData.Owner, IsEligibleForPsionics(uid));
         }
 
         private bool IsEligibleForPsionics(EntityUid uid)
@@ -103,8 +108,8 @@ namespace Content.Shared.Abilities.Psionics
     [NetSerializable]
     public sealed class PsionicsChangedEvent : EntityEventArgs
     {
-        public readonly EntityUid Euid;
-        public PsionicsChangedEvent(EntityUid euid)
+        public readonly NetEntity Euid;
+        public PsionicsChangedEvent(NetEntity euid)
         {
             Euid = euid;
         }

@@ -50,7 +50,7 @@ public sealed class ReverseEngineeringMachineEjectButtonPressedMessage : BoundUs
 [Serializable, NetSerializable]
 public sealed class ReverseEngineeringMachineScanUpdateState : BoundUserInterfaceState
 {
-    public EntityUid? Target;
+    public NetEntity? Target;
 
     public bool CanScan;
 
@@ -68,7 +68,7 @@ public sealed class ReverseEngineeringMachineScanUpdateState : BoundUserInterfac
 
     public TimeSpan TotalTime;
 
-    public ReverseEngineeringMachineScanUpdateState(EntityUid? target, bool canScan,
+    public ReverseEngineeringMachineScanUpdateState(NetEntity? target, bool canScan,
         FormattedMessage? scanReport, bool scanning, bool safety, bool autoProbe, int totalProgress, TimeSpan timeRemaining, TimeSpan totalTime)
     {
         Target = target;

@@ -77,6 +77,20 @@
     B52: 3
 
 - type: reaction
+  id: CogChamp
+  reactants:
+    Cognac:
+      amount: 1
+    ScrewdriverCocktail:
+      amount: 1
+    WeldingFuel:
+      amount: 1
+  products:
+    CogChamp: 3
+  sound:
+    path: /Audio/Magic/Cults/ClockCult/steam_whoosh.ogg
+
+- type: reaction
   id: Barefoot
   reactants:
     Cream:
@@ -172,9 +186,9 @@
   id: CubaLibre
   reactants:
     Cola:
-      amount: 1
-    Rum:
       amount: 2
+    Rum:
+      amount: 1
   products:
     CubaLibre: 3
 
@@ -247,6 +261,18 @@
     ErikaSurprise: 6
 
 - type: reaction
+  id: EthanolBreakdown
+  requiredMixerCategories:
+  - Electrolysis
+  reactants:
+    Ethanol:
+      amount: 9
+  products:
+    Hydrogen: 6
+    Carbon: 2
+    Oxygen: 1
+
+- type: reaction
   id: FourteenLoko
   reactants:
     Coffee:
@@ -290,9 +316,9 @@
   id: GinTonic
   reactants:
     Gin:
-      amount: 2
-    TonicWater:
       amount: 1
+    TonicWater:
+      amount: 2
   products:
     GinTonic: 3
 
@@ -312,9 +338,11 @@
     Rum:
       amount: 1
     Water:
+      amount: 2
+    Sugar:
       amount: 1
   products:
-    Grog: 2
+    Grog: 4
 
 - type: reaction
   id: HippiesDelight
@@ -323,7 +351,6 @@
       amount: 1
     THC:
       amount: 1
-      # TODO replace THCOil with Mushroom Hallucinogen once added
   products:
     HippiesDelight: 2
 
@@ -338,6 +365,17 @@
       amount: 1
   products:
     Hooch: 3
+
+- type: reaction
+  id: HotCocoa
+  minTemp: 350
+  reactants:
+    Water:
+      amount: 1
+    CocoaPowder:
+      amount: 1
+  products:
+    HotCocoa: 2
 
 - type: reaction
   id: IceCream
@@ -510,8 +548,8 @@
       amount: 1
   products:
     ManlyDorf: 3
-- type: reaction
 
+- type: reaction
   id: Margarita
   reactants:
     Tequila:
@@ -520,17 +558,6 @@
       amount: 1
   products:
     Margarita: 3
-
-# TODO: PR #15540
-# - type: reaction
-#   id: Margarita
-#   reactants:
-#     Tequila:
-#       amount: 2
-#     JuiceLime:
-#       amount: 1
-#   products:
-#     Margarita: 3
 
 - type: reaction
   id: Martini
@@ -666,9 +693,9 @@
   id: ScrewdriverCocktail
   reactants:
     JuiceOrange:
-      amount: 1
-    Vodka:
       amount: 2
+    Vodka:
+      amount: 1
   products:
     ScrewdriverCocktail: 3
 
@@ -795,9 +822,9 @@
   id: VodkaTonic
   reactants:
     Vodka:
-      amount: 2
-    TonicWater:
       amount: 1
+    TonicWater:
+      amount: 2
   products:
     VodkaTonic: 3
 
@@ -805,9 +832,9 @@
   id: WhiskeyCola
   reactants:
     Cola:
-      amount: 1
-    Whiskey:
       amount: 2
+    Whiskey:
+      amount: 1
   products:
     WhiskeyCola: 3
 
@@ -825,9 +852,9 @@
   id: WhiskeySoda
   reactants:
     SodaWater:
-      amount: 1
-    Whiskey:
       amount: 2
+    Whiskey:
+      amount: 1
   products:
     WhiskeySoda: 3
 
@@ -865,6 +892,17 @@
       amount: 1
   products:
     TheMartinez: 6
+
+- type: reaction
+  id: WaterBreakdown
+  requiredMixerCategories:
+  - Electrolysis
+  reactants:
+    Water:
+      amount: 3
+  products:
+    Hydrogen: 2
+    Oxygen: 1
 
 - type: reaction
   id: WhiteGilgamesh

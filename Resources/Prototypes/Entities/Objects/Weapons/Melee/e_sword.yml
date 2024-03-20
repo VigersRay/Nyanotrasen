@@ -2,14 +2,14 @@
   name: energy sword
   parent: BaseItem
   id: EnergySword
-  description: Very loud and very dangerous. Can be stored in pockets when turned off.
+  description: A very loud & dangerous sword with a beam made of pure, concentrated plasma. Cuts through unarmored targets like butter.
   components:
   - type: EnergySword
     litDamageBonus:
         types:
             Slash: 15
             Heat: 15
-            Structural: 4
+            Structural: 20
             Blunt: -4.5
     litDisarmMalus: 0.6
   - type: Sprite
@@ -22,6 +22,7 @@
         shader: unshaded
         map: [ "blade" ]
   - type: MeleeWeapon
+    wideAnimationRotation: -135
     attackRate: 1
     soundHit:
       path: /Audio/Weapons/eblade1.ogg
@@ -30,7 +31,7 @@
         Blunt: 4.5
   - type: Item
     size: 5
-    sprite: Objects/Weapons/Melee/e_sword.rsi
+    sprite: DeltaV/Objects/Weapons/Melee/e_sword.rsi # Delta-V
   - type: UseDelay
     delay: 1.0
   - type: PointLight
@@ -65,10 +66,18 @@
     secret: true
     litDamageBonus:
         types:
-            Slash: 9
-            Heat: 9
+            Slash: 10
+            Heat: 10
             Blunt: -1
     litDisarmMalus: 0.4
+    activateSound: !type:SoundPathSpecifier
+      path: /Audio/Weapons/ebladeon.ogg
+      params:
+        volume: -6
+    deActivateSound: !type:SoundPathSpecifier
+      path: /Audio/Weapons/ebladeoff.ogg
+      params:
+        volume: -6
   - type: Sprite
     sprite: Objects/Weapons/Melee/e_dagger.rsi
     layers:
@@ -79,8 +88,9 @@
         shader: unshaded
         map: [ "blade" ]
   - type: MeleeWeapon
+    wideAnimationRotation: -135
+    attackRate: 1
     hidden: true
-    range: 1.4
     damage:
       types:
         Blunt: 1
@@ -131,18 +141,18 @@
   name: energy cutlass
   parent: EnergySword
   id: EnergyCutlass
-  description: An exotic energy weapon.
+  description: An exotic energy weapon, brutal blade crackling with crudely harnessed plasma. #DeltaV - nicer description.
   components:
   - type: EnergySword
     secret: true
     litDamageBonus:
         types:
-            Slash: 7.5
-            Heat: 7.5
+            Slash: 10
+            Heat: 12
             Blunt: -1
     litDisarmMalus: 0.6
   - type: Sprite
-    sprite: Objects/Weapons/Melee/e_cutlass.rsi
+    sprite: DeltaV/Objects/Weapons/Melee/e_cutlass.rsi # DeltaV
     layers:
       - state: e_cutlass
       - state: e_cutlass_blade
@@ -150,9 +160,25 @@
         visible: false
         shader: unshaded
         map: [ "blade" ]
+  - type: MeleeWeapon # DeltaV - reduced attack rate of e-cutlass; slower, more brutal swings
+    attackRate: 0.75
+    soundHit:
+      path: /Audio/Weapons/eblade1.ogg
+    damage:
+      types:
+        Blunt: 6
   - type: Item
     size: 5
     sprite: Objects/Weapons/Melee/e_cutlass.rsi
+  - type: ToggleableLightVisuals
+    spriteLayer: blade
+    inhandVisuals:
+      left:
+      - state: inhand-left-blade
+        shader: unshaded
+      right:
+      - state: inhand-right-blade
+        shader: unshaded
 
 - type: entity
   name: Double Bladed Energy Sword
@@ -161,20 +187,18 @@
   description: Syndicate Command Interns thought that having one blade on the energy sword was not enough. This can be stored in pockets.
   components:
   - type: Wieldable
-    wieldTime: 0
   - type: EnergySword
     litDamageBonus:
         types:
-            Slash: 9
-            Heat: 9
-            Structural: 20
+            Slash: 12
+            Heat: 12
+            Structural: 15
             Blunt: -4.5
     litDisarmMalus: 0.7
   - type: MeleeWeapon
-    attackRate: 1.6
+    wideAnimationRotation: -135
+    attackRate: 1.5
     angle: 100
-    # heavyWindupModifier: .9
-    heavyDamageModifier: 1.5
     soundHit:
       path: /Audio/Weapons/eblade1.ogg
     damage:
@@ -191,8 +215,21 @@
         map: [ "blade" ]
   - type: Item
     size: 10
-    sprite: Objects/Weapons/Melee/e_sword_double.rsi
+    sprite: Objects/Weapons/Melee/e_sword_double-inhands.rsi
   - type: Reflect
     enabled: true
-    reflectProb: .75
+    reflectProb: .80 #DeltaV: 80% Energy Reflection but no ballistics.
     spread: 75
+    reflects:   
+      - Energy #DeltaV: 80% Energy Reflection but no ballistics. 
+  - type: UseDelay
+    delay: 1
+  - type: ToggleableLightVisuals
+    spriteLayer: blade
+    inhandVisuals:
+      left:
+      - state: inhand-left-blade
+        shader: unshaded
+      right:
+      - state: inhand-right-blade
+        shader: unshaded

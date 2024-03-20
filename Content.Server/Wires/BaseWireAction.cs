@@ -9,7 +9,7 @@ namespace Content.Server.Wires;
 
 /// <summary><see cref="IWireAction" /></summary>
 [ImplicitDataDefinitionForInheritors]
-public abstract class BaseWireAction : IWireAction
+public abstract partial class BaseWireAction : IWireAction
 {
     private ISharedAdminLogManager _adminLogger = default!;
 
@@ -33,19 +33,19 @@ public abstract class BaseWireAction : IWireAction
     public virtual bool LightRequiresPower { get; set; } = true;
 
     /// <summary>
-    ///     The chance that the user is shocked when tampering with the wire: cutting, pulsing, or mending it.
+    ///     Nyanotrasen - The chance that the user is shocked when tampering with the wire: cutting, pulsing, or mending it.
     /// </summary>
     [DataField("shockChance")]
     public float ShockChance = 0.55f;
 
     /// <summary>
-    ///     How much damage the user takes when tampering.
+    ///     Nyanotrasen - How much damage the user takes when tampering.
     /// </summary>
     [DataField("shockDamage")]
     public int ShockDamage = 15;
 
     /// <summary>
-    ///     How long the user is stunned after a failed tamper attempt.
+    ///     Nyanotrasen - How long the user is stunned after a failed tamper attempt.
     /// </summary>
     [DataField("shockStunTime")]
     public TimeSpan ShockStunTime = TimeSpan.FromSeconds(3f);
@@ -83,16 +83,16 @@ public abstract class BaseWireAction : IWireAction
     }
 
     public virtual bool AddWire(Wire wire, int count) => count == 1;
-    public virtual bool Cut(EntityUid user, Wire wire) => !TryShockUser(user, wire, "cutting") && Log(user, wire, "cut");
-    public virtual bool Mend(EntityUid user, Wire wire) => !TryShockUser(user, wire, "mending") && Log(user, wire, "mended");
-    public virtual void Pulse(EntityUid user, Wire wire)
+    public virtual bool Cut(EntityUid user, Wire wire) => !TryShockUser(user, wire, "cutting") && Log(user, wire, "cut"); // Nyanotrasen - Tactical hacking
+    public virtual bool Mend(EntityUid user, Wire wire) => !TryShockUser(user, wire, "mending") && Log(user, wire, "mended"); // Nyanotrasen - Tactical hacking
+    public virtual void Pulse(EntityUid user, Wire wire) // Nyanotrasen - Tactical hacking
     {
         if (!TryShockUser(user, wire, "pulsing"))
             Log(user, wire, "pulsed");
     }
 
     /// <summary>
-    /// Returns true if the user has been shocked.
+    /// Nyanotrasen - Returns true if the user has been shocked.
     /// </summary>
     private bool TryShockUser(EntityUid user, Wire wire, string verb)
     {

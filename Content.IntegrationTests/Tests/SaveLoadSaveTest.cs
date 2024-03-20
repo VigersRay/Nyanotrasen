@@ -21,8 +21,8 @@ namespace Content.IntegrationTests.Tests
         [Test]
         public async Task SaveLoadSave()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
             var entManager = server.ResolveDependency<IEntityManager>();
             var mapLoader = entManager.System<MapLoaderSystem>();
             var mapManager = server.ResolveDependency<IMapManager>();
@@ -86,19 +86,19 @@ namespace Content.IntegrationTests.Tests
                     TestContext.Error.WriteLine(twoTmp);
                 }
             });
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
 
-        private const string TestMap = "Maps/angle.yml";
+        private const string TestMap = "Maps/pebble.yml";
 
         /// <summary>
         ///     Loads the default map, runs it for 5 ticks, then assert that it did not change.
         /// </summary>
         [Test]
-        public async Task LoadSaveTicksSaveAngle()
+        public async Task LoadSaveTicksSavePebble()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
             var mapLoader = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<MapLoaderSystem>();
             var mapManager = server.ResolveDependency<IMapManager>();
 
@@ -106,7 +106,7 @@ namespace Content.IntegrationTests.Tests
             var cfg = server.ResolveDependency<IConfigurationManager>();
             Assert.That(cfg.GetCVar(CCVars.GridFill), Is.False);
 
-            // Load bagel.yml as uninitialized map, and save it to ensure it's up to date.
+            // Load pebble.yml as uninitialized map, and save it to ensure it's up to date.
             server.Post(() =>
             {
                 mapId = mapManager.CreateMap();
@@ -163,7 +163,7 @@ namespace Content.IntegrationTests.Tests
             });
 
             await server.WaitPost(() => mapManager.DeleteMap(mapId));
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
 
         /// <summary>
@@ -173,14 +173,14 @@ namespace Content.IntegrationTests.Tests
         /// <remarks>
         ///     Should ensure that entities do not perform randomization prior to initialization and should prevents
         ///     bugs like the one discussed in github.com/space-wizards/RobustToolbox/issues/3870. This test is somewhat
-        ///     similar to <see cref="LoadSaveTicksSaveBagel"/> and <see cref="SaveLoadSave"/>, but neither of these
+        ///     similar to <see cref="LoadSaveTicksSavePebble"/> and <see cref="SaveLoadSave"/>, but neither of these
         ///     caught the mentioned bug.
         /// </remarks>
         [Test]
-        public async Task LoadTickLoadAngle()
+        public async Task LoadTickLoadPebble()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
 
             var mapLoader = server.ResolveDependency<IEntitySystemManager>().GetEntitySystem<MapLoaderSystem>();
             var mapManager = server.ResolveDependency<IMapManager>();
@@ -235,7 +235,7 @@ namespace Content.IntegrationTests.Tests
             Assert.That(yamlA, Is.EqualTo(yamlB));
 
             await server.WaitPost(() => mapManager.DeleteMap(mapId));
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
     }
 }

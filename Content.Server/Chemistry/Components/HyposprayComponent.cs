@@ -6,7 +6,7 @@ using Robust.Shared.Audio;
 namespace Content.Server.Chemistry.Components
 {
     [RegisterComponent]
-    public sealed class HyposprayComponent : SharedHyposprayComponent
+    public sealed partial class HyposprayComponent : SharedHyposprayComponent
     {
         // TODO: This should be on clumsycomponent.
         [DataField("clumsyFailChance")]
@@ -21,10 +21,9 @@ namespace Content.Server.Chemistry.Components
         public SoundSpecifier InjectSound = new SoundPathSpecifier("/Audio/Items/hypospray.ogg");
 
         /// <summary>
-        ///     Whether the hypospray uses a needle (i.e. medipens)
-        ///     or sci fi bullshit that sprays into the bloodstream directly (i.e. hypos)
+        /// Whether or not the hypo is able to inject only into mobs. On false you can inject into beakers/jugs
         /// </summary>
-        [DataField("pierceArmor")]
-        public bool PierceArmor = false;
+        [DataField("onlyMobs")]
+        public bool OnlyMobs = true;
     }
 }

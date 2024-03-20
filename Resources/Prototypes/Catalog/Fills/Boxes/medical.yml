@@ -72,7 +72,7 @@
     layers:
       - state: box
       - state: latex
-      
+
 - type: entity
   name: nitrile gloves box
   parent: BoxCardboard
@@ -101,6 +101,10 @@
     layers:
       - state: box
       - state: swab
+  - type: GuideHelp
+    guides:
+  # - Virology (when it's back)
+    - Botany
 
 - type: entity
   name: body bag box
@@ -119,3 +123,22 @@
     whitelist:
       tags:
         - BodyBag
+
+- type: entity
+  name: vial box
+  parent: BoxCardboard
+  id: BoxVial
+  description: A box full of vials.
+  components:
+  - type: Storage
+    capacity: 12
+    #grid:
+    #- 0,0,2,1
+  - type: StorageFill
+    contents:
+      - id: BaseChemistryEmptyVial
+        amount: 6
+  - type: Sprite
+    layers:
+      - state: box
+      - state: vials

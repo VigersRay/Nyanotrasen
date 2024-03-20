@@ -62,7 +62,7 @@
     node: hairflower
 
 - type: entity
-  parent: ClothingHeadBase
+  parent: ClothingHeadLightBase
   id: ClothingHeadHatPumpkin
   name: pumpkin hat
   description: A jack o' lantern! Believed to ward off evil spirits.
@@ -73,6 +73,18 @@
     sprite: Clothing/Head/Misc/pumpkin.rsi
   - type: IngestionBlocker
   - type: IdentityBlocker
+  - type: PointLight
+    enabled: false
+    radius: 3
+    energy: 1
+    mask: /Textures/Effects/LightMasks/cone.png
+    autoRot: true
+    color: "#cc6600"
+    netsync: false
+  - type: ItemSlots
+    slots:
+      cell_slot:
+        name: power-cell-slot-component-slot-name-default
 
 - type: entity
   parent: ClothingHeadBase
@@ -100,6 +112,19 @@
 
 - type: entity
   parent: ClothingHeadBase
+  id: ClothingHeadHatSkub
+  name: skub hat
+  description: 'Best paired with the Skub Suit.'
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Misc/skubhead.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Misc/skubhead.rsi
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+
+- type: entity
+  parent: ClothingHeadBase
   id: ClothingHeadHatShrineMaidenWig
   name: shrine maiden's wig
   description: The tag reads "All proceeds go to the Hakurei Shrine."
@@ -108,6 +133,10 @@
     sprite: Clothing/Head/Misc/shrine-maidens-wig.rsi
   - type: Clothing
     sprite: Clothing/Head/Misc/shrine-maidens-wig.rsi
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -143,6 +172,7 @@
   id: ClothingHeadHatCatEars
   name: cat ears
   description: "NYAH!"
+  suffix: DO NOT MAP
   components:
   - type: Tag
     tags: # ignore "WhitelistChameleon" tag

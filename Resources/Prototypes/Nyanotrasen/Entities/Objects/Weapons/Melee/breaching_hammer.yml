@@ -18,11 +18,11 @@
         Piercing: 3
         Structural: 10
     soundHit:
-      path: /Audio/Weapons/club.ogg
+      path: /Audio/Nyanotrasen/Weapons/club.ogg
     bluntStaminaDamageFactor: 1.50 # 15 stamina damage
-  - type: MeleeStaminaCost
-    swing: 10
-    wieldCoefficient: 0.5 #if wielded you will only consume 5
+#  - type: MeleeStaminaCost
+#    swing: 10
+#    wieldCoefficient: 0.5 #if wielded you will only consume 5
   - type: Wieldable
   - type: IncreaseDamageOnWield
     damage:
@@ -34,6 +34,11 @@
     qualities:
       - Prying
     speed: 0.8
+  - type: Prying
+    pryPowered: !type:Bool
+      true
+    force: !type:Bool
+      true
     useSound: /Audio/Items/jaws_pry.ogg
   - type: ToolForcePowered
   - type: Clothing

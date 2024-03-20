@@ -16,11 +16,11 @@ ent-CrateNPCCrab = Crab crate
 ent-CrateNPCDuck = Duck crate
     .desc = A crate containing six fully grown ducks.
 
-ent-CrateNPCPibble = pitbull crate
-    .desc = Note from the shelter: Lab mix. Looking for a home without cats or children. Anxious when pet.
-
 ent-CrateNPCCorgi = Corgi crate
     .desc = A crate containing a single corgi.
+
+ent-CrateNPCPuppyCorgi = Puppy Corgi crate
+    .desc = A crate containing a single puppy corgi. Awww.
 
 ent-CrateNPCCow = Cow crate
     .desc = A crate containing a single cow.
@@ -45,6 +45,9 @@ ent-CrateNPCParrot = Parrot crate
 
 ent-CrateNPCPenguin = Penguin crate
     .desc = A crate containing two penguins.
+
+ent-CrateNPCMothroach = Crate of mothroaches
+    .desc = A crate containing six mothroaches.
 
 ent-CrateNPCPig = Pig crate
     .desc = A crate containing a single pig.

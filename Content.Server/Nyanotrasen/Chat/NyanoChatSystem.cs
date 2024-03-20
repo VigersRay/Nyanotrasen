@@ -14,6 +14,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using System.Linq;
+using System.Text;
 
 namespace Content.Server.Nyanotrasen.Chat
 {
@@ -94,7 +95,7 @@ namespace Content.Server.Nyanotrasen.Chat
             if (_random.Prob(Math.Min(0.33f + ((float) _glimmerSystem.Glimmer / 1500), 1)))
             {
                 float obfuscation = (0.25f + (float) _glimmerSystem.Glimmer / 2000);
-                var obfuscated = _chatSystem.ObfuscateMessageReadability(message, obfuscation);
+                var obfuscated = ObfuscateMessageReadability(message, obfuscation);
                 _chatManager.ChatMessageToMany(ChatChannel.Telepathic, obfuscated, messageWrap, source, hideChat, false, GetDreamers(clients), Color.PaleVioletRed);
             }
 
@@ -102,6 +103,26 @@ namespace Content.Server.Nyanotrasen.Chat
             {
                 _chatSystem.TrySendInGameICMessage(repeater.Owner, message, InGameICChatType.Speak, false);
             }
+        }
+
+        private string ObfuscateMessageReadability(string message, float chance)
+        {
+            var modifiedMessage = new StringBuilder(message);
+
+            for (var i = 0; i < message.Length; i++)
+            {
+                if (char.IsWhiteSpace((modifiedMessage[i])))
+                {
+                    continue;
+                }
+
+                if (_random.Prob(1 - chance))
+                {
+                    modifiedMessage[i] = '~';
+                }
+            }
+
+            return modifiedMessage.ToString();
         }
     }
 }

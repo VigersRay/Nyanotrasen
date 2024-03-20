@@ -25,14 +25,6 @@
   - type: Tag
     tags:
     - StringInstrument
-  - type: MeleeWeapon
-    soundHit:
-      path: /Audio/Nyanotrasen/Weapons/electricguitarhit.ogg
-    damage:
-      types:
-        Blunt: 6
-        Shock: 1
-    bluntStaminaDamageFactor: 1.5
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -62,13 +54,6 @@
   - type: Tag
     tags:
     - StringInstrument
-  - type: MeleeWeapon
-    soundHit:
-      path: /Audio/Nyanotrasen/Weapons/electricguitarhit.ogg
-    damage:
-      types:
-        Blunt: 7
-    bluntStaminaDamageFactor: 1.5
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -98,20 +83,17 @@
     tags:
     - StringInstrument
   - type: MeleeWeapon
-    soundHit:
-      path: /Audio/Nyanotrasen/Weapons/electricguitarhit.ogg
-    range: 1.85
-    attackRate: 1.25
-    bluntStaminaDamageFactor: 1.5
+    wideAnimationRotation: 45
     damage:
       types:
-        Blunt: 5
+        Blunt: 6
+        Slash: 2
   - type: Wieldable
   - type: IncreaseDamageOnWield #they don't call it an axe for nothing
     damage:
       types:
-        Blunt: 2
-        Shock: 2
+        Blunt: 4
+        Slash: 2
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -139,13 +121,38 @@
     slots:
     - back
     sprite: Objects/Fun/Instruments/guitar.rsi
-  - type: MeleeWeapon
-    soundHit:
-      path: /Audio/Nyanotrasen/Weapons/guitarhit.ogg
+  - type: Wieldable
+  - type: Damageable # Smash it! Does 20 damage a hit, but breaks after 1 hit.
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Weapons/guitarsmash.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DamageOnHit # This makes it destroy after one hit.
     damage:
       types:
-        Blunt: 7
-    bluntStaminaDamageFactor: 1.5
+        Blunt: 20
+  - type: MeleeWeapon
+    wideAnimationRotation: 45
+    damage:
+      types:
+        Blunt: 5
+  - type: IncreaseDamageOnWield
+    damage:
+      types:
+        Blunt: 15
 
 - type: entity
   parent: BaseHandheldInstrument
@@ -176,13 +183,6 @@
   - type: Tag
     tags:
     - StringInstrument
-  - type: MeleeWeapon
-    soundHit:
-      path: /Audio/Nyanotrasen/Weapons/guitarhit.ogg
-    damage:
-      types:
-        Blunt: 7
-    bluntStaminaDamageFactor: 1.5
 
 - type: entity
   parent: BaseHandheldInstrument

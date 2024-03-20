@@ -15,7 +15,6 @@
       - map: [ "enum.SolutionContainerLayers.Fill" ]
         state: sink-fill-1
         visible: false
-    netsync: false
   - type: Appearance
   - type: SolutionContainerVisuals
     maxFillLevels: 1
@@ -27,11 +26,19 @@
         maxVol: 100
       tank:
         maxVol: 500
+  - type: SolutionRegeneration
+    solution: tank
+    generated:
+      reagents:
+      - ReagentId: Water
+        Quantity: 1
   - type: DrainableSolution
     solution: tank
   - type: ReagentTank
   - type: Drain
     autoDrain: false
+  - type: DumpableSolution
+    solution: drainBuffer
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Metallic
@@ -74,12 +81,6 @@
         reagents:
         - ReagentId: Water
           Quantity: 500
-  - type: SolutionRegeneration
-    solution: tank
-    generated:
-      reagents:
-        - ReagentId: Water
-          Quantity: 1
 
 - type: entity
   name: wide sink
@@ -127,9 +128,3 @@
         reagents:
         - ReagentId: Water
           Quantity: 500
-  - type: SolutionRegeneration
-    solution: tank
-    generated:
-      reagents:
-        - ReagentId: Water
-          Quantity: 1

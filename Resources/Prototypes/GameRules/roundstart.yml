@@ -6,11 +6,34 @@
   - type: GameRule
 
 - type: entity
-  id: DeathMatch
+  id: DeathMatch31
   parent: BaseGameRule
   noSpawn: true
   components:
   - type: DeathMatchRule
+    rewardSpawns:
+    - id: HealingToolbox
+    - id: ClothingOuterArmorBasicSlim
+      orGroup: loot
+    - id: ClothingHeadHelmetBasic
+      orGroup: loot
+    - id: SoapNT
+      orGroup: loot
+    - id: Bola
+      orGroup: loot
+    - id: Spear
+      orGroup: loot
+    - id: ClothingShoesGaloshes
+      orGroup: loot
+    - id: FoodPieBananaCream
+      orGroup: loot
+    - id: Stimpack
+      orGroup: loot
+  - type: KillCalloutRule
+  - type: PointManager
+  - type: RespawnDeadRule
+  - type: RespawnTracker
+    respawnDelay: 5
 
 - type: entity
   id: InactivityTimeRestart
@@ -37,7 +60,6 @@
   components:
   - type: NukeopsRule
     faction: Syndicate
-    species: NukeOp
 
 - type: entity
   id: Pirates
@@ -52,6 +74,15 @@
   noSpawn: true
   components:
   - type: TraitorRule
+
+- type: entity
+  id: Revolutionary
+  parent: BaseGameRule
+  noSpawn: true
+  components:
+  - type: RevolutionaryRule
+    maxHeadRevs: 2 # DeltaV
+    playersPerHeadRev: 30 # DeltaV - need highpop readied up for multiple headrevs
 
 - type: entity
   id: Sandbox

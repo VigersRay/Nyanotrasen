@@ -1,14 +1,14 @@
 - type: entity
   parent: BaseItem
   id: SpaceCash
-  name: zorkmids
+  name: spesos
   description: You gotta have money.
   components:
   - type: Material
   - type: PhysicalComposition
     materialComposition:
       Credit: 1
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 0
   - type: Stack
     stackType: Credit
@@ -42,21 +42,21 @@
 
 - type: material
   id: Credit
-  name: zorkmid
+  name: speso
+  unit: materials-unit-bill
   stackEntity: SpaceCash
   icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
   price: 1
 
 - type: stack
   id: Credit
-  name: zorkmids
+  name: speso
   icon: { sprite: /Textures/Objects/Economy/cash.rsi, state: cash }
   spawn: SpaceCash
 
 - type: entity
   parent: SpaceCash
   id: SpaceCash10
-  name: zorkmids
   suffix: 10
   components:
   - type: Icon
@@ -68,7 +68,6 @@
 - type: entity
   parent: SpaceCash
   id: SpaceCash100
-  name: zorkmids
   suffix: 100
   components:
   - type: Icon
@@ -80,7 +79,6 @@
 - type: entity
   parent: SpaceCash
   id: SpaceCash500
-  name: zorkmids
   suffix: 500
   components:
   - type: Icon
@@ -92,7 +90,6 @@
 - type: entity
   parent: SpaceCash
   id: SpaceCash1000
-  name: zorkmids
   suffix: 1000
   components:
   - type: Icon
@@ -137,7 +134,6 @@
 - type: entity
   parent: SpaceCash
   id: SpaceCash1000000
-  name: zorkmids
   suffix: 1000000
   components:
   - type: Icon

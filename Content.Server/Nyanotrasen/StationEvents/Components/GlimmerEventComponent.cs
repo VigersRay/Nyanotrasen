@@ -1,7 +1,7 @@
 namespace Content.Server.Psionics.Glimmer;
 
 [RegisterComponent]
-public sealed class GlimmerEventComponent : Component
+public sealed partial class GlimmerEventComponent : Component
 {
     /// <summary>
     ///     Minimum glimmer value for event to be eligible. (Should be 100 at lowest.)

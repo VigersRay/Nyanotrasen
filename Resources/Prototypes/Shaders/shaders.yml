@@ -9,6 +9,11 @@
   path: "/Textures/Shaders/gradient_circle_mask.swsl"
 
 - type: shader
+  id: WorldGradientCircle
+  kind: source
+  path: "/Textures/Shaders/world_gradient_circle.swsl"
+
+- type: shader
   id: ColoredScreenBorder
   kind: source
   path: "/Textures/Shaders/colored_screen_border.swsl"
@@ -72,17 +77,13 @@
   kind: source
   path: "/Textures/Shaders/stealth.swsl"
 
-# deep-fried food
 - type: shader
-  id: Crispy
+  id: PaperStamp
   kind: source
-  path: "/Textures/Shaders/crispy.swsl"
+  path: "/Textures/Shaders/paperstamp.swsl"
 
-# hologram
+# Simple horizontal cut
 - type: shader
-  id: Hologram
+  id: HorizontalCut
   kind: source
-  path: "/Textures/Shaders/hologram.swsl"
-  params:
-    textureHeight: 32
-    hue: 0.64
+  path: "/Textures/Shaders/hcut.swsl"

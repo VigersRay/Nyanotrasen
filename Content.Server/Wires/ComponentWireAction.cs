@@ -5,7 +5,7 @@ namespace Content.Server.Wires;
 /// <summary>
 ///     convenience class for wires that depend on the existence of some component to function. Slightly reduces boilerplate.
 /// </summary>
-public abstract class ComponentWireAction<TComponent> : BaseWireAction where TComponent : Component
+public abstract partial class ComponentWireAction<TComponent> : BaseWireAction where TComponent : Component
 {
     public abstract StatusLightState? GetLightState(Wire wire, TComponent component);
     public override StatusLightState? GetLightState(Wire wire)
@@ -22,13 +22,13 @@ public abstract class ComponentWireAction<TComponent> : BaseWireAction where TCo
     public override bool Cut(EntityUid user, Wire wire)
     {
         return base.Cut(user, wire) &&
-            EntityManager.TryGetComponent(wire.Owner, out TComponent? component) && Cut(user, wire, component);
+            EntityManager.TryGetComponent(wire.Owner, out TComponent? component) && Cut(user, wire, component); // Nyanotrasen - Tactical hacking
     }
 
     public override bool Mend(EntityUid user, Wire wire)
     {
         return base.Mend(user, wire) &&
-            EntityManager.TryGetComponent(wire.Owner, out TComponent? component) && Mend(user, wire, component);
+            EntityManager.TryGetComponent(wire.Owner, out TComponent? component) && Mend(user, wire, component); // Nyanotrasen - Tactical hacking
     }
 
     public override void Pulse(EntityUid user, Wire wire)

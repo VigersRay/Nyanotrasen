@@ -23,6 +23,18 @@
         - MachineMask
         layer:
         - HalfWallLayer
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.0
+    color: "#FF4020"
+    mask: /Textures/Effects/LightMasks/double_cone.png
+  - type: RotatingLight
+    speed: 120
+  - type: NavMapBeacon
+    color: "#ff0000"
+    text: nuclear fission explosive
+    enabled: false
   - type: NukeLabel
   - type: Nuke
     explosionType: Default
@@ -47,7 +59,7 @@
     interfaces:
     - key: enum.NukeUiKey.Key
       type: NukeBoundUserInterface
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 50000 # YOU STOLE A NUCLEAR FISSION EXPLOSIVE?!
   - type: CargoSellBlacklist
   - type: ArrivalsBlacklist
@@ -55,9 +67,6 @@
   - type: ContainerContainer
     containers:
       Nuke: !type:ContainerSlot
-  - type: WarpPoint
-    follow: true
-    location: nuclear fission explosive
 
 - type: entity
   parent: NuclearBomb
@@ -101,5 +110,5 @@
           Quantity: 3000
   - type: ReagentTank
     transferAmount: 100
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 5000 # That's a pretty fancy keg you got there.

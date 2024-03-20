@@ -1,17 +1,17 @@
-using Content.Server.NPC.Components;
-using Robust.Shared.Prototypes;
+using System.Collections.Frozen;
 using System.Linq;
+using Content.Server.NPC.Components;
+using JetBrains.Annotations;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.NPC.Systems;
 
 /// <summary>
 ///     Outlines faction relationships with each other.
+///     part of psionics rework was making this a partial class. Should've already been handled upstream, based on the linter. 
 /// </summary>
-// Begin Nyano-code: made partial for extensions.
-public partial class NpcFactionSystem : EntitySystem
-// End Nyano-code.
+public sealed partial class NpcFactionSystem : EntitySystem
 {
-    [Dependency] private readonly FactionExceptionSystem _factionException = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
 
@@ -20,33 +20,23 @@ public partial class NpcFactionSystem : EntitySystem
     /// <summary>
     /// To avoid prototype mutability we store an intermediary data class that gets used instead.
     /// </summary>
-    private Dictionary<string, FactionData> _factions = new();
+    private FrozenDictionary<string, FactionData> _factions = FrozenDictionary<string, FactionData>.Empty;
 
     public override void Initialize()
     {
         base.Initialize();
         _sawmill = Logger.GetSawmill("faction");
         SubscribeLocalEvent<NpcFactionMemberComponent, ComponentStartup>(OnFactionStartup);
-        _protoManager.PrototypesReloaded += OnProtoReload;
-        RefreshFactions();
-        // Begin Nyano-code: faction extensions.
-        InitializeCore();
-        InitializeItems();
-        // End Nyano-code.
-    }
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnProtoReload);
 
-    public override void Shutdown()
-    {
-        base.Shutdown();
-        _protoManager.PrototypesReloaded -= OnProtoReload;
+        InitializeException();
+        RefreshFactions();
     }
 
     private void OnProtoReload(PrototypesReloadedEventArgs obj)
     {
-        if (!obj.ByType.ContainsKey(typeof(NpcFactionPrototype)))
-            return;
-
-        RefreshFactions();
+        if (obj.WasModified<NpcFactionPrototype>())
+            RefreshFactions();
     }
 
     private void OnFactionStartup(EntityUid uid, NpcFactionMemberComponent memberComponent, ComponentStartup args)
@@ -94,22 +84,6 @@ public partial class NpcFactionSystem : EntitySystem
         }
     }
 
-    // Begin Nyano-code: API expansion.
-    /// <summary>
-    /// Clears an entity's factions.
-    /// </summary>
-    public void ClearFactions(EntityUid uid, bool dirty = true)
-    {
-        var comp = EnsureComp<NpcFactionMemberComponent>(uid);
-        comp.Factions.Clear();
-
-        if (dirty)
-        {
-            RefreshFactions(comp);
-        }
-    }
-    // End Nyano-code.
-
     /// <summary>
     /// Removes this entity from the particular faction.
     /// </summary>
@@ -133,6 +107,20 @@ public partial class NpcFactionSystem : EntitySystem
         }
     }
 
+    /// <summary>
+    /// Remove this entity from all factions.
+    /// </summary>
+    public void ClearFactions(EntityUid uid, bool dirty = true)
+    {
+        if (!TryComp<NpcFactionMemberComponent>(uid, out var component))
+            return;
+
+        component.Factions.Clear();
+
+        if (dirty)
+            RefreshFactions(component);
+    }
+
     public IEnumerable<EntityUid> GetNearbyHostiles(EntityUid entity, float range, NpcFactionMemberComponent? component = null)
     {
         if (!Resolve(entity, ref component, false))
@@ -142,23 +130,15 @@ public partial class NpcFactionSystem : EntitySystem
         if (TryComp<FactionExceptionComponent>(entity, out var factionException))
         {
             // ignore anything from enemy faction that we are explicitly friendly towards
-            // Begin Nyano-code: modified to not return early.
-            hostiles = hostiles.Where(target => !_factionException.IsIgnored(factionException, target));
-            // End Nyano-code.
+            return hostiles
+                .Union(GetHostiles(entity, factionException))
+                .Where(target => !IsIgnored(entity, target, factionException));
         }
-
-        // Begin Nyano-code: support for selective hostility.
-        var eHostiles = new HashSet<EntityUid>();
-        var eFriendlies = new HashSet<EntityUid>();
-        var ev = new GetNearbyHostilesEvent(eHostiles, eFriendlies);
-        RaiseLocalEvent(entity, ref ev);
-
-        hostiles = hostiles.Union(ev.ExceptionalHostiles).Where(target => !ev.ExceptionalFriendlies.Contains(target));
-        // End Nyano-code.
 
         return hostiles;
     }
 
+    [PublicAPI]
     public IEnumerable<EntityUid> GetNearbyFriendlies(EntityUid entity, float range, NpcFactionMemberComponent? component = null)
     {
         if (!Resolve(entity, ref component, false))
@@ -174,15 +154,15 @@ public partial class NpcFactionSystem : EntitySystem
         if (!xformQuery.TryGetComponent(entity, out var entityXform))
             yield break;
 
-        foreach (var comp in _lookup.GetComponentsInRange<NpcFactionMemberComponent>(entityXform.MapPosition, range))
+        foreach (var ent in _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(entityXform.MapPosition, range))
         {
-            if (comp.Owner == entity)
+            if (ent.Owner == entity)
                 continue;
 
-            if (!factions.Overlaps(comp.Factions))
+            if (!factions.Overlaps(ent.Comp.Factions))
                 continue;
 
-            yield return comp.Owner;
+            yield return ent.Owner;
         }
     }
 
@@ -251,16 +231,15 @@ public partial class NpcFactionSystem : EntitySystem
 
     private void RefreshFactions()
     {
-        _factions.Clear();
 
-        foreach (var faction in _protoManager.EnumeratePrototypes<NpcFactionPrototype>())
-        {
-            _factions[faction.ID] = new FactionData()
+        _factions = _protoManager.EnumeratePrototypes<NpcFactionPrototype>().ToFrozenDictionary(
+            faction => faction.ID,
+            faction =>  new FactionData
             {
                 Friendly = faction.Friendly.ToHashSet(),
-                Hostile = faction.Hostile.ToHashSet(),
-            };
-        }
+                Hostile = faction.Hostile.ToHashSet()
+
+            });
 
         foreach (var comp in EntityQuery<NpcFactionMemberComponent>(true))
         {

@@ -36,11 +36,13 @@
   - type: Appearance
   - type: Drain
     autoDrain: false
+  - type: DumpableSolution
+    solution: drainBuffer
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     fillBaseName: fill-
     solutionName: drainBuffer
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 25
 
 - type: entity

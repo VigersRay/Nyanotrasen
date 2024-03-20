@@ -1,5 +1,22 @@
 - type: entity
   parent: DrinkGlassBase
+  id: DrinkSakeGlass
+  name: sake glass
+  description: Wine made from rice, it's sake!
+  components:
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 50
+        reagents:
+        - ReagentId: Sake
+          Quantity: 50
+  - type: Drink
+  - type: Sprite
+    sprite: Nyanotrasen/Objects/Consumable/Drinks/sakeglass.rsi
+
+- type: entity
+  parent: DrinkGlassBase
   id: DrinkOrangeCreamiceGlass
   name: orange creamcicle glass
   description: Orangy, creamy goodness.

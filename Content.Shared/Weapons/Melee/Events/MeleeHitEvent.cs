@@ -46,11 +46,6 @@ public sealed class MeleeHitEvent : HandledEntityEventArgs
     public readonly EntityUid User;
 
     /// <summary>
-    /// True: Light
-    /// False: Heavy
-    /// </summary>
-    public bool? HeavyAttack;
-
     /// The melee weapon used.
     /// </summary>
     public readonly EntityUid Weapon;
@@ -64,13 +59,12 @@ public sealed class MeleeHitEvent : HandledEntityEventArgs
     /// </remarks>
     public bool IsHit = true;
 
-    public MeleeHitEvent(List<EntityUid> hitEntities, EntityUid user, EntityUid weapon, DamageSpecifier baseDamage, bool heavyAttack)
+    public MeleeHitEvent(List<EntityUid> hitEntities, EntityUid user, EntityUid weapon, DamageSpecifier baseDamage)
     {
         HitEntities = hitEntities;
         User = user;
         Weapon = weapon;
         BaseDamage = baseDamage;
-        HeavyAttack = heavyAttack;
     }
 }
 
@@ -91,9 +85,3 @@ public record struct GetMeleeAttackRateEvent(EntityUid Weapon, float Rate, float
 /// </summary>
 [ByRefEvent]
 public record struct GetHeavyDamageModifierEvent(EntityUid Weapon, FixedPoint2 DamageModifier, float Multipliers, EntityUid User);
-
-/// <summary>
-/// Raised on a melee weapon to calculate the heavy windup modifier.
-/// </summary>
-[ByRefEvent]
-public record struct GetHeavyWindupModifierEvent(EntityUid Weapon, float WindupModifier, float Multipliers, EntityUid User);

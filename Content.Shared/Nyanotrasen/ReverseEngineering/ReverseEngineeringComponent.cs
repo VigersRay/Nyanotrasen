@@ -20,7 +20,7 @@ public sealed partial class ReverseEngineeringComponent : Component
     /// Difficulty score 1-5 how hard this is to reverse engineer.
     /// </summary>
     [DataField("difficulty")]
-    public readonly int Difficulty = 1;
+    public int Difficulty = 1;
 
     /// <summary>
     /// Used to mark whether this entity intentionally lets its children use its recipe.

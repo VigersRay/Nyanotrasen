@@ -11,7 +11,7 @@
     - VehicleKey
     - JanicartKeys
   - type: Sprite
-    sprite: Objects/Vehicles/pussywagon.rsi
+    sprite: Objects/Vehicles/janicart.rsi
     state: keys
 
 - type: entity

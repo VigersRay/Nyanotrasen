@@ -2,21 +2,28 @@
   id: PrisonGuard
   name: job-name-guard
   description: job-description-guard
-  playTimeTracker: JobSecurityOfficer
+  playTimeTracker: JobPrisonGuard
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 18000
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 14400
   startingGear: PrisonGuardGear
   alwaysUseSpawner: true
   canBeAntag: false
-  icon: "Warden" 
+  icon: "JobIconPrisonGuard"
   supervisors: job-supervisors-warden
   setPreference: true
-  whitelistRequired: true
+#  whitelistRequired: true
   access:
   - Security
-  - Brig
+  #- Brig #Delta V: Removed brig access
   - Maintenance
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
 
 - type: startingGear
   id: PrisonGuardGear
@@ -26,9 +33,9 @@
     shoes: ClothingShoesBootsJack
     eyes: ClothingEyesGlassesSecurity
     head: ClothingHeadPrisonGuard
-    id: GuardPDA
+    id: PrisonGuardPDA
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltSecurityFilled
-  innerclothingskirt: ClothingUniformJumpsuitPrisonGuard
+  innerClothingSkirt: ClothingUniformJumpsuitPrisonGuard
   satchel: ClothingBackpackSatchelSecurityFilled
   duffelbag: ClothingBackpackDuffelSecurityFilled

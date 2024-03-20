@@ -3,17 +3,19 @@
   name: job-name-doctor
   description: job-description-doctor
   playTimeTracker: JobMedicalDoctor
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 14400 #4 hrs
   startingGear: DoctorGear
-  icon: "MedicalDoctor"
+  icon: "JobIconMedicalDoctor"
   supervisors: job-supervisors-cmo
   access:
   - Medical
   - Maintenance
+  extendedAccess:
   - Chemistry
-  special:
-  - !type:AddComponentSpecial
-    components:
-    - type: MedicalTraining
+  - Paramedic # DeltaV - Add Paramedic access
 
 - type: startingGear
   id: DoctorGear
@@ -23,9 +25,8 @@
     shoes: ClothingShoesColorWhite
     outerClothing: ClothingOuterCoatLab
     id: MedicalPDA
-    neck: ClothingNeckStethoscope
     ears: ClothingHeadsetMedical
     belt: ClothingBeltMedicalFilled
-  innerclothingskirt: ClothingUniformJumpskirtMedicalDoctor
+  innerClothingSkirt: ClothingUniformJumpskirtMedicalDoctor
   satchel: ClothingBackpackSatchelMedicalFilled
   duffelbag: ClothingBackpackDuffelMedicalFilled

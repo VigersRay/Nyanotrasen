@@ -11,6 +11,7 @@
     - type: RandomSpawner
       rarePrototypes:
         - FoamBlade
+        - PlushieGhost
       rareChance: 0.03
       prototypes:
         - PlushieBee
@@ -29,9 +30,11 @@
         - PlushieSharkBlue
         - PlushieSharkPink
         - PlushieSharkGrey
+        - ToyAmongPequeno
         - ToyMouse
-        - PlushieMoff
-        - PlushieMoffRandom
+        - PlushieDiona
+        - PlushieMoth
+        - PlushieMothRandom # Nyanotrasen Random Moth Plushies
       chance: 0.5
       offset: 0.2
 
@@ -67,6 +70,9 @@
         - ToyDurand
         - ToySkeleton
         - MysteryFigureBox
+        - ToyZero # DeltaV Toy, see Resources/Prototypes/DeltaV/Entities/Objects/Fun/toys.yml
+        - ToyRenault # DeltaV Toy, see Resources/Prototypes/DeltaV/Entities/Objects/Fun/toys.yml
+        - ToySiobhan # DeltaV Toy, see Resources/Prototypes/DeltaV/Entities/Objects/Fun/toys.yml
       chance: 0.5
       offset: 0.2
 
@@ -99,7 +105,7 @@
       - ToyFigurineLawyer
       - ToyFigurineCargoTech
       - ToyFigurineSalvage
-      - ToyFigurineQuartermaster   
+      - ToyFigurineQuartermaster
       - ToyFigurineChiefEngineer
       - ToyFigurineAtmosTech
       - ToyFigurineEngineer
@@ -131,5 +137,6 @@
       - ToyFigurineRatServant
       - ToyFigurineMouse
       - ToyFigurineHamlet
+      - ToyFigurineThief
       chance: 0.90
       offset: 0.2

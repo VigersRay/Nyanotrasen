@@ -4,19 +4,22 @@
   description: job-description-security
   playTimeTracker: JobSecurityOfficer
   requirements:
-    - !type:OverallPlaytimeRequirement
-      time: 18000
+    - !type:DepartmentTimeRequirement
+      department: Security
+      time: 14400 # DeltaV - 4 hours
   startingGear: SecurityOfficerGear
-  icon: "SecurityOfficer"
+  icon: "JobIconSecurityOfficer"
   supervisors: job-supervisors-hos
   canBeAntag: false
-  whitelistRequired: true
   access:
   - Security
-  - Brig
+  #- Brig # Delta V: Removed
   - Maintenance
   - Service
   - External
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
 
 - type: startingGear
   id: SecurityOfficerGear
@@ -24,12 +27,13 @@
     jumpsuit: ClothingUniformJumpsuitSec
     back: ClothingBackpackSecurityFilled
     shoes: ClothingShoesBootsCombatFilled
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesGlassesSunglasses
     head: ClothingHeadHelmetBasic
-    outerClothing: ClothingOuterArmorBasic
+    outerClothing: ClothingOuterArmorPlateCarrier # DeltaV - ClothingOuterArmorBasic replaced in favour of plate carrier
     id: SecurityPDA
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltSecurityFilled
-  innerclothingskirt: ClothingUniformJumpskirtSec
+    pocket1: WeaponPistolMk58Nonlethal
+  innerClothingSkirt: ClothingUniformJumpskirtSec
   satchel: ClothingBackpackSatchelSecurityFilled
   duffelbag: ClothingBackpackDuffelSecurityFilled

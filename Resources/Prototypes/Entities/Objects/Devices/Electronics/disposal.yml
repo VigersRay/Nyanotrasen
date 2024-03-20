@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   id: MailingUnitElectronics
   parent: BaseElectronics
   name: mailing unit electronics
@@ -11,8 +11,8 @@
       tags:
         - DroneUsable
         - MailingUnitElectronics
-    - type: ReverseEngineering
+    - type: ReverseEngineering # Nyano
       recipes:
         - MailingUnitElectronics
-    - type: DynamicPrice
+    - type: StaticPrice
       price: 55

@@ -1,4 +1,5 @@
 using Content.Shared.Eui;
+using Content.Shared.Roles;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.Ghost.Roles
@@ -10,7 +11,7 @@ namespace Content.Shared.Ghost.Roles
         public string Name { get; set; }
         public string Description { get; set; }
         public string Rules { get; set; }
-        public bool WhitelistRequired { get; set; }
+        public HashSet<JobRequirement>? Requirements { get; set; }
     }
 
     [NetSerializable, Serializable]
@@ -18,12 +19,9 @@ namespace Content.Shared.Ghost.Roles
     {
         public GhostRoleInfo[] GhostRoles { get; }
 
-        public bool EnableRedirect;
-
-        public GhostRolesEuiState(GhostRoleInfo[] ghostRoles, bool enableRedirect)
+        public GhostRolesEuiState(GhostRoleInfo[] ghostRoles)
         {
             GhostRoles = ghostRoles;
-            EnableRedirect = enableRedirect;
         }
     }
 

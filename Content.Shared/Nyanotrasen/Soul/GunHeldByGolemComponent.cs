@@ -1,6 +1,6 @@
 namespace Content.Shared.Soul;
 
 [RegisterComponent]
-public sealed class GunHeldByGolemComponent : Component
+public sealed partial class GunHeldByGolemComponent : Component
 {
 }

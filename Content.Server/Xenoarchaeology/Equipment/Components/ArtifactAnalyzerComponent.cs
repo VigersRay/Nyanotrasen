@@ -11,7 +11,7 @@ namespace Content.Server.Xenoarchaeology.Equipment.Components;
 /// in order to analyze artifacts and extract points.
 /// </summary>
 [RegisterComponent]
-public sealed class ArtifactAnalyzerComponent : Component
+public sealed partial class ArtifactAnalyzerComponent : Component
 {
     /// <summary>
     /// How long it takes to analyze an artifact
@@ -25,6 +25,26 @@ public sealed class ArtifactAnalyzerComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     public float AnalysisDurationMulitplier = 1;
+
+    // Nyano - Summary - Begin modified code block: tie artifacts to glimmer.
+    /// <summary>
+    /// Ratio of research points to glimmer.
+    /// Each is 150 and added to this, so
+    /// 550 / 700 / 850 / 1000
+    /// </summary>
+    public int ExtractRatio = 400;
+
+    /// <summary>
+    // The machine part that modifies the sacrifice ratio.
+    /// </summary>
+    [DataField("machinePartExtractRatio", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
+    public string MachinePartExtractRatio = "MatterBin";
+
+    /// <summary>
+    /// How many points per glimmer are added to the sacrifice ratio per tier.
+    /// </summary>
+    public int PartRatingExtractRatioMultiplier = 150;
+    // Nyano - End modified code block.
 
     /// <summary>
     /// The machine part that modifies analysis duration.
@@ -65,20 +85,14 @@ public sealed class ArtifactAnalyzerComponent : Component
     [ViewVariables]
     public EntityUid? Console;
 
-    /// <summary>
-    /// All of the valid artifacts currently touching the analyzer.
-    /// </summary>
-    [ViewVariables]
-    public HashSet<EntityUid> Contacts = new();
-
     [ViewVariables(VVAccess.ReadWrite)]
     public bool ReadyToPrint = false;
 
     [DataField("scanFinishedSound")]
-    public readonly SoundSpecifier ScanFinishedSound = new SoundPathSpecifier("/Audio/Machines/scan_finish.ogg");
+    public SoundSpecifier ScanFinishedSound = new SoundPathSpecifier("/Audio/Machines/scan_finish.ogg");
 
     #region Analysis Data
-    [ViewVariables]
+    [DataField]
     public EntityUid? LastAnalyzedArtifact;
 
     [ViewVariables]

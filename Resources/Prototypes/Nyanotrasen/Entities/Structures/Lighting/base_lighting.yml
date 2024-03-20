@@ -44,8 +44,8 @@
     radius: 1.5
     energy: 0.7
     softness: 1.1
-    color: "#FFD1A3"    
-    
+    color: "#FFD1A3"
+
 #Colored lights
 
 - type: entity
@@ -136,7 +136,7 @@
     damage:
       types:
         Heat: 2
-  - type: DynamicPrice
+  - type: StaticPrice #DynamicPrice
     price: 25
 
 - type: entity

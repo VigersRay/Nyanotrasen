@@ -1,71 +1,13 @@
 - type: entity
   parent: IDCardStandard
-  id: ForensicMantisIDCard
-  name: forensic mantis ID card
-  components:
-    - type: Sprite
-      layers:
-        - state: default
-        - state: iddetective
-    - type: PresetIdCard
-      job: ForensicMantis
-
-- type: entity
-  parent: IDCardStandard
-  id: EpistemicsIDCard
-  name: acolyte ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idscientist
-  - type: PresetIdCard
-    job: Epistemologist
-
-- type: entity
-  parent: IDCardStandard
-  id: MystaIDCard
-  name: mystagogue ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: silver
-    - state: idresearchdirector
-  - type: PresetIdCard
-    job: Mystagogue
-
-- type: entity
-  parent: IDCardStandard
-  id: SalvageTechIDCard
-  name: salvage technician ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idshaftminer
-  - type: PresetIdCard
-    job: SalvageTechnician
-
-- type: entity
-  parent: IDCardStandard
-  id: MailCarrierIDCard
-  name: mail carrier ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idmailcarrier
-  - type: PresetIdCard
-    job: MailCarrier
-
-- type: entity
-  parent: IDCardStandard
   id: PrisonerIDCard
   name: prisoner ID card
   components:
   - type: Sprite
     layers:
     - state: orange
+    - sprite: DeltaV/Objects/Misc/id_cards.rsi
+      state: nyanoprisoner
   - type: PresetIdCard
     job: Prisoner
 
@@ -76,46 +18,38 @@
   components:
   - type: Sprite
     layers:
-    - state: orange #Placeholder?
-    - state: idgladiator
+    - state: orange
+    - sprite: DeltaV/Objects/Misc/id_cards.rsi
+      state: nyanogladiator
   - type: PresetIdCard
     job: Gladiator
 
 - type: entity
   parent: IDCardStandard
-  id: ValetIDCard
-  name: valet ID card
+  id: PrisonGuardIDCard
+  name: prison guard ID card
   components:
   - type: Sprite
     layers:
     - state: default
-    - state: idintern-service
-  - type: PresetIdCard
-    job: Valet
-
-- type: entity
-  parent: IDCardStandard
-  id: CataloguerIDCard
-  name: cataloguer ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idcurator
-  - type: PresetIdCard
-    job: Cataloguer
-
-- type: entity
-  parent: IDCardStandard
-  id: GuardIDCard
-  name: guard ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: default
-    - state: idsecurityofficer
+    - sprite: DeltaV/Objects/Misc/id_cards.rsi
+      state: nyanoprisonguard
   - type: PresetIdCard
     job: PrisonGuard
+
+- type: entity
+  parent: IDCardStandard
+  id: MailCarrierIDCard
+  name: courier ID card # DeltaV - Mail Carrier to Courier replacement
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - sprite: DeltaV/Objects/Misc/id_cards.rsi
+      state: nyanomailcarrier
+  - type: PresetIdCard
+    job: MailCarrier
+
 
 - type: entity
   parent: IDCardStandard
@@ -125,57 +59,20 @@
   - type: Sprite
     layers:
     - state: default
-    - state: idmartialartist
+    - sprite: DeltaV/Objects/Misc/id_cards.rsi
+      state: nyanomartialartist
   - type: PresetIdCard
     job: MartialArtist
 
-## Unaffiliated ID cards
-
 - type: entity
   parent: IDCardStandard
-  id: UnaffiliatedIDCard
-  name: unaffiliated ID card
-  description: A card displaying a name and other identifying details.
-  # maybe make this not abstract when this is more developed
-  abstract: true
+  id: ForensicMantisIDCard
+  name: psionic mantis ID card # DeltaV - Rename Forensic Mantis to Psionic Mantis
   components:
-  - type: Sprite
-    sprite: Nyanotrasen/Objects/Misc/id_cards.rsi
-  - type: Clothing
-    sprite: Nyanotrasen/Objects/Misc/id_cards.rsi
-
-- type: entity
-  parent: UnaffiliatedIDCard
-  id: ExplorerIDCard
-  name: explorer ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: unaffiliated
-    - state: idexplorer
-  - type: PresetIdCard
-    job: Explorer
-
-- type: entity
-  parent: UnaffiliatedIDCard
-  id: StudentIDCard
-  name: student ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: unaffiliated
-    - state: idstudent
-  - type: PresetIdCard
-    job: Student
-
-- type: entity
-  parent: UnaffiliatedIDCard
-  id: FreelancerIDCard
-  name: freelancer ID card
-  components:
-  - type: Sprite
-    layers:
-    - state: unaffiliated
-    - state: idfreelancer
-  - type: PresetIdCard
-    job: Freelancer
+    - type: Sprite
+      layers:
+        - state: default
+        - sprite: DeltaV/Objects/Misc/id_cards.rsi
+          state: nyanomantis
+    - type: PresetIdCard
+      job: ForensicMantis

@@ -17,12 +17,15 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxvol: 10
+        maxVol: 10
         reagents:
         - ReagentId: Nutriment
           Quantity: 7
         - ReagentId: Protein
           Quantity: 3
+  - type: Tag
+    tags:
+    - Fruit
 #Tastes like mozzarella, tomato and balsamic
 
 - type: entity
@@ -42,7 +45,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxvol: 20
+        maxVol: 20
         reagents:
         - ReagentId: Nutriment
           Quantity: 12
@@ -50,6 +53,9 @@
           Quantity: 5
         - ReagentId: Protein
           Quantity: 3
+  - type: Tag
+    tags:
+      - ClothMade # Mothic Food
 #Tastes like cheese, salad and bread
 
 - type: entity
@@ -62,26 +68,31 @@
     flavors:
       - cheesy
       - leafy
-      - bread
+      - cotton
   - type: Sprite
     sprite: Nyanotrasen/Objects/Consumable/Food/salad.rsi
     state: cottonsalad
   - type: SolutionContainerManager
     solutions:
       food:
-        maxvol: 15
+        maxVol: 20
         reagents:
         - ReagentId: Nutriment
-          Quantity: 8
+          Quantity: 5
         - ReagentId: Vitamin
-          Quantity: 6
-#Tastes like cheese, salad and bread
+          Quantity: 7
+        - ReagentId: Fiber
+          Quantity: 5
+  - type: Tag
+    tags:
+      - ClothMade # Mothic Food
+#Tastes like cheese, salad and cotton
 
 - type: entity
   name: kachumbari salad
   parent: FoodBowlBase
   id: FoodMothKachumbariSalad
-  description: 
+  description:
   components:
   - type: FlavorProfile
     flavors:
@@ -94,7 +105,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxvol: 20
+        maxVol: 20
         reagents:
         - ReagentId: Nutriment
           Quantity: 12
@@ -102,4 +113,7 @@
           Quantity: 2
         - ReagentId: Protein
           Quantity: 6
+  - type: Tag
+    tags:
+      - ClothMade # Mothic Food
 #Tastes like onion, tomato, corn, chili and cilantro

@@ -2,19 +2,17 @@
   id: Chaplain
   name: job-name-chaplain
   description: job-description-chaplain
-  startingGear: ChaplainGear
+  playTimeTracker: JobChaplain
   requirements:
     - !type:DepartmentTimeRequirement
-      department: Epistemics
-      time: 3600
-  playTimeTracker: JobChaplain
-  whitelistRequired: true
-  icon: "Chaplain"
+      department: Epistemics # DeltaV - Epistemics Department replacing Science
+      time: 14400 #DeltaV 4 hours
+  startingGear: ChaplainGear
+  icon: "JobIconChaplain"
   supervisors: job-supervisors-rd
   access:
   - Chapel
-  - Research
-  extendedAccess:
+  - Research # DeltaV - Move Chaplain into Epistemics
   - Maintenance
   special:
   - !type:AddComponentSpecial
@@ -22,7 +20,7 @@
     - type: BibleUser #Lets them heal with bibles
   - !type:AddComponentSpecial
     components:
-    - type: PsionicBonusChance
+    - type: PsionicBonusChance #Nyano - Summary: makes it more likely to become psionic.
       multiplier: 3
 
 - type: startingGear
@@ -30,10 +28,9 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitChaplain
     back: ClothingBackpackChaplainFilled
-    belt: Bible
     shoes: ClothingShoesColorBlack
     id: ChaplainPDA
-    ears: ClothingHeadsetEpistemics
-  innerclothingskirt: ClothingUniformJumpskirtChaplain
+    ears: ClothingHeadsetScience # DeltaV - Move Chaplain into Epistemics
+  innerClothingSkirt: ClothingUniformJumpskirtChaplain
   satchel: ClothingBackpackSatchelChaplainFilled
   duffelbag: ClothingBackpackDuffelChaplainFilled

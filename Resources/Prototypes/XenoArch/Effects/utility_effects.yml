@@ -1,4 +1,4 @@
-# Utility effects permanently modify the entity in some way when triggered, and they generally make it 'useful' for some purpose,
+﻿# Utility effects permanently modify the entity in some way when triggered, and they generally make it 'useful' for some purpose,
 # like turning the artifact into a tool, or gun, or whatever.
 - type: artifactEffect
   id: EffectIntercom
@@ -25,7 +25,7 @@
     - Science
     - Security
     - Service
-    - Binary
+    - Supply
 
 - type: artifactEffect
   id: EffectRandomInstrument
@@ -113,12 +113,6 @@
     components:
     - Item
   permanentComponents:
-  - type: GatheringTool
-    damage:
-      types:
-        Structural: 125
-    gatheringTime: 0.50
-    MaxGatheringEntities: 3
   - type: ItemCooldown
   - type: MeleeWeapon
     damage:

@@ -1,14 +1,15 @@
 using System.Numerics;
-using Content.Shared.Disease;
 using Content.Shared.FixedPoint;
 using Content.Shared.Store;
+using Content.Shared.Whitelist;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Revenant.Components;
 
 [RegisterComponent, NetworkedComponent]
-public sealed class RevenantComponent : Component
+public sealed partial class RevenantComponent : Component
 {
     /// <summary>
     /// The total amount of Essence the revenant has. Functions
@@ -21,6 +22,12 @@ public sealed class RevenantComponent : Component
     public string StolenEssenceCurrencyPrototype = "StolenEssence";
 
     /// <summary>
+    /// Prototype to spawn when the entity dies.
+    /// </summary>
+    [DataField("spawnOnDeathPrototype", customTypeSerializer:typeof(PrototypeIdSerializer<EntityPrototype>))]
+    public string SpawnOnDeathPrototype = "Ectoplasm";
+
+    /// <summary>
     /// The entity's current max amount of essence. Can be increased
     /// through harvesting player souls.
     /// </summary>
@@ -28,16 +35,10 @@ public sealed class RevenantComponent : Component
     public FixedPoint2 EssenceRegenCap = 75;
 
     /// <summary>
-    /// Maximum essence, rather than infinite scaling.
-    /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("essenceCeiling")]
-    public FixedPoint2 EssenceCeiling = 150;
-
-    /// <summary>
     /// The coefficient of damage taken to actual health lost.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("damageToEssenceCoefficient")]
-    public float DamageToEssenceCoefficient = 1f;
+    public float DamageToEssenceCoefficient = 0.75f;
 
     /// <summary>
     /// The amount of essence passively generated per second.
@@ -160,12 +161,6 @@ public sealed class RevenantComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("blightRadius")]
     public float BlightRadius = 3.5f;
-
-    /// <summary>
-    /// The disease that is given to the victims of the ability.
-    /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("blightDiseasePrototypeId", customTypeSerializer: typeof(PrototypeIdSerializer<DiseasePrototype>))]
-    public string BlightDiseasePrototypeId = "SpectralTiredness";
     #endregion
 
     #region Malfunction Ability
@@ -188,6 +183,19 @@ public sealed class RevenantComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("malfunctionRadius")]
     public float MalfunctionRadius = 3.5f;
+
+    /// <summary>
+    /// Whitelist for entities that can be emagged by malfunction.
+    /// Used to prevent ultra gamer things like ghost emagging chem or instantly launching the shuttle.
+    /// </summary>
+    [DataField]
+    public EntityWhitelist? MalfunctionWhitelist;
+
+    /// <summary>
+    /// Whitelist for entities that can never be emagged by malfunction.
+    /// </summary>
+    [DataField]
+    public EntityWhitelist? MalfunctionBlacklist;
     #endregion
 
     #region Visualizer
@@ -200,4 +208,6 @@ public sealed class RevenantComponent : Component
     [DataField("harvestingState")]
     public string HarvestingState = "harvesting";
     #endregion
+
+    [DataField] public EntityUid? Action;
 }

@@ -1,13 +1,26 @@
 - type: gameMapPool
   id: DefaultMapPool
   maps:
-  - Angle
+  #- Aspid
+  #- Bagel
+  #- Barratry
+  #- Box
+  #- Cluster
+  #- Core
+  #- Fland
+  #- Kettle
+  #- Marathon
+  #- Meta
+  #- Omega
+  #- Origin
+  #- Saltern
+  #- Packed
+# DeltaV
   - Arena
-  - Glacier
+  - Asterisk
+  - Edge
   - Hammurabi
-  - Lighthouse
-  - Ovni
   - Pebble
   - Shoukou
-  - TheHive
   - Tortuga
+  - TheHive

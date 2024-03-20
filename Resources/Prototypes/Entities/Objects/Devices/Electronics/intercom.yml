@@ -11,8 +11,8 @@
     tags:
       - DroneUsable
       - IntercomElectronics
-  - type: ReverseEngineering
+  - type: ReverseEngineering # Nyano
     recipes:
       - IntercomElectronics
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 55

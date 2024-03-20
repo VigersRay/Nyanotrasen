@@ -1,16 +1,20 @@
 ﻿using Content.Server.Mind.Commands;
+using Content.Shared.Roles;
 
 namespace Content.Server.Ghost.Roles.Components
 {
     [RegisterComponent]
     [Access(typeof(GhostRoleSystem))]
-    public sealed class GhostRoleComponent : Component
+    public sealed partial class GhostRoleComponent : Component
     {
         [DataField("name")] private string _roleName = "Unknown";
 
         [DataField("description")] private string _roleDescription = "Unknown";
 
         [DataField("rules")] private string _roleRules = "";
+
+        [DataField("requirements")]
+        public HashSet<JobRequirement>? Requirements;
 
         /// <summary>
         /// Whether the <see cref="MakeSentientCommand"/> should run on the mob.
@@ -62,11 +66,6 @@ namespace Content.Server.Ghost.Roles.Components
                 EntitySystem.Get<GhostRoleSystem>().UpdateAllEui();
             }
         }
-
-        [ViewVariables(VVAccess.ReadWrite)]
-        [Access(typeof(GhostRoleSystem), Other = AccessPermissions.ReadWriteExecute)] // FIXME Friends
-        [DataField("whitelistRequired")]
-        public bool WhitelistRequired = true;
 
         [DataField("allowSpeech")]
         [ViewVariables(VVAccess.ReadWrite)]

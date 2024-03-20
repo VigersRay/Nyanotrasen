@@ -5,7 +5,7 @@ namespace Content.Server.Wires;
 ///     toggle a value whenever a wire is cut, mended,
 ///     or pulsed.
 /// </summary>
-public abstract class BaseToggleWireAction : BaseWireAction
+public abstract partial class BaseToggleWireAction : BaseWireAction
 {
     /// <summary>
     ///     Toggles the value on the given entity. An implementor
@@ -29,7 +29,7 @@ public abstract class BaseToggleWireAction : BaseWireAction
 
     public override bool Cut(EntityUid user, Wire wire)
     {
-        if (!base.Cut(user, wire))
+        if (!base.Cut(user, wire)) // Nyanotrasen - Tactical hacking
             return false;
 
         ToggleValue(wire.Owner, false);
@@ -44,7 +44,7 @@ public abstract class BaseToggleWireAction : BaseWireAction
 
     public override bool Mend(EntityUid user, Wire wire)
     {
-        if (!base.Mend(user, wire))
+        if (!base.Mend(user, wire)) // Nyanotrasen - Tactical hacking
             return false;
 
         ToggleValue(wire.Owner, true);

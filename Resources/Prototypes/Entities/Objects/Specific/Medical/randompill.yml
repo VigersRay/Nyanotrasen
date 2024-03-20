@@ -36,11 +36,16 @@
     - NorepinephricAcid
     - Pax
     - Tricordrazine
+    - SodiumPolyacrylate
+    - Fresium
   - quantity: 20
     weight: 5
     reagents:
     - SpaceDrugs
-    - Toxin
+  - quantity: 10
+    weight: 5
+    reagents:
+    - Amatoxin
 
 - type: entity
   name: strange pill
@@ -57,7 +62,6 @@
     weightedRandomId: RandomFillStrangePill
   - type: Sprite
     sprite: Objects/Specific/Chemistry/pills.rsi
-    netsync: false
     layers:
     - state: pill1
       map: [ "enum.DamageStateVisualLayers.Base" ]

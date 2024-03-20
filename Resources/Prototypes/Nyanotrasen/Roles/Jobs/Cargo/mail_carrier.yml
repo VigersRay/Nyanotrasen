@@ -1,16 +1,15 @@
 - type: job
   id: MailCarrier
   name: job-name-mail-carrier
-  description: job-name-mail-carrier
-  startingGear: MailCarrierGear
+  description: job-description-mail-carrier
+  startingGear: CourierGear
   playTimeTracker: JobMailCarrier
-  icon: "MailCarrier"
-  supervisors: job-supervisors-hop
+  icon: "JobIconMailCarrier"
+  supervisors: job-supervisors-qm
   access:
   - Cargo
   - Maintenance
   - Mail
-  - Service
 
 - type: startingGear
   id: MailCarrierGear
@@ -22,6 +21,6 @@
     id: MailCarrierPDA
     ears: ClothingHeadsetCargo
     belt: MailBag
-  innerclothingskirt: ClothingUniformSkirtMailCarrier
+  innerClothingSkirt: ClothingUniformSkirtMailCarrier
   satchel: ClothingBackpackSatchelFilled
   duffelbag: ClothingBackpackDuffelFilled

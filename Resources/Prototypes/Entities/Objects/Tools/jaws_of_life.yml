@@ -12,16 +12,6 @@
     state: jaws_pry
   - type: Item
     size: 50
-  - type: MeleeWeapon
-    attackRate: 0.75
-    range: 1.75
-    bluntStaminaDamageFactor: 4.0
-    damage:
-      types:
-        Blunt: 11
-        Slash: 5
-  - type: MeleeStaminaCost
-    swing: 10
   - type: Clothing
     sprite: Objects/Tools/jaws_of_life.rsi
     quickEquip: false
@@ -33,6 +23,12 @@
     qualities:
       - Prying
     speed: 1.5
+    useSound: /Audio/Items/jaws_pry.ogg
+  - type: Prying
+    pryPowered: !type:Bool
+      true
+    force: !type:Bool
+      true
     useSound: /Audio/Items/jaws_pry.ogg
   - type: ToolForcePowered
   - type: MultipleTool
@@ -50,6 +46,10 @@
           state: jaws_cutter
         useSound: /Audio/Items/jaws_cut.ogg
         changeSound: /Audio/Items/change_jaws.ogg
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
 
 - type: entity
   name: syndicate jaws of life
@@ -60,12 +60,6 @@
   - type: Sprite
     sprite: Objects/Tools/jaws_of_life.rsi
     state: syn_jaws_pry
-  - type: MeleeWeapon
-    attackRate: 0.85
-    damage:
-      types:
-        Blunt: 13.5
-        Slash: 5
   - type: Item
     size: 35
   - type: Tool
@@ -86,3 +80,7 @@
           state: syn_jaws_cutter
         useSound: /Audio/Items/jaws_cut.ogg
         changeSound: /Audio/Items/change_jaws.ogg
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 14

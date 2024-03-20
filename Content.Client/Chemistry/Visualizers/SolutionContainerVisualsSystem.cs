@@ -41,7 +41,7 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
         if (args.Sprite == null)
             return;
 
-        if (!args.Sprite.LayerMapTryGet(component.FillLayer, out var fillLayer))
+        if (!args.Sprite.LayerMapTryGet(component.Layer, out var fillLayer))
             return;
 
         // Currently some solution methods such as overflowing will try to update appearance with a
@@ -52,7 +52,6 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
             Logger.Error("Attempted to set solution container visuals volume ratio on " + ToPrettyString(uid) + " to a value greater than 1. Volume should never be greater than max volume!");
             fraction = 1f;
         }
-
         if (component.Metamorphic)
         {
             if (args.Sprite.LayerMapTryGet(component.BaseLayer, out var baseLayer))
@@ -77,7 +76,8 @@ public sealed class SolutionContainerVisualsSystem : VisualizerSystem<SolutionCo
                     {
                         if (hasOverlay)
                             args.Sprite.LayerSetVisible(overlayLayer, true);
-                        args.Sprite.LayerSetSprite(baseLayer, component.MetamorphicDefaultSprite);
+                        if (component.MetamorphicDefaultSprite != null)
+                            args.Sprite.LayerSetSprite(baseLayer, component.MetamorphicDefaultSprite);
                     }
                 }
             }

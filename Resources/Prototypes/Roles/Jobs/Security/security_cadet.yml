@@ -5,19 +5,22 @@
   playTimeTracker: JobSecurityCadet
   requirements:
     - !type:OverallPlaytimeRequirement
-      time: 8000
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 12000
-      inverted: true # stop playing intern if you're good at security!
+      time: 14400 # DeltaV - 4 hours
+#    - !type:DepartmentTimeRequirement # DeltaV - Removes time limit
+#      department: Security
+#      time: 54000 #15 hrs
+#      inverted: true # stop playing intern if you're good at security!
   startingGear: SecurityCadetGear
-  icon: "SecurityCadet"
+  icon: "JobIconSecurityCadet"
   supervisors: job-supervisors-security
   canBeAntag: false
   access:
   - Security
-  - Brig
+  #- Brig # Delta V: Removed
   - Maintenance
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
 
 - type: startingGear
   id: SecurityCadetGear
@@ -25,9 +28,10 @@
     jumpsuit: ClothingUniformJumpsuitColorRed
     back: ClothingBackpackSecurityFilled
     shoes: ClothingShoesBootsCombatFilled
-    outerClothing: ClothingOuterArmorBasic
+    outerClothing: ClothingOuterArmorDuraVest # DeltaV - ClothingOuterArmorBasic replaced in favour of stab vest. Sucks to suck, cadets
     id: SecurityCadetPDA
     ears: ClothingHeadsetSecurity
-  innerclothingskirt: ClothingUniformJumpskirtColorRed
+#    pocket1: WeaponPistolMk58Nonlethal # DeltaV - Security Cadet doesn't spawn with a gun
+  innerClothingSkirt: ClothingUniformJumpskirtColorRed
   satchel: ClothingBackpackSatchelSecurityFilled
   duffelbag: ClothingBackpackDuffelSecurityFilled

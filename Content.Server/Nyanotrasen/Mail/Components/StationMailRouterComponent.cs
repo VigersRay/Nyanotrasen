@@ -4,6 +4,6 @@ namespace Content.Server.Mail;
 /// Designates a station as a place for sending and receiving mail.
 /// </summary>
 [RegisterComponent]
-public sealed class StationMailRouterComponent : Component
+public sealed partial class StationMailRouterComponent : Component
 {
 }

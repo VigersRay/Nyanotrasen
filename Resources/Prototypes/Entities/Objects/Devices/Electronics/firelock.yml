@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   id: FirelockElectronics
   parent: BaseElectronics
   name: firelock electronics
@@ -11,8 +11,8 @@
       tags:
       - DroneUsable
       - FirelockElectronics
-    - type: ReverseEngineering
+    - type: ReverseEngineering # Nyano
       recipes:
         - FirelockElectronics
-    - type: DynamicPrice
+    - type: StaticPrice
       price: 61

@@ -1,8 +1,6 @@
-using Content.Client.UserInterface.Systems.Chat;
 using System.Linq;
 using Content.Shared.GameTicking;
 using Content.Shared.Popups;
-using Content.Shared.Chat;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
 using Robust.Client.Player;
@@ -11,7 +9,6 @@ using Robust.Client.UserInterface;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
-using Robust.Shared.Players;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Replays;
 using Robust.Shared.Timing;
@@ -63,9 +60,9 @@ namespace Content.Client.Popups
             if (recordReplay && _replayRecording.IsRecording)
             {
                 if (entity != null)
-                    _replayRecording.RecordClientMessage(new PopupEntityEvent(message, type, entity.Value));
+                    _replayRecording.RecordClientMessage(new PopupEntityEvent(message, type, GetNetEntity(entity.Value)));
                 else
-                    _replayRecording.RecordClientMessage(new PopupCoordinatesEvent(message, type, coordinates));
+                    _replayRecording.RecordClientMessage(new PopupCoordinatesEvent(message, type, GetNetCoordinates(coordinates)));
             }
 
             var label = new WorldPopupLabel(coordinates)
@@ -75,20 +72,6 @@ namespace Content.Client.Popups
             };
 
             _aliveWorldLabels.Add(label);
-
-            if (type == PopupType.Small)
-                return;
-
-            Color color = Color.AntiqueWhite;
-
-            if (type == PopupType.SmallCaution || type == PopupType.MediumCaution || type == PopupType.LargeCaution)
-                color = Color.Red;
-
-            var msg = new ChatMessage(ChatChannel.Emotes, message, message, default, false, color);
-            // I don't think there's a way to have a UI controller as a dependency...?
-            var chatCon = _uiManager.GetUIController<ChatUIController>();
-            chatCon.ProcessChatMessage(msg);
-
         }
 
         #region Abstract Method Implementations
@@ -166,7 +149,7 @@ namespace Content.Client.Popups
         public override void PopupClient(string message, EntityUid uid, EntityUid recipient, PopupType type = PopupType.Small)
         {
             if (_timing.IsFirstTimePredicted)
-                PopupEntity(message, uid, recipient);
+                PopupEntity(message, uid, recipient, type);
         }
 
         public override void PopupEntity(string message, EntityUid uid, PopupType type = PopupType.Small)
@@ -186,13 +169,15 @@ namespace Content.Client.Popups
 
         private void OnPopupCoordinatesEvent(PopupCoordinatesEvent ev)
         {
-            PopupMessage(ev.Message, ev.Type, ev.Coordinates, null, false);
+            PopupMessage(ev.Message, ev.Type, GetCoordinates(ev.Coordinates), null, false);
         }
 
         private void OnPopupEntityEvent(PopupEntityEvent ev)
         {
-            if (TryComp(ev.Uid, out TransformComponent? transform))
-                PopupMessage(ev.Message, ev.Type, transform.Coordinates, ev.Uid, false);
+            var entity = GetEntity(ev.Uid);
+
+            if (TryComp(entity, out TransformComponent? transform))
+                PopupMessage(ev.Message, ev.Type, transform.Coordinates, entity, false);
         }
 
         private void OnRoundRestart(RoundRestartCleanupEvent ev)

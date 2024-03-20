@@ -36,8 +36,8 @@
 
 - type: radioChannel
   id: Science
-  name: "Epistemics"
-  keycode: 'p'
+  name: chat-radio-science
+  keycode: 'n'
   frequency: 1351
   color: "#c68cfa"
 
@@ -56,6 +56,13 @@
   color: "#6ca729"
 
 - type: radioChannel
+  id: Supply
+  name: chat-radio-supply
+  keycode: 'u'
+  frequency: 1347
+  color: "#b88646"
+
+- type: radioChannel
   id: Syndicate
   name: chat-radio-syndicate
   keycode: 't'
@@ -64,17 +71,27 @@
   longRange: true
 
 - type: radioChannel
-  id: Binary
-  name: chat-radio-binary
-  keycode: 'b'
-  frequency: 0101
-  color: "#cfe2f3" #sadly can't jojoke because black colors are too hard to read in this ui
-  longRange: true
-
-- type: radioChannel
   id: Handheld
   name: chat-radio-handheld
   frequency: 1330
   color: "#d39f01"
+  # long range since otherwise it'd defeat the point of a handheld radio independent of telecomms
+  longRange: true
+
+- type: radioChannel
+  id: Binary
+  name: chat-radio-binary
+  keycode: 'b'
+  frequency: 1001
+  color: "#2ed2fd"
+  # long range since otherwise it'd defeat the point of a handheld radio independent of telecomms
+  longRange: true
+
+- type: radioChannel
+  id: Freelance
+  name: chat-radio-freelance
+  keycode: 'f'
+  frequency: 1984
+  color: "#f6ce64"
   # long range since otherwise it'd defeat the point of a handheld radio independent of telecomms
   longRange: true

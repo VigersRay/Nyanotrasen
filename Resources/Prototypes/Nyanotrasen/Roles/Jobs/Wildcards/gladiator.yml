@@ -2,33 +2,34 @@
   id: Gladiator
   name: job-name-gladiator
   description: job-description-gladiator
-  playTimeTracker: JobPrisoner
-  startingGear: GladiatorGear
+  playTimeTracker: JobGladiator
+  startingGear: NyanoGladiatorGear
   alwaysUseSpawner: true
   canBeAntag: false
-  icon: "Gladiator"
+  icon: "JobIconGladiator"
   supervisors: job-supervisors-security
-  setPreference: false
-  whitelistRequired: true
+  setPreference: true
+#  whitelistRequired: true
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 3600
+    - !type:WhitelistRequirement
   special:
   - !type:AddComponentSpecial
     components:
     - type: Boxer
       modifiers:
-        coefficients: #Remember these only apply to unarmed
+        coefficients: # These only apply to unarmed
           Blunt: 1.5
           Slash: 1.5
           Piercing: 1.5
 
 - type: startingGear
-  id: GladiatorGear
+  id: NyanoGladiatorGear
   equipment:
-    jumpsuit: UniformShortsRed
+    jumpsuit: ClothingUniformJumpsuitGladiator
     outerClothing: ClothingOuterArmorGladiator
     id: GladiatorPDA
     ears: ClothingHeadsetGrey
-  innerclothingskirt: UniformShortsRedWithTop
+  innerClothingSkirt: UniformShortsRedWithTop
   #any other possessions, spawn in cell

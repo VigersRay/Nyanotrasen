@@ -8,7 +8,6 @@
     state: rods
   - type: Item
     sprite: Objects/Materials/parts.rsi
-  - type: ItemStatus
   - type: Tag
     tags:
       - DroneUsable
@@ -30,6 +29,9 @@
   name: metal rods
   suffix: Full
   components:
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 50 #Half of a regular steel sheet to reflect the crafting recipe
   - type: Stack
     stackType: MetalRod
     baseLayer: base
@@ -55,10 +57,37 @@
     outputs:
     - Lattice
     - FloorReinforced
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 0
   - type: StackPrice
     price: 5
+  - type: Extractable
+    grindableSolutionName: rod
+  - type: SolutionContainerManager
+    solutions:
+      rod:
+        reagents:
+        - ReagentId: Iron
+          Quantity: 4.5
+        - ReagentId: Carbon
+          Quantity: 0.5
+
+- type: entity
+  parent: PartRodMetal
+  id: PartRodMetal10
+  name: metal rod
+  suffix: 10
+  components:
+  - type: Tag
+    tags:
+    - RodMetal1
+    - DroneUsable
+  - type: Sprite
+    state: rods
+  - type: Stack
+    count: 10
+  - type: Item
+    size: 10
 
 - type: entity
   parent: PartRodMetal
@@ -76,3 +105,14 @@
     count: 1
   - type: Item
     size: 1
+
+- type: entity
+  parent: PartRodMetal
+  id: PartRodMetalLingering0
+  suffix: Lingering, 0
+  components:
+  - type: Item
+    size: 0
+  - type: Stack
+    lingering: true
+    count: 0

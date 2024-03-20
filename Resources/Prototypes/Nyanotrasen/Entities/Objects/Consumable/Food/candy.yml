@@ -20,7 +20,7 @@
         - ReagentId: Vitamin
           Quantity: 3
   - type: Sprite
-    sprite: Objects/Consumable/Food/candy.rsi
+    sprite: Nyanotrasen/Objects/Consumable/Food/candy.rsi
     state: lollipop
 
 - type: entity
@@ -43,6 +43,5 @@
         - ReagentId: Dylovene
           Quantity: 3
   - type: Sprite
-    sprite: Objects/Consumable/Food/candy.rsi
+    sprite: Nyanotrasen/Objects/Consumable/Food/candy.rsi
     state: gumball
-

@@ -1,12 +1,11 @@
 using Content.Shared.DeviceNetwork;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
-using Content.Server.Drone;
 
 namespace Content.Server.SurveillanceCamera;
 
 [RegisterComponent]
-[Access(typeof(SurveillanceCameraSystem), (typeof(DroneSystem)))]
-public sealed class SurveillanceCameraComponent : Component
+[Access(typeof(SurveillanceCameraSystem))]
+public sealed partial class SurveillanceCameraComponent : Component
 {
     // List of active viewers. This is for bookkeeping purposes,
     // so that when a camera shuts down, any entity viewing it
@@ -45,5 +44,5 @@ public sealed class SurveillanceCameraComponent : Component
 
     // This has to be device network frequency prototypes.
     [DataField("setupAvailableNetworks", customTypeSerializer:typeof(PrototypeIdListSerializer<DeviceFrequencyPrototype>))]
-    public List<string> AvailableNetworks { get; } = new();
+    public List<string> AvailableNetworks { get; private set; } = new();
 }

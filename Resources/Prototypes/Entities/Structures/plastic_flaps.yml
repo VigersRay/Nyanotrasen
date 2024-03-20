@@ -27,7 +27,7 @@
         layer:
         - MidImpassable
   - type: Damageable
-    damageContainer: Inorganic
+    damageContainer: StructuralInorganic
     damageModifierSet: Metallic
   - type: Destructible
     thresholds:
@@ -43,7 +43,7 @@
   - type: Construction
     graph: PlasticFlapsGraph
     node: plasticFlaps
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 83
 
 - type: entity

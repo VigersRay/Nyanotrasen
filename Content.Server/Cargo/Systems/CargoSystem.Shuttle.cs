@@ -1,8 +1,8 @@
 using System.Linq;
 using Content.Server.Cargo.Components;
+using Content.Server.GameTicking.Events;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
-using Content.Server.Mind.Components;
 using Content.Shared.Stacks;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.BUI;
@@ -42,6 +42,8 @@ public sealed partial class CargoSystem
         SubscribeLocalEvent<CargoPalletConsoleComponent, BoundUIOpenedEvent>(OnPalletUIOpen);
 
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+        SubscribeLocalEvent<RoundStartingEvent>(OnRoundStart);
+
         _cfgManager.OnValueChanged(CCVars.GridFill, SetGridFill);
     }
 
@@ -93,12 +95,12 @@ public sealed partial class CargoSystem
         var bui = _uiSystem.GetUi(uid, CargoPalletConsoleUiKey.Sale);
         if (Transform(uid).GridUid is not EntityUid gridUid)
         {
-            UserInterfaceSystem.SetUiState(bui,
+            _uiSystem.SetUiState(bui,
             new CargoPalletConsoleInterfaceState(0, 0, false));
             return;
         }
-        GetPalletGoods(gridUid, out var toSell, out var amount, false);
-        UserInterfaceSystem.SetUiState(bui,
+        GetPalletGoods(gridUid, out var toSell, out var amount);
+        _uiSystem.SetUiState(bui,
             new CargoPalletConsoleInterfaceState((int) amount, toSell.Count, true));
     }
 
@@ -145,7 +147,7 @@ public sealed partial class CargoSystem
         var shuttleName = orderDatabase?.Shuttle != null ? MetaData(orderDatabase.Shuttle.Value).EntityName : string.Empty;
 
         if (_uiSystem.TryGetUi(uid, CargoConsoleUiKey.Shuttle, out var bui))
-            UserInterfaceSystem.SetUiState(bui, new CargoShuttleConsoleBoundUserInterfaceState(
+            _uiSystem.SetUiState(bui, new CargoShuttleConsoleBoundUserInterfaceState(
                 station != null ? MetaData(station.Value).EntityName : Loc.GetString("cargo-shuttle-console-station-unknown"),
                 string.IsNullOrEmpty(shuttleName) ? Loc.GetString("cargo-shuttle-console-shuttle-not-found") : shuttleName,
                 orders
@@ -230,7 +232,7 @@ public sealed partial class CargoSystem
     private void SellPallets(EntityUid gridUid, EntityUid? station, out double amount)
     {
         station ??= _station.GetOwningStation(gridUid);
-        GetPalletGoods(gridUid, out var toSell, out amount, true);
+        GetPalletGoods(gridUid, out var toSell, out amount);
 
         Log.Debug($"Cargo sold {toSell.Count} entities for {amount}");
 
@@ -246,7 +248,7 @@ public sealed partial class CargoSystem
         }
     }
 
-    private void GetPalletGoods(EntityUid gridUid, out HashSet<EntityUid> toSell, out double amount, bool sale = false)
+    private void GetPalletGoods(EntityUid gridUid, out HashSet<EntityUid> toSell, out double amount)
     {
         amount = 0;
         toSell = new HashSet<EntityUid>();
@@ -270,7 +272,7 @@ public sealed partial class CargoSystem
                 if (_blacklistQuery.HasComponent(ent))
                     continue;
 
-                var price = _pricing.GetPrice(ent, sale);
+                var price = _pricing.GetPrice(ent);
                 if (price == 0)
                     continue;
                 toSell.Add(ent);
@@ -290,7 +292,7 @@ public sealed partial class CargoSystem
         var children = xform.ChildEnumerator;
         while (children.MoveNext(out var child))
         {
-            if (!CanSell(child.Value, _xformQuery.GetComponent(child.Value)))
+            if (!CanSell(child, _xformQuery.GetComponent(child)))
                 return false;
         }
 
@@ -322,31 +324,21 @@ public sealed partial class CargoSystem
         var bui = _uiSystem.GetUi(uid, CargoPalletConsoleUiKey.Sale);
         if (Transform(uid).GridUid is not EntityUid gridUid)
         {
-            UserInterfaceSystem.SetUiState(bui,
+            _uiSystem.SetUiState(bui,
             new CargoPalletConsoleInterfaceState(0, 0, false));
             return;
         }
 
-        var station = _station.GetOwningStation(uid);
-        if (station == null)
-            return;
+        // Delta-V change, on sale, add cash to the stations bank account instead of throwing it on the floor
+        var stationUid = _station.GetOwningStation(uid);
 
-        SellPallets(gridUid, null, out var price);
-
-        foreach (var account in EntityQuery<StationBankAccountComponent>())
+        if (TryComp<StationBankAccountComponent>(stationUid, out var bank))
         {
-            if (_station.GetOwningStation(account.Owner) != _station.GetOwningStation(uid))
-                    continue;
-
-            UpdateBankAccount(station.Value, account, (int) price);
-            return;
+            SellPallets(gridUid, null, out var amount);
+            bank.Balance += (int) amount;
         }
+        // End of Delta-V change
 
-        /* TODO:
-        SellPallets(gridUid, null, out var price);
-        var stackPrototype = _protoMan.Index<StackPrototype>(component.CashType);
-        _stack.Spawn((int) price, stackPrototype, uid.ToCoordinates());
-        */
         UpdatePalletConsoleInterface(uid);
     }
 
@@ -389,7 +381,10 @@ public sealed partial class CargoSystem
     {
         Reset();
         CleanupCargoShuttle();
+    }
 
+    private void OnRoundStart(RoundStartingEvent ev)
+    {
         if (_cfgManager.GetCVar(CCVars.GridFill))
             SetupCargoShuttle();
     }

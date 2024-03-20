@@ -5,7 +5,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 namespace Content.Server.DeviceLinking.Components;
 
 [RegisterComponent]
-public sealed class SignalTimerComponent : Component
+public sealed partial class SignalTimerComponent : Component
 {
     [DataField("delay"), ViewVariables(VVAccess.ReadWrite)]
     public double Delay = 5;
@@ -20,7 +20,7 @@ public sealed class SignalTimerComponent : Component
     ///     The label, used for TextScreen visuals currently.
     /// </summary>
     [DataField("label"), ViewVariables(VVAccess.ReadWrite)]
-    public string Label = "";
+    public string Label = string.Empty;
 
     /// <summary>
     ///     The port that gets signaled when the timer triggers.

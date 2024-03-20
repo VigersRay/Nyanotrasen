@@ -11,9 +11,9 @@
     - state: fireball
   - type: Explosive
     explosionType: Default
-    maxIntensity: 20
-    intensitySlope: 3
-    totalIntensity: 100
+    maxIntensity: 40
+    intensitySlope: 6
+    totalIntensity: 200
     maxTileBreak: 0
 
 - type: entity
@@ -102,7 +102,7 @@
 - type: entity
   id: BulletInstakillMagic
   name: magical lead cylinder
-  parent: BaseBulletHighVelocity
+  parent: BaseBullet
   noSpawn: true
   description: This looks familiar.
   components:
@@ -113,8 +113,21 @@
     ignoreResistances: true
 
 - type: entity
+  id: ProjectilePolyboltCluwne
+  parent: ProjectilePolyboltBase
+  name: cluwne polybolt
+  description: knoH KnoH!
+  noSpawn: true
+  components:
+  - type: PolymorphOnCollide
+    polymorph: WizardForcedCluwne
+    whitelist:
+      components:
+      - Body
+
+- type: entity
   id: ProjectileIcicle
-  parent: BaseBulletHighVelocity
+  parent: BaseBullet
   name: Icicle
   description: Brrrrr.
   noSpawn: true

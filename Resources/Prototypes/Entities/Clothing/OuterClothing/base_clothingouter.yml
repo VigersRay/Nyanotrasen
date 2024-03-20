@@ -22,6 +22,7 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
+  - type: HeldSpeedModifier
 
 - type: entity
   abstract: true
@@ -40,8 +41,22 @@
     interfaces:
     - key: enum.StorageUiKey.Key
       type: StorageBoundUserInterface
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 80
+
+- type: entity
+  abstract: true
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterStorageToggleableBase
+  components:
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHatHoodWinterDefault
+    slot: head
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      storagebase: !type:Container
+        ents: []
 
 - type: entity
   abstract: true
@@ -57,6 +72,7 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.4
     sprintModifier: 0.6
+  - type: HeldSpeedModifier
   - type: Item
     size: 121
   - type: Armor
@@ -67,17 +83,16 @@
         Piercing: 0.95
         Heat: 0.90
         Radiation: 0.25
-  - type: DiseaseProtection
-    protection: 0.05
   - type: ToggleableClothing
+    slot: head
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
+  - type: GroupExamine
   - type: Tag
     tags:
-      - FullBodyOuter
-      - Hardsuit
-  - type: GroupExamine
+    - Hardsuit
+    - WhitelistChameleon
 
 - type: entity
   abstract: true
@@ -93,10 +108,32 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
+  - type: HeldSpeedModifier
   - type: Item
     size: 80
-  - type: DiseaseProtection
-    protection: 0.05
-  - type: Tag
-    tags:
-      - FullBodyOuter
+
+- type: entity
+  parent: ClothingOuterBase
+  id: ClothingOuterBaseToggleable
+  name: hoodie with hood
+  abstract: True
+  components:
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHatHoodWinterDefault
+    slot: head
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:ContainerSlot {}
+      storagebase: !type:Container
+        ents: []
+
+- type: entity
+  abstract: true
+  parent: ClothingOuterBase
+  id: ClothingOuterBaseMedium
+  components:
+  - type: Item
+    size: 30
+  - type: Clothing
+    slots:
+    - outerClothing

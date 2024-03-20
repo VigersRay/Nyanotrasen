@@ -1,15 +1,15 @@
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Server.Preferences.Managers;
-using Content.Server.Redial;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
+using Content.Shared.Players.PlayTimeTracking;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;
-using Content.Server.Administration.Managers;
+
 
 namespace Content.Server.Connection
 {
@@ -28,9 +28,8 @@ namespace Content.Server.Connection
         [Dependency] private readonly IServerNetManager _netMgr = default!;
         [Dependency] private readonly IServerDbManager _db = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
-        [Dependency] private readonly IAdminManager _admin = default!;
-        [Dependency] private readonly RedialManager _redial = default!;
         [Dependency] private readonly ILocalizationManager _loc = default!;
+        [Dependency] private readonly ServerDbEntryManager _serverDbEntry = default!;
 
         public void Initialize()
         {
@@ -68,11 +67,13 @@ namespace Content.Server.Connection
             var addr = e.IP.Address;
             var userId = e.UserId;
 
+            var serverId = (await _serverDbEntry.ServerEntity).Id;
+
             if (deny != null)
             {
                 var (reason, msg, banHits) = deny.Value;
 
-                var id = await _db.AddConnectionLogAsync(userId, e.UserName, addr, e.UserData.HWId, reason);
+                var id = await _db.AddConnectionLogAsync(userId, e.UserName, addr, e.UserData.HWId, reason, serverId);
                 if (banHits is { Count: > 0 })
                     await _db.AddServerBanHitsAsync(id, banHits);
 
@@ -80,7 +81,7 @@ namespace Content.Server.Connection
             }
             else
             {
-                await _db.AddConnectionLogAsync(userId, e.UserName, addr, e.UserData.HWId, null);
+                await _db.AddConnectionLogAsync(userId, e.UserName, addr, e.UserData.HWId, null, serverId);
 
                 if (!ServerPreferencesManager.ShouldStorePrefs(e.AuthType))
                     return;
@@ -107,34 +108,35 @@ namespace Content.Server.Connection
 
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled))
             {
-                var record = await _dbManager.GetPlayerRecordByUserId(userId);
+                var showReason = _cfg.GetCVar(CCVars.PanicBunkerShowReason);
 
-                if ((record is null ||
-                    (record.FirstSeenTime.CompareTo(DateTimeOffset.Now - TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.PanicBunkerMinAccountAge))) > 0)))
+                var minMinutesAge = _cfg.GetCVar(CCVars.PanicBunkerMinAccountAge);
+                var record = await _dbManager.GetPlayerRecordByUserId(userId);
+                var validAccountAge = record != null &&
+                                        record.FirstSeenTime.CompareTo(DateTimeOffset.Now - TimeSpan.FromMinutes(minMinutesAge)) <= 0;
+
+                if (showReason && !validAccountAge)
+                {
+                    return (ConnectionDenyReason.Panic,
+                        Loc.GetString("panic-bunker-account-denied-reason",
+                            ("reason", Loc.GetString("panic-bunker-account-reason-account", ("minutes", minMinutesAge)))), null);
+                }
+
+                var minOverallHours = _cfg.GetCVar(CCVars.PanicBunkerMinOverallHours);
+                var overallTime = ( await _db.GetPlayTimes(e.UserId)).Find(p => p.Tracker == PlayTimeTrackingShared.TrackerOverall);
+                var haveMinOverallTime = overallTime != null && overallTime.TimeSpent.TotalHours > minOverallHours;
+
+                if (showReason && !haveMinOverallTime)
+                {
+                    return (ConnectionDenyReason.Panic,
+                        Loc.GetString("panic-bunker-account-denied-reason",
+                            ("reason", Loc.GetString("panic-bunker-account-reason-overall", ("hours", minOverallHours)))), null);
+                }
+
+                if (!validAccountAge || !haveMinOverallTime)
                 {
                     return (ConnectionDenyReason.Panic, Loc.GetString("panic-bunker-account-denied"), null);
                 }
-            }
-
-
-            if (_cfg.GetCVar(CCVars.AdminPanic))
-            {
-                int i = 0;
-                foreach (var admin in _admin.ActiveAdmins)
-                {
-                    i++;
-                }
-                if (i == 0)
-                {
-                    var record = await _dbManager.GetPlayerRecordByUserId(userId);
-
-                    if ((record is null ||
-                        (record.FirstSeenTime.CompareTo(DateTimeOffset.Now - TimeSpan.FromMinutes(_cfg.GetCVar(CCVars.PanicBunkerMinAccountAge))) > 0)))
-                    {
-                        return (ConnectionDenyReason.Panic, Loc.GetString("panic-bunker-no-admins"), null);
-                    }
-                }
-
             }
 
             var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
@@ -142,17 +144,7 @@ namespace Content.Server.Connection
                             status == PlayerGameStatus.JoinedGame;
             if ((_plyMgr.PlayerCount >= _cfg.GetCVar(CCVars.SoftMaxPlayers) && adminData is null) && !wasInGame)
             {
-                var reason = Loc.GetString("soft-player-cap-full");
-                var redial = _redial.GetRandomRedial();
-
-                if (redial != null)
-                {
-                    // It's not super easy to get messages to client we redirect so we're gonna hitch a ride.
-                    reason += "%redial";
-                    reason += redial;
-                }
-
-                return (ConnectionDenyReason.Full, reason, null);
+                return (ConnectionDenyReason.Full, Loc.GetString("soft-player-cap-full"), null);
             }
 
             var bans = await _db.GetServerBansAsync(addr, userId, hwId, includeUnbanned: false);
@@ -163,13 +155,21 @@ namespace Content.Server.Connection
                 return (ConnectionDenyReason.Ban, message, bans);
             }
 
-            var minPlayers = _cfg.GetCVar(CCVars.WhitelistMinPlayers);
-            if (_cfg.GetCVar(CCVars.WhitelistEnabled)
-                && _plyMgr.PlayerCount >= minPlayers
-                && await _db.GetWhitelistStatusAsync(userId) == false
-                && adminData is null)
+            if (_cfg.GetCVar(CCVars.WhitelistEnabled))
             {
-                return (ConnectionDenyReason.Whitelist, Loc.GetString(_cfg.GetCVar(CCVars.WhitelistReason)), null);
+                var min = _cfg.GetCVar(CCVars.WhitelistMinPlayers);
+                var max = _cfg.GetCVar(CCVars.WhitelistMaxPlayers);
+                var playerCountValid = _plyMgr.PlayerCount >= min && _plyMgr.PlayerCount < max;
+
+                if (playerCountValid && await _db.GetWhitelistStatusAsync(userId) == false
+                                     && adminData is null)
+                {
+                    var msg = Loc.GetString(_cfg.GetCVar(CCVars.WhitelistReason));
+                    // was the whitelist playercount changed?
+                    if (min > 0 || max < int.MaxValue)
+                        msg += "\n" + Loc.GetString("whitelist-playercount-invalid", ("min", min), ("max", max));
+                    return (ConnectionDenyReason.Whitelist, msg, null);
+                }
             }
 
             return null;

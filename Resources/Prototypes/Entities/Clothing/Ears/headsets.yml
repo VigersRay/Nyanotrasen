@@ -21,11 +21,14 @@
     slots:
     - ears
     sprite: Clothing/Ears/Headsets/base.rsi
+  - type: GuideHelp
+    guides:
+    - Radio
 
 - type: entity
   parent: ClothingHeadset
   id: ClothingHeadsetGrey
-  name: assistant headset
+  name: passenger headset
   components:
   - type: Sprite
     sprite: Clothing/Ears/Headsets/base.rsi
@@ -33,7 +36,7 @@
 - type: entity
   parent: ClothingHeadset
   id: ClothingHeadsetCargo
-  name: cargo headset
+  name: logistics headset # DeltaV - Logistics Department replacing Cargo
   description: A headset used by supply employees.
   components:
   - type: ContainerFill
@@ -60,13 +63,14 @@
 - type: entity
   parent: ClothingHeadsetCargo
   id: ClothingHeadsetQM
-  name: qm headset
-  description: A headset used by quartermasters.
+  name: logistics officer's headset # DeltaV - Logistics Department replacing Cargo
+  description: A headset used by the logistics officer. # DeltaV - Logistics Department replacing Cargo
   components:
   - type: ContainerFill
     containers:
       key_slots:
       - EncryptionKeyCargo
+      - EncryptionKeyCommand
       - EncryptionKeyCommon
 
 - type: entity
@@ -146,10 +150,23 @@
     sprite: Clothing/Ears/Headsets/medical.rsi
 
 - type: entity
+  parent: ClothingHeadsetMedical
+  id: ClothingHeadsetCMO
+  name: cmo headset
+  description: A headset used by the CMO.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyMedical
+      - EncryptionKeyCommand
+      - EncryptionKeyCommon
+
+- type: entity
   parent: ClothingHeadset
   id: ClothingHeadsetScience
-  name: epistemics headset
-  description: Faithfully recreates the true essence of remote sound waves.
+  name: epistemics headset # DeltaV - Epistemics Department replacing Science
+  description: A sciency headset. Like usual. # DeltaV - Epistemics Department replacing Science
   components:
   - type: ContainerFill
     containers:
@@ -187,7 +204,6 @@
     containers:
       key_slots:
       - EncryptionKeyRobo
-      - EncryptionKeyEngineering
       - EncryptionKeyCommon
   - type: Sprite
     sprite: Clothing/Ears/Headsets/robotics.rsi
@@ -197,7 +213,7 @@
 - type: entity
   parent: ClothingHeadsetScience
   id: ClothingHeadsetRD
-  name: rd headset
+  name: mysta headset # DeltaV - Epistemics Department replacing Science
   description: Lamarr used to love chewing on this...
   components:
   - type: ContainerFill
@@ -225,6 +241,23 @@
 
 - type: entity
   parent: ClothingHeadset
+  id: ClothingHeadsetBrigmedic
+  name: corpsman headset # DeltaV - rename brigmedic to corpsman
+  description: A headset that helps to hear the death cries.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyMedical
+      - EncryptionKeySecurity
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: DeltaV/Clothing/Ears/Headsets/securitymedical.rsi # DeltaV - Change the sprite to fit the others
+  - type: Clothing
+    sprite: DeltaV/Clothing/Ears/Headsets/securitymedical.rsi # DeltaV - Change the sprite to fit the others
+
+- type: entity
+  parent: ClothingHeadset
   id: ClothingHeadsetService
   name: service headset
   description: Headset used by the service staff, tasked with keeping the station full, happy and clean.
@@ -239,3 +272,17 @@
   - type: Clothing
     sprite: Clothing/Ears/Headsets/service.rsi
 
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetFreelance
+  name: freelancer headset
+  description: This is used by a roaming group of freelancers
+  components:
+    - type: ContainerFill
+      containers:
+        key_slots:
+          - EncryptionKeyFreelance
+    - type: Sprite
+      sprite: Clothing/Ears/Headsets/freelance.rsi
+    - type: Clothing
+      sprite: Clothing/Ears/Headsets/freelance.rsi

@@ -1,29 +1,32 @@
 ﻿- type: job
-  id: Valet
-  name: job-name-valet
-  description: job-description-valet
-  playTimeTracker: JobValet
-  startingGear: ValetGear
-  icon: "ServiceWorker"
-  supervisors: job-supervisors-everyone
-  setPreference: false
+  id: ServiceWorker
+  name: job-name-serviceworker
+  description: job-description-serviceworker
+  playTimeTracker: JobServiceWorker
+  requirements:
+    - !type:OverallPlaytimeRequirement
+      time: 7200 # DeltaV - 2 hours
+  startingGear: ServiceWorkerGear
+  icon: "JobIconServiceWorker"
+  supervisors: job-supervisors-service
+  canBeAntag: true # DeltaV - Can be antagonist
+  antagAdvantage: 1 # DeltaV - Reduced TC: Accesses
   access:
   - Service
-  - Bar
-  - Kitchen
-  - Cargo
+  - Maintenance
+  extendedAccess:
+  - Hydroponics
+  - Bar # DeltaV - moved to extended access
+  - Kitchen # DeltaV - moved to extended access
 
 - type: startingGear
-  id: ValetGear
+  id: ServiceWorkerGear
   equipment:
-    head: ClothingHeadHatBellhop
-    jumpsuit: ClothingUniformJumpsuitBartender
-    outerClothing: ClothingOuterVestValet
-    gloves: ClothingHandsGlovesColorWhite
+    jumpsuit: ClothingUniformJumpsuitColorDarkGreen # DeltaV
     back: ClothingBackpackFilled
     shoes: ClothingShoesColorBlack
-    id: ValetPDA
+    id: ServiceWorkerPDA
     ears: ClothingHeadsetService
-  innerclothingskirt: ClothingUniformJumpskirtBartender
+  innerClothingSkirt: ClothingUniformJumpskirtColorDarkGreen # DeltaV
   satchel: ClothingBackpackSatchelFilled
   duffelbag: ClothingBackpackDuffelFilled

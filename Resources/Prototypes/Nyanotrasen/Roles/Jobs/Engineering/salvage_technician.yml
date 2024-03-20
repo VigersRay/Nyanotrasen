@@ -1,29 +1,31 @@
 - type: job
-  id: SalvageTechnician
-  name: job-name-salvage-technician
-  description: job-description-salvage-technician
-  icon: "ShaftMiner"
-  startingGear: SalvageTechnicianGear
-  playTimeTracker: JobSalvageTechnician
-  antagAdvantage: 3
+  id: SalvageSpecialist
+  name: job-name-salvagespec
+  description: job-description-salvagespec
+  playTimeTracker: JobSalvageSpecialist
+  antagAdvantage: 3 # DeltaV - Reduced TC: External Access + Free hardsuit and weapons
   requirements:
     - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 14400
-  supervisors: job-supervisors-ce
+      department: Logistics # DeltaV - Logistics Department replacing Cargo
+      time: 21600 #DeltaV 6 hrs
+  #  - !type:OverallPlaytimeRequirement #DeltaV
+  #    time: 36000 #10 hrs
+  icon: "JobIconShaftMiner"
+  startingGear: SalvageSpecialistGear
+  supervisors: job-supervisors-qm
   access:
+  - Cargo
   - Salvage
-  - Engineering
   - Maintenance
   - External
 
 - type: startingGear
-  id: SalvageTechnicianGear
+  id: SalvageSpecialistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSalvageSpecialist
     back: ClothingBackpackSalvageFilled
     shoes: ClothingShoesBootsSalvage
-    id: SalvageTechPDA
-    ears: ClothingHeadsetEngineering
+    id: SalvagePDA
+    ears: ClothingHeadsetCargo
   satchel: ClothingBackpackSatchelSalvageFilled
   duffelbag: ClothingBackpackDuffelSalvageFilled

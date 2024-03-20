@@ -85,7 +85,6 @@
   - type: ContainerContainer
     containers:
       AmeFuel: !type:ContainerSlot {}
-  - type: IntrinsicRadioReceiver
   - type: GuideHelp
     guides: [ AME, Power ]
   - type: Electrified

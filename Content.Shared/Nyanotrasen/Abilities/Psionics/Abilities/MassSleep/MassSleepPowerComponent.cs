@@ -1,12 +1,18 @@
-using Content.Shared.Actions.ActionTypes;
+using Content.Shared.Actions;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Abilities.Psionics
 {
     [RegisterComponent]
-    public sealed class MassSleepPowerComponent : Component
+    public sealed partial class MassSleepPowerComponent : Component
     {
-        public WorldTargetAction? MassSleepPowerAction = null;
-
         public float Radius = 1.25f;
+        [DataField("massSleepActionId",
+        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        public string? MassSleepActionId = "ActionMassSleep";
+
+        [DataField("massSleepActionEntity")]
+        public EntityUid? MassSleepActionEntity;
     }
 }

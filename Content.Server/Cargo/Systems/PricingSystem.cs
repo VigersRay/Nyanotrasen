@@ -1,12 +1,11 @@
-using System.Linq;
+﻿using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Body.Systems;
 using Content.Server.Cargo.Components;
-using Content.Server.Chemistry.Components.SolutionManager;
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Administration;
 using Content.Shared.Body.Components;
-using Content.Shared.Body.Prototypes;
+using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Materials;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -14,6 +13,7 @@ using Content.Shared.Stacks;
 using Robust.Shared.Console;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -22,7 +22,7 @@ namespace Content.Server.Cargo.Systems;
 /// <summary>
 /// This handles calculating the price of items, and implements two basic methods of pricing materials.
 /// </summary>
-public sealed partial class PricingSystem : EntitySystem
+public sealed class PricingSystem : EntitySystem
 {
     [Dependency] private readonly IComponentFactory _factory = default!;
     [Dependency] private readonly IConsoleHost _consoleHost = default!;
@@ -31,15 +31,9 @@ public sealed partial class PricingSystem : EntitySystem
     [Dependency] private readonly BodySystem _bodySystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
 
-    private ISawmill _sawmill = default!;
-
     /// <inheritdoc/>
     public override void Initialize()
     {
-        _sawmill = Logger.GetSawmill("pricing");
-
-        InitializeSupplyDemand();
-
         SubscribeLocalEvent<MobPriceComponent, PriceCalculationEvent>(CalculateMobPrice);
 
         _consoleHost.RegisterCommand("appraisegrid",
@@ -58,13 +52,13 @@ public sealed partial class PricingSystem : EntitySystem
 
         foreach (var gid in args)
         {
-            if (!EntityUid.TryParse(gid, out var gridId) || !gridId.IsValid())
+            if (!EntityManager.TryParseNetEntity(gid, out var gridId) || !gridId.Value.IsValid())
             {
                 shell.WriteError($"Invalid grid ID \"{gid}\".");
                 continue;
             }
 
-            if (!_mapManager.TryGetGrid(gridId, out var mapGrid))
+            if (!TryComp(gridId, out MapGridComponent? mapGrid))
             {
                 shell.WriteError($"Grid \"{gridId}\" doesn't exist.");
                 continue;
@@ -72,7 +66,7 @@ public sealed partial class PricingSystem : EntitySystem
 
             List<(double, EntityUid)> mostValuable = new();
 
-            var value = AppraiseGrid(mapGrid.Owner, null, (uid, price) =>
+            var value = AppraiseGrid(gridId.Value, null, (uid, price) =>
             {
                 mostValuable.Add((price, uid));
                 mostValuable.Sort((i1, i2) => i2.Item1.CompareTo(i1.Item1));
@@ -80,11 +74,11 @@ public sealed partial class PricingSystem : EntitySystem
                     mostValuable.Pop();
             });
 
-            shell.WriteLine($"Grid {gid} appraised to {value} spacebucks.");
+            shell.WriteLine($"Grid {gid} appraised to {value} spesos.");
             shell.WriteLine($"The top most valuable items were:");
             foreach (var (price, ent) in mostValuable)
             {
-                shell.WriteLine($"- {ToPrettyString(ent)} @ {price} spacebucks");
+                shell.WriteLine($"- {ToPrettyString(ent)} @ {price} spesos");
             }
         }
     }
@@ -97,74 +91,46 @@ public sealed partial class PricingSystem : EntitySystem
 
         if (!TryComp<BodyComponent>(uid, out var body) || !TryComp<MobStateComponent>(uid, out var state))
         {
-            Logger.ErrorS("pricing", $"Tried to get the mob price of {ToPrettyString(uid)}, which has no {nameof(BodyComponent)} and no {nameof(MobStateComponent)}.");
+            Log.Error($"Tried to get the mob price of {ToPrettyString(uid)}, which has no {nameof(BodyComponent)} and no {nameof(MobStateComponent)}.");
             return;
         }
 
-        var partList = _bodySystem.GetBodyAllSlots(uid, body).ToList();
-        var totalPartsPresent = partList.Sum(x => x.Child != null ? 1 : 0);
+        // TODO: Better handling of missing.
+        var partList = _bodySystem.GetBodyChildren(uid, body).ToList();
+        var totalPartsPresent = partList.Sum(_ => 1);
         var totalParts = partList.Count;
 
         var partRatio = totalPartsPresent / (double) totalParts;
         var partPenalty = component.Price * (1 - partRatio) * component.MissingBodyPartPenalty;
 
-        var basePrice = (component.Price - partPenalty) * (_mobStateSystem.IsAlive(uid, state) ? 1.0 : component.DeathPenalty);
-
-        if (body.Prototype != null &&
-            _prototypeManager.TryIndex<BodyPrototype>(body.Prototype, out var bodyProto))
-        {
-            var supply = GetMobSupply(bodyProto);
-            var demand = GetMobDemand(bodyProto);
-
-            args.Price += GetSupplyDemandPrice(basePrice, bodyProto.HalfPriceSurplus, supply, demand);
-
-            if (args.Sale)
-                AddMobSupply(bodyProto, 1);
-        }
-        else
-        {
-            args.Price += basePrice;
-        }
+        args.Price += (component.Price - partPenalty) * (_mobStateSystem.IsAlive(uid, state) ? 1.0 : component.DeathPenalty);
     }
 
-    private double GetSolutionPrice(SolutionContainerManagerComponent component, bool sale = false)
+    private double GetSolutionPrice(SolutionContainerManagerComponent component)
     {
         var price = 0.0;
 
         foreach (var solution in component.Solutions.Values)
         {
-            foreach (var reagent in solution.Contents)
+            foreach (var (reagent, quantity) in solution.Contents)
             {
-                if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.ReagentId, out var reagentProto))
+                if (!_prototypeManager.TryIndex<ReagentPrototype>(reagent.Prototype, out var reagentProto))
                     continue;
 
-                var supply = GetReagentSupply(reagentProto);
-                var demand = GetReagentDemand(reagentProto);
-
-                price += GetSupplyDemandPrice((float) reagent.Quantity * reagentProto.PricePerUnit, reagentProto.HalfPriceSurplus, supply, demand);
-
-                if (sale)
-                    AddReagentSupply(reagentProto, reagent.Quantity);
+                // TODO check ReagentData for price information?
+                price += (float) quantity * reagentProto.PricePerUnit;
             }
         }
 
         return price;
     }
 
-    private double GetMaterialPrice(PhysicalCompositionComponent component, bool sale = false)
+    private double GetMaterialPrice(PhysicalCompositionComponent component)
     {
         double price = 0;
         foreach (var (id, quantity) in component.MaterialComposition)
         {
-            var proto = _prototypeManager.Index<MaterialPrototype>(id);
-
-            var supply = GetMaterialSupply(proto);
-            var demand = GetMaterialDemand(proto);
-
-            price += GetSupplyDemandPrice(quantity * proto.Price, proto.HalfPriceSurplus, supply, demand);
-
-            if (sale)
-                AddMaterialSupply(proto, quantity);
+            price += _prototypeManager.Index<MaterialPrototype>(id).Price * quantity;
         }
         return price;
     }
@@ -205,18 +171,14 @@ public sealed partial class PricingSystem : EntitySystem
     /// Appraises an entity, returning it's price.
     /// </summary>
     /// <param name="uid">The entity to appraise.</param>
-    /// <param name="sale">Should this price calculation affect the market?</param>
     /// <returns>The price of the entity.</returns>
     /// <remarks>
     /// This fires off an event to calculate the price.
     /// Calculating the price of an entity that somehow contains itself will likely hang.
-    ///
-    /// The sale flag exists to simplify informing the supply and demand system
-    /// about supply increases.
     /// </remarks>
-    public double GetPrice(EntityUid uid, bool sale = false)
+    public double GetPrice(EntityUid uid)
     {
-        var ev = new PriceCalculationEvent() { Sale = sale };
+        var ev = new PriceCalculationEvent();
         RaiseLocalEvent(uid, ref ev);
 
         if (ev.Handled)
@@ -225,12 +187,12 @@ public sealed partial class PricingSystem : EntitySystem
         var price = ev.Price;
         //TODO: Add an OpaqueToAppraisal component or similar for blocking the recursive descent into containers, or preventing material pricing.
         // DO NOT FORGET TO UPDATE ESTIMATED PRICING
-        price += GetMaterialsPrice(uid, sale);
-        price += GetSolutionsPrice(uid, sale);
+        price += GetMaterialsPrice(uid);
+        price += GetSolutionsPrice(uid);
 
         // Can't use static price with stackprice
         var oldPrice = price;
-        price += GetStackPrice(uid, sale);
+        price += GetStackPrice(uid);
 
         if (oldPrice.Equals(price))
         {
@@ -251,14 +213,14 @@ public sealed partial class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetMaterialsPrice(EntityUid uid, bool sale = false)
+    private double GetMaterialsPrice(EntityUid uid)
     {
         double price = 0;
 
         if (HasComp<MaterialComponent>(uid) &&
             TryComp<PhysicalCompositionComponent>(uid, out var composition))
         {
-            var matPrice = GetMaterialPrice(composition, sale);
+            var matPrice = GetMaterialPrice(composition);
             if (TryComp<StackComponent>(uid, out var stack))
                 matPrice *= stack.Count;
 
@@ -289,32 +251,32 @@ public sealed partial class PricingSystem : EntitySystem
         return price;
     }
 
-    private double GetSolutionsPrice(EntityUid uid, bool sale = false)
+    private double GetSolutionsPrice(EntityUid uid)
     {
         var price = 0.0;
 
         if (TryComp<SolutionContainerManagerComponent>(uid, out var solComp))
         {
-            price += GetSolutionPrice(solComp, sale);
+            price += GetSolutionPrice(solComp);
         }
 
         return price;
     }
 
-    private double GetSolutionsPrice(EntityPrototype prototype, bool sale = false)
+    private double GetSolutionsPrice(EntityPrototype prototype)
     {
         var price = 0.0;
 
         if (prototype.Components.TryGetValue(_factory.GetComponentName(typeof(SolutionContainerManagerComponent)), out var solManager))
         {
             var solComp = (SolutionContainerManagerComponent) solManager.Component;
-            price += GetSolutionPrice(solComp, sale);
+            price += GetSolutionPrice(solComp);
         }
 
         return price;
     }
 
-    private double GetStackPrice(EntityUid uid, bool sale = false)
+    private double GetStackPrice(EntityUid uid)
     {
         var price = 0.0;
 
@@ -322,19 +284,13 @@ public sealed partial class PricingSystem : EntitySystem
             TryComp<StackComponent>(uid, out var stack) &&
             !HasComp<MaterialComponent>(uid)) // don't double count material prices
         {
-            var supply = GetStackSupply(stack);
-            var demand = GetStackDemand(stackPrice, stack);
-
-            if (sale)
-                AddStackSupply(stack, stack.Count);
-
-            price += GetSupplyDemandPrice(stack.Count * stackPrice.Price, stackPrice.HalfPriceSurplus, supply, demand);
+            price += stack.Count * stackPrice.Price;
         }
 
         return price;
     }
 
-    private double GetStackPrice(EntityPrototype prototype, bool sale = false)
+    private double GetStackPrice(EntityPrototype prototype)
     {
         var price = 0.0;
 
@@ -344,13 +300,7 @@ public sealed partial class PricingSystem : EntitySystem
         {
             var stackPrice = (StackPriceComponent) stackpriceProto.Component;
             var stack = (StackComponent) stackProto.Component;
-            var supply = GetStackSupply(stack);
-            var demand = GetStackDemand(stackPrice, stack);
-
-            if (sale)
-                AddStackSupply(stack, stack.Count);
-
-            price += GetSupplyDemandPrice(stack.Count * stackPrice.Price, stackPrice.HalfPriceSurplus, supply, demand);
+            price += stack.Count * stackPrice.Price;
         }
 
         return price;
@@ -392,8 +342,8 @@ public sealed partial class PricingSystem : EntitySystem
     {
         var xform = Transform(grid);
         var price = 0.0;
-
-        foreach (var child in xform.ChildEntities)
+        var enumerator = xform.ChildEnumerator;
+        while (enumerator.MoveNext(out var child))
         {
             if (predicate is null || predicate(child))
             {
@@ -417,20 +367,6 @@ public record struct PriceCalculationEvent()
     /// The total price of the entity.
     /// </summary>
     public double Price = 0;
-
-    /// <summary>
-    /// Is this event being raised for an item that will be sold?
-    /// </summary>
-    /// <remarks>
-    /// If true, this will signal to relevant systems that they may increase
-    /// the supply in the market as a side-effect.
-    ///
-    /// It's not the most intuitive way to do this, but it's more efficient
-    /// than firing a GetPrice event then a second, separate Sale event for
-    /// every entity sold. It's not unheard of for players to sell hundreds of
-    /// entities at a time. Refactor if needed.
-    /// </remarks>
-    public bool Sale { get; init; } = false;
 
     /// <summary>
     /// Whether this event was already handled.

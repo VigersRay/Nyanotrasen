@@ -1,35 +1,12 @@
-# Ganja Butter and Brownie
-- type: microwaveMealRecipe
-  id: RecipeCannabisButter
-  name: cannabis butter recipe
-  result: FoodCannabisButter
-  time: 15
-  solids:
-    FoodButter: 1
-    LeavesCannabis: 6
-
-- type: microwaveMealRecipe
-  id: RecipeCannabisBrownies
-  name: cannabis brownie recipe
-  result: FoodBakedCannabisBrownieBatch
-  time: 25
-  reagents:
-    Flour: 15
-    Sugar: 30
-  solids:
-    FoodCannabisButter: 2
-    FoodSnackChocolateBar: 2
-    FoodEgg: 3
-
-# Moldy Bread
-- type: microwaveMealRecipe
-  id: RecipeMoldyBread
-  name: moldy bread recipe
-  result: FoodBreadMoldy
-  time: 20
-  solids:
-    FoodBreadPlain: 1
-    FoodFlyAmanita: 3
+## Moldy Bread
+#- type: microwaveMealRecipe
+#  id: RecipeMoldyBread
+#  name: moldy bread recipe
+#  result: FoodBreadMoldy
+#  time: 20
+#3  solids:
+#3    FoodBreadPlain: 1
+#3    FoodFlyAmanita: 3
 
 # Cheese Curds
 - type: microwaveMealRecipe
@@ -73,52 +50,6 @@
     FoodOnionRedSlice: 1
     FoodTomato: 1
 
-- type: microwaveMealRecipe
-  id: RecipeMothTomatoSauceOlive
-  name: tomato sauce recipe
-  result: FoodMothTomatoSauce
-  time: 5
-  reagents:
-    OilOlive: 5
-    TableSalt: 5
-  solids:
-    FoodTomato: 1
-    #Herbs: 1
-
-- type: microwaveMealRecipe
-  id: RecipeMothTomatoSauceCorn
-  name: tomato sauce recipe
-  result: FoodMothTomatoSauce
-  time: 5
-  reagents:
-    OilCorn: 5
-    TableSalt: 5
-  solids:
-    FoodTomato: 1
-    #Herbs: 1
-
-- type: microwaveMealRecipe
-  id: RecipeMothPesto
-  name: pesto recipe
-  result: FoodMothPesto
-  time: 5
-  reagents:
-    OilOlive: 5
-    TableSalt: 5
-  solids:
-    FoodGarlic: 1
-    #Herbs: 1
-
-- type: microwaveMealRecipe
-  id: RecipeMothBechamel
-  name: bechamel recipe
-  result: FoodMothBechamel
-  time: 5
-  reagents:
-    Milk: 5
-    Flour: 5
-    Butter: 5
-
 # Entrees
 
 - type: microwaveMealRecipe
@@ -146,6 +77,29 @@
     WheatSeeds: 1
     CarrotSeeds: 1
     PoppySeeds: 1
+
+- type: microwaveMealRecipe
+  id: RecipeMothEngineFodder
+  name: engine fodder recipe
+  result: FoodMothEngineFodder
+  time: 30
+  solids:
+    FoodMothToastedSeeds: 1
+    FoodSnackChips: 1
+    FoodSnackCnDs: 1
+    FoodSnackPopcorn: 1
+
+- type: microwaveMealRecipe
+  id: RecipeMothFueljackLunch
+  name: fueljack lunch recipe
+  result: FoodMothFueljackLunch
+  time: 15
+  solids:
+    FoodCheeseSlice: 1
+    FoodCabbage: 1
+    FoodChili: 1
+    FoodPotato: 1
+    FoodOnionSlice: 2
 
 - type: microwaveMealRecipe
   id: RecipeMothChiliCabbageWrap
@@ -196,11 +150,12 @@
   name: green lasagne recipe
   result: FoodMothGreenLasagne
   time: 20
+  reagents:
+    Bechamel: 10
+    Pesto: 5
   solids:
     FoodNoodlesBoiled: 1
     FoodCheeseSlice: 1
-    FoodMothBechamel: 1
-    FoodMothPesto: 1
 
 - type: microwaveMealRecipe
   id: RecipeMothBakedCorn
@@ -215,10 +170,11 @@
   name: buttered baked corn recipe
   result: FoodMothButteredBakedCorn
   time: 5
-  reagents:
-    Butter: 5
+  # reagents: # Whenever we can actually melt butter
+  #   Butter: 5
   solids:
     FoodMothBakedCorn: 1
+    FoodButter: 1
 
 - type: microwaveMealRecipe
   id: RecipeMothMozzarellaSticks
@@ -238,9 +194,19 @@
   time: 15
   reagents:
     TomatoSauce: 10
+    Cornmeal: 5
   solids:
     FoodDonkpocket: 1 #macncheese donk
-    FoodCorn: 1 #CornMeal
+
+- type: microwaveMealRecipe
+  id: RecipeFishChips
+  name: fish and chips recipe
+  result: FoodMealFishChips
+  time: 15
+  solids:
+    FoodDough: 1
+    FoodPotato: 1
+    FoodMeatFish: 1
 
 # Soups and stews
 
@@ -267,7 +233,7 @@
   reagents:
     Milk: 5
     Flour: 5
-    Butter: 5
+    Cream: 5 # Butter when it gets meltable
   solids:
     FoodBowlBig: 1
     FoodCheeseSlice: 1
@@ -287,18 +253,18 @@
     PoppySeeds: 1
     WheatSeeds: 1
 
-- type: microwaveMealRecipe
-  id: RecipeMothEyeballSoup
-  name: moth eyeball soup recipe
-  result: FoodMothEyeballSoup
-  time: 10
-  reagents:
-    Water: 10
-  solids:
-    FoodBowlBig: 1
-    OrganMothEyes: 1
-    FoodTomato: 1
-    FoodPotato: 1
+#- type: microwaveMealRecipe
+#  id: RecipeMothEyeballSoup
+#  name: moth eyeball soup recipe
+#  result: FoodMothEyeballSoup
+#  time: 10
+#  reagents:
+#    Water: 10
+#  solids:
+#    FoodBowlBig: 1
+#    OrganMothEyes: 1
+#    FoodTomato: 1
+#    FoodPotato: 1
 
 - type: microwaveMealRecipe
   id: RecipeMothBeanStew
@@ -309,7 +275,7 @@
     Water: 5
   solids:
     FoodBowlBig: 1
-    FoodTinBeansOpen: 1
+    FoodTinBeans: 1
     FoodCabbage: 1
     FoodTomato: 1
     FoodOnion: 1
@@ -351,8 +317,8 @@
   time: 10
   solids:
     FoodRiceBoiled: 1
-    FoodMealFriedegg: 2
-    FoodMeatCutletCooked: 1 #Bacon
+    FoodEgg: 2 #FoodMealFriedegg when we can actually fry eggs buh
+    FoodMeatCutlet: 1 #FoodMeatBacon when it's actually findable
 
 - type: microwaveMealRecipe
   id: RecipeMothCornmealPorridge
@@ -361,9 +327,9 @@
   time: 10
   reagents:
     Water: 10
+    Cornmeal: 10
   solids:
     FoodBowlBig: 1
-    FoodCorn: 1 #CornMeal
 
 - type: microwaveMealRecipe
   id: RecipeMothCheesyPorridge
@@ -372,7 +338,7 @@
   time: 10
   reagents:
     Milk: 5
-    Butter: 5
+    Cream: 5 # Butter when it's meltable
   solids:
     FoodMothCornmealPorridge: 1
     FoodCurdCheese: 1
@@ -469,7 +435,7 @@
   reagents:
     BbqSauce: 10
   solids:
-    FoodDough: 1
+    FoodDoughFlat: 1
     FoodCheeseSlice: 1
     FoodMothBakedCorn: 1
     FoodChili: 1
@@ -482,7 +448,7 @@
   reagents:
     TomatoSauce: 10
   solids:
-    FoodDough: 1
+    FoodDoughFlat: 1
     FoodMozzarella: 1
     FoodCheeseSlice: 1
     FoodCurdCheese: 1
@@ -493,11 +459,12 @@
   name: pesto pizza recipe
   result: FoodMothPizzaPesto
   time: 30
+  reagents:
+    Pesto: 10
   solids:
-    FoodDough: 1
+    FoodDoughFlat: 1
     FoodTomato: 2
     FoodMozzarella: 2
-    FoodMothPesto: 1
 
 - type: microwaveMealRecipe
   id: RecipeMothCottonPizza
@@ -505,9 +472,9 @@
   result: FoodMothPizzaCotton
   time: 30
   reagents:
-    OilCorn: 5
+    Cornoil: 5
   solids:
-    FoodDough: 1
+    FoodDoughFlat: 1
     FoodMozzarella: 1
     FoodCurdCheese: 1
     MaterialCotton1: 1
@@ -518,7 +485,7 @@
   result: FoodPizzaCorncob
   time: 30
   solids:
-    FoodDough: 1
+    FoodDoughFlat: 1
     FoodCorn: 6
     FoodCheeseSlice: 1
     FoodTomato: 1

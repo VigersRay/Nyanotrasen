@@ -31,6 +31,12 @@ reagent-effect-guidebook-explosion-reaction-effect =
         *[other] cause
     } an explosion
 
+reagent-effect-guidebook-emp-reaction-effect =
+    { $chance ->
+        [1] Causes
+        *[other] cause
+    } an electromagnetic pulse
+
 reagent-effect-guidebook-foam-area-reaction-effect =
     { $chance ->
         [1] Creates
@@ -261,6 +267,12 @@ reagent-effect-guidebook-make-sentient =
         *[other] make
     } the metabolizer sentient
 
+reagent-effect-guidebook-make-polymorph =
+    { $chance ->
+        [1] Polymorphs
+        *[other] polymorph
+    } the metabolizer into a { $entityname }
+
 reagent-effect-guidebook-modify-bleed-amount =
     { $chance ->
         [1] { $deltasign ->
@@ -308,6 +320,24 @@ reagent-effect-guidebook-wash-cream-pie-reaction =
         [1] Washes
         *[other] wash
     } off cream pie from one's face
+
+reagent-effect-guidebook-cure-zombie-infection =
+    { $chance ->
+        [1] Cures
+        *[other] cure
+    } an ongoing zombie infection
+
+reagent-effect-guidebook-cause-zombie-infection =
+    { $chance ->
+        [1] Gives
+        *[other] give
+    } an individual the zombie infection
+
+reagent-effect-guidebook-innoculate-zombie-infection =
+    { $chance ->
+        [1] Cures
+        *[other] cure
+    } an ongoing zombie infection, and provides immunity to future infections
 
 reagent-effect-guidebook-missing =
     { $chance ->

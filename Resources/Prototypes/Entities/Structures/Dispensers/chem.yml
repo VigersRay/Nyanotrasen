@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   id: ChemDispenser
   name: chemical dispenser
   parent: ReagentDispenserBase
@@ -26,8 +26,8 @@
   - type: Machine
     board: ChemDispenserMachineCircuitboard
   - type: Wires
-    BoardName: "ChemDispenser"
-    LayoutId: ChemDispenser
+    boardName: wires-board-name-chemdispenser
+    layoutId: ChemDispenser
   - type: UpgradePowerDraw
     powerDrawMultiplier: 0.75
     scaling: Exponential

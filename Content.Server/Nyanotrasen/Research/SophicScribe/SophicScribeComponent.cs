@@ -1,23 +1,22 @@
-namespace Content.Server.Research.SophicScribe
+namespace Content.Server.Nyanotrasen.Research.SophicScribe;
+
+[RegisterComponent]
+public sealed partial class SophicScribeComponent : Component
 {
-    [RegisterComponent]
-    public sealed class SophicScribeComponent : Component
-    {
-        [DataField("accumulator")]
-        public float Accumulator = 0f;
+    [DataField("accumulator")]
+    public float Accumulator;
 
-        [DataField("announceInterval")]
-        public TimeSpan AnnounceInterval = TimeSpan.FromMinutes(2);
+    [DataField("announceInterval")]
+    public TimeSpan AnnounceInterval = TimeSpan.FromMinutes(2);
 
-        [DataField("nextAnnounce")]
-        public TimeSpan NextAnnounceTime = default!;
+    [DataField("nextAnnounce")]
+    public TimeSpan NextAnnounceTime;
 
-        /// <summary>
-        ///     Antispam.
-        /// </summary>
-        public TimeSpan StateTime = default!;
+    /// <summary>
+    ///     Antispam.
+    /// </summary>
+    public TimeSpan StateTime = default!;
 
-        [DataField("stateCD")]
-        public TimeSpan StateCD = TimeSpan.FromSeconds(5);
-    }
+    [DataField("stateCD")]
+    public TimeSpan StateCD = TimeSpan.FromSeconds(5);
 }

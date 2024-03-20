@@ -1,3 +1,4 @@
+# When adding new food also add to random spawner located in Resources\Prototypes\Entities\Markers\Spawners\Random\Food_Drinks\food_meal.yml
 # A bunch of different meals. This stuff doesn't come off their plates because
 # it's assembled on them. Or they just don't have plates.
 
@@ -195,6 +196,9 @@
           Quantity: 6
         - ReagentId: Vitamin
           Quantity: 2
+  - type: Tag
+    tags:
+    - Fruit
 # Tastes like eggplant, cheese.
 
 - type: entity
@@ -222,11 +226,9 @@
       - fishy
       - batter
       - spicy
-  - type: Tag
-    tags:
-    - CubanCarp
   - type: Sprite
     state: cubancarp
+# Delta-V: Removed the toxin and changed the description.
   - type: SolutionContainerManager
     solutions:
       food:
@@ -236,30 +238,11 @@
           Quantity: 6
         - ReagentId: Protein
           Quantity: 3
+  - type: Tag
+    tags:
+    - CubanCarp
+    - Meat
 # Tastes like fish, batter, hot peppers.
-
-- type: entity
-  name: fish and chips
-  parent: FoodMealBase
-  id: FoodMealFishChips
-  description: A dish that consists of fried fish and potatoes.
-  components:
-  - type: FlavorProfile
-    flavors:
-      - fishy
-      - batter
-  - type: Sprite
-    state: fishandchips
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 15
-        reagents:
-        - ReagentId: Nutriment
-          Quantity: 4
-        - ReagentId: Protein
-          Quantity: 3
-# Tastes like fish and batter.
 
 - type: entity
   name: corned beef and cabbage
@@ -282,6 +265,9 @@
           Quantity: 6
         - ReagentId: Vitamin
           Quantity: 4
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like meat, cabbage.
 
 - type: entity
@@ -305,6 +291,9 @@
           Quantity: 2
         - ReagentId: Vitamin
           Quantity: 5
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like meat, salmon.
 
 - type: entity
@@ -328,6 +317,9 @@
           Quantity: 6
         - ReagentId: Vitamin
           Quantity: 1
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like meat, butter.
 
 - type: entity
@@ -336,6 +328,8 @@
   id: FoodMealRibs
   description: BBQ ribs, slathered in a healthy coating of BBQ sauce. The least vegan thing to ever exist.
   components:
+  - type: Food
+    trash: FoodKebabSkewer
   - type: FlavorProfile
     flavors:
       - meaty
@@ -353,6 +347,9 @@
           Quantity: 10
         - ReagentId: BbqSauce
           Quantity: 10
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like meat, smokey sauce.
 
 - type: entity
@@ -377,6 +374,9 @@
           Quantity: 6
         - ReagentId: Vitamin
           Quantity: 4
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like eggs, bacon, bun.
 
 - type: entity
@@ -398,6 +398,9 @@
         reagents:
         - ReagentId: Nutriment
           Quantity: 9
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like egg, cheese.
 
 - type: entity
@@ -424,6 +427,9 @@
           Quantity: 1
         - ReagentId: Blackpepper
           Quantity: 1
+  - type: Tag
+    tags:
+    - Meat
 # Tastes like egg, salt, pepper.
 
 - type: entity
@@ -507,15 +513,19 @@
       - fishy
   - type: Sprite
     state: sashimi
+# Delta-V: Removed the toxin and changed the description.
   - type: SolutionContainerManager
     solutions:
       food:
         maxVol: 18
         reagents:
         - ReagentId: Nutriment
-          Quantity: 2
+          Quantity: 6
         - ReagentId: Protein
           Quantity: 6
+  - type: Tag
+    tags:
+    - Meat
 # tastes exotic
 
 - type: entity
@@ -538,6 +548,9 @@
             Quantity: 8
           - ReagentId: CapsaicinOil
             Quantity: 6
+    - type: Tag
+      tags:
+      - Meat
 # What do Europeans eat instead of enchiladas? 25.4 millimeter-iladas.
 
 - type: entity
@@ -555,7 +568,7 @@
   - type: SolutionContainerManager
     solutions:
       food:
-        maxvol: 65
+        maxVol: 65
         reagents:
         - ReagentId: Nutriment
           Quantity: 30
@@ -567,18 +580,30 @@
           Quantity: 5
         - ReagentId: Kelotane
           Quantity: 5
+  - type: Tag
+    tags:
+    - Fruit
 
 - type: entity
-  name: taco
+  name: corn in butter
   parent: FoodMealBase
-  id: FoodMealTaco
-  description: Take a bite!
+  id: FoodMealCornInButter
+  description: Buttery.
   components:
+  - type: Food
+    trash: FoodPlate
   - type: FlavorProfile
     flavors:
-      - cheesy
-      - tomato
-      - meaty
-      - onion
+      - corn
+      - butter
   - type: Sprite
-    state: taco
+    state: corn-in-butter
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 10
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 4
+        - ReagentId: Vitamin
+          Quantity: 4

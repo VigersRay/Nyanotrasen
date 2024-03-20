@@ -8,8 +8,6 @@
     sprite: Clothing/OuterClothing/Coats/bomber.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/bomber.rsi
-  - type: TemperatureProtection
-    coefficient: 0.1
 
 - type: entity
   parent: ClothingOuterStorageBase
@@ -42,21 +40,17 @@
     sprite: Clothing/OuterClothing/Coats/gentlecoat.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/gentlecoat.rsi
-  - type: TemperatureProtection
-    coefficient: 0.2
 
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatHoSTrench
-  name: head of security's trenchcoat
-  description: This trenchcoat was specifically designed for asserting superior authority.
+  name: head of security's armored trenchcoat
+  description: A greatcoat enhanced with a special alloy for some extra protection and style for those with a commanding presence.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
+    sprite: DeltaV/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi # DeltaV - resprite
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/hos_trenchcoat.rsi
-  - type: TemperatureProtection
-    coefficient: 0.2
+    sprite: DeltaV/Clothing/OuterClothing/Coats/hos_trenchcoat.rsi # DeltaV - resprite
   - type: Armor
     modifiers:
       coefficients:
@@ -71,8 +65,8 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatInspector
-  name: inspectors coat
-  description: A strict inspector coat for being intimidating during inspections.
+  name: inspector's coat
+  description: A strict inspector's coat for being intimidating during inspections.
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Coats/insp_coat.rsi
@@ -80,7 +74,7 @@
     sprite: Clothing/OuterClothing/Coats/insp_coat.rsi
 
 - type: entity
-  parent: ClothingOuterStorageBase
+  parent: ClothingOuterStorageToggleableBase
   id: ClothingOuterCoatJensen
   name: jensen coat
   description: A jensen coat.
@@ -89,8 +83,8 @@
     sprite: Clothing/OuterClothing/Coats/jensencoat.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/jensencoat.rsi
-  - type: TemperatureProtection
-    coefficient: 0.2
+  - type: ToggleableClothing
+    clothingPrototype: ClothingHeadHatHoodChaplainHood
 
 - type: entity
   parent: ClothingOuterStorageBase
@@ -172,13 +166,13 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterCoatRnd
-  name: scientist lab coat
+  name: epistemics lab coat # DeltaV - Epistemics Department replacing Science
   description: A suit that protects against minor chemical spills. Has a purple stripe on the shoulder.
   components:
   - type: Sprite
-    sprite: Clothing/OuterClothing/Coats/rndcoat.rsi
+    sprite: DeltaV/Clothing/OuterClothing/Coats/epicoat.rsi # DeltaV - Epistemic lab coat
   - type: Clothing
-    sprite: Clothing/OuterClothing/Coats/rndcoat.rsi
+    sprite: DeltaV/Clothing/OuterClothing/Coats/epicoat.rsi # DeltaV - Epistemic lab coat
   - type: Armor
     modifiers:
       coefficients:
@@ -198,6 +192,22 @@
     modifiers:
       coefficients:
         Caustic: 0.75
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatRD
+  name: research director lab coat
+  description: Woven with top of the line technology, this labcoat helps protect against radiation in similar way to the experimental hardsuit.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Coats/rd_coat.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Coats/rd_coat.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.75
+        Radiation: 0.9
 
 - type: entity
   parent: ClothingOuterStorageBase
@@ -255,8 +265,8 @@
 - type: entity
   parent: ClothingOuterStorageBase
   id: ClothingOuterDogi
-  name: samurai dougi
-  description: Dougi is a type of traditional Japanese clothing. The dougi is made of heavy, durable fabric, it is practical in combat and stylish in appearance. It is decorated with intricate patterns and embroidery on the back.
+  name: samurai dogi
+  description: Dogi is a type of traditional Japanese clothing. The dogi is made of heavy, durable fabric, it is practical in combat and stylish in appearance. It is decorated with intricate patterns and embroidery on the back.
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Coats/dogi.rsi
@@ -301,3 +311,63 @@
     sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/syndicate/coatsyndiecaparmored.rsi
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatAMG
+  name: armored medical gown
+  description: The version of the medical gown, with elements of a bulletproof vest, looks strange, but your heart is protected.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Coats/brigmedic.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Coats/brigmedic.rsi
+  - type: Armor # DeltaV - tweak for Velta armour
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.85
+        Heat: 0.75
+        Caustic: 0.75
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatLabSeniorResearcher
+  name: senior researcher lab coat
+  description: A suit that protects against minor chemical spills. Has a purple collar and wrist trims.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Coats/labcoat_senior_researcher.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.75
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatLabSeniorPhysician
+  name: senior physician lab coat
+  description: A suit that protects against minor chemical spills. Has light blue sleeves and an orange waist trim.
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Coats/labcoat_senior_physician.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.75
+
+- type: entity
+  parent: ClothingOuterStorageBase
+  id: ClothingOuterCoatSpaceAsshole
+  name: the coat of space asshole
+  description: And there he was...
+  components:
+  - type: Sprite
+    sprite: Clothing/OuterClothing/Coats/space_asshole.rsi
+  - type: Clothing
+    sprite: Clothing/OuterClothing/Coats/space_asshole.rsi

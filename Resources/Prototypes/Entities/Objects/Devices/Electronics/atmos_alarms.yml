@@ -11,10 +11,10 @@
     tags:
       - DroneUsable
       - AirAlarmElectronics
-  - type: ReverseEngineering
+  - type: ReverseEngineering # Nyano
     recipes:
       - AirAlarmElectronics
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 61
 
 - type: entity
@@ -30,8 +30,8 @@
     tags:
       - DroneUsable
       - FireAlarmElectronics
-  - type: ReverseEngineering
+  - type: ReverseEngineering # Nyano
     recipes:
       - FireAlarmElectronics
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 61

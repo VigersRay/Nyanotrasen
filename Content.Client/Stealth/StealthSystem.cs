@@ -34,13 +34,6 @@ public sealed class StealthSystem : SharedStealthSystem
 
     private void SetShader(EntityUid uid, bool enabled, StealthComponent? component = null, SpriteComponent? sprite = null)
     {
-        // Begin Nyano-code: only set shader if the entity's not terminating.
-        // This prevents test failures with telegnostic projections and glimmer wisps,
-        // both of which are NPCs with Stealth, which causes issues with InteractionOutline.
-        if (LifeStage(uid) >= EntityLifeStage.Terminating)
-            return;
-        // End Nyano-code.
-
         if (!Resolve(uid, ref component, ref sprite, false))
             return;
 
@@ -51,7 +44,7 @@ public sealed class StealthSystem : SharedStealthSystem
 
         if (!enabled)
         {
-            if (component.HadOutline)
+            if (component.HadOutline && !TerminatingOrDeleted(uid))
                 EnsureComp<InteractionOutlineComponent>(uid);
             return;
         }
@@ -70,7 +63,8 @@ public sealed class StealthSystem : SharedStealthSystem
 
     private void OnShutdown(EntityUid uid, StealthComponent component, ComponentShutdown args)
     {
-        SetShader(uid, false, component);
+        if (!Terminating(uid))
+            SetShader(uid, false, component);
     }
 
     private void OnShaderRender(EntityUid uid, StealthComponent component, BeforePostShaderRenderEvent args)

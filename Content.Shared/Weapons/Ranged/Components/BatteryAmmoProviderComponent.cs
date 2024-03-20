@@ -1,11 +1,11 @@
 namespace Content.Shared.Weapons.Ranged.Components;
 
-public abstract class BatteryAmmoProviderComponent : AmmoProviderComponent
+public abstract partial class BatteryAmmoProviderComponent : AmmoProviderComponent
 {
     /// <summary>
     /// How much battery it costs to fire once.
     /// </summary>
-    [DataField("fireCost")]
+    [DataField("fireCost"), ViewVariables(VVAccess.ReadWrite)]
     public float FireCost = 100;
 
     /// <summary>
@@ -16,9 +16,9 @@ public abstract class BatteryAmmoProviderComponent : AmmoProviderComponent
 
     // Batteries aren't predicted which means we need to track the battery and manually count it ourselves woo!
 
-    [ViewVariables]
+    [ViewVariables(VVAccess.ReadWrite)]
     public int Shots;
 
-    [ViewVariables]
+    [ViewVariables(VVAccess.ReadWrite)]
     public int Capacity;
 }

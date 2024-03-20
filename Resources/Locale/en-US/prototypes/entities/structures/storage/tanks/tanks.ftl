@@ -14,13 +14,7 @@ ent-WaterTankFull = { ent-WaterTank }
     .desc = { ent-WaterTank.desc }
 
 ent-WaterCooler = water cooler
-    .desc = Seems like a good place to stand and waste time.
+    .desc = Seems like a good place to stand and waste time. It has a stock of paper cups on the side.
 
 ent-WaterTankHighCapacity = high-capacity water tank
     .desc = A highly pressurized water tank made to hold gargantuan amounts of water.
-
-ent-KvassTank = КВАС
-    .desc = A cool refreshing drink with a taste of socialism.
-
-ent-KvassTankFull = { ent-KvassTank }
-    .desc = { ent-KvassTank.desc }

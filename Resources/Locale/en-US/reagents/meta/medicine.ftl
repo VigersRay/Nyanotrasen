@@ -26,10 +26,10 @@ reagent-name-dexalin = dexalin
 reagent-desc-dexalin = Used for treating minor oxygen deprivation. A required reagent for dexalin plus.
 
 reagent-name-dexalin-plus = dexalin plus
-reagent-desc-dexalin-plus = Used in treatment of extreme cases of oxygen deprivation and bloodloss. Flushes lexorin out the blood stream.
+reagent-desc-dexalin-plus = Used in treatment of extreme cases of oxygen deprivation and bloodloss. Flushes heartbreaker toxin out of the blood stream.
 
 reagent-name-epinephrine = epinephrine
-reagent-desc-epinephrine = An effective stabilizing chemical used to keep a critical person from dying to asphyxiation while patching up minor damage during crit. Flushes lexorin out the blood stream at the cost of more epinephrine, but may add histamine. Helps reduce stun time. Commonly found in the form of emergency medipens.
+reagent-desc-epinephrine = An effective stabilizing chemical used to keep a critical person from dying to asphyxiation while patching up minor damage during crit. Flushes heartbreaker toxin out the blood stream at the cost of more epinephrine, but may add histamine. Helps reduce stun time. Commonly found in the form of emergency medipens.
 
 reagent-name-hyronalin = hyronalin
 reagent-desc-hyronalin = A weak treatment for radiation damage. A precursor to arithrazine and phalanximine. Can cause vomitting.
@@ -41,7 +41,7 @@ reagent-name-inaprovaline = inaprovaline
 reagent-desc-inaprovaline = Inaprovaline is a synaptic stimulant and cardiostimulant, commonly used to treat asphyxiation damage caused during critical states and reduce bleeding. Used in many advanced medicines.
 
 reagent-name-kelotane = kelotane
-reagent-desc-kelotane = Treats burn damage and prevents infection.
+reagent-desc-kelotane = Treats burn damage. Overdosing greatly reduces the body's ability to retain water.
 
 reagent-name-leporazine = leporazine
 reagent-desc-leporazine = A chemical used to stabilize body temperature and rapidly cure cold damage. Great for unprotected EVA travel, but prevents the use of cryogenic tubes.
@@ -55,14 +55,14 @@ reagent-desc-phalanximine = An advanced chemical used in the treatment of cancer
 reagent-name-ambuzol = ambuzol
 reagent-desc-ambuzol = A highly engineered substance able to halt the progression of a zombie infection.
 
+reagent-name-ambuzol-plus = ambuzol plus
+reagent-desc-ambuzol-plus = Further engineered with the blood of the infected, inoculates the living against the infection.
+
 reagent-name-pulped-banana-peel = pulped banana peel
 reagent-desc-pulped-banana-peel = Pulped banana peels have some effectiveness against bleeding.
 
 reagent-name-siderlac = siderlac
 reagent-desc-siderlac = A powerful anti-caustic medicine derived from plants.
-
-reagent-name-spaceacillin = spaceacillin
-reagent-desc-spaceacillin = A theta-lactam antibiotic, effective against space diseases. Side-effects may include cancer. Phalanximine is recommended after ingestion.
 
 reagent-name-stellibinin = stellibinin
 reagent-desc-stellibinin = A natual anti-toxin with particular effectiveness against amatoxin.
@@ -105,3 +105,12 @@ reagent-desc-sigynate = A thick pink syrup useful for neutralizing acids and soo
 
 reagent-name-saline = saline
 reagent-desc-saline = "A mixture of salt and water. Commonly used to treat dehydration or low fluid presence in blood."
+
+reagent-name-lacerinol = lacerinol
+reagent-desc-lacerinol = A fairly unreactive chemical that boosts collagen sythesis to incredible levels, healing slash trauma.
+
+reagent-name-puncturase = puncturase
+reagent-desc-puncturase = A fizzy chemical that helps rebuild trauma caused by piercing damage, leaving a slight amount of tissue damage behind.
+
+reagent-name-bruizine = bruizine
+reagent-desc-bruizine = Originally developed as a cough medicine, it turns out this chemical is wildly effective at treating blunt force trauma.

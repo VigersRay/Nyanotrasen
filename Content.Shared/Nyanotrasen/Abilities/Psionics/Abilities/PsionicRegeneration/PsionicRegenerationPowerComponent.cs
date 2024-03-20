@@ -1,11 +1,12 @@
 using Robust.Shared.Audio;
 using Content.Shared.DoAfter;
-using Content.Shared.Actions.ActionTypes;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Abilities.Psionics
 {
     [RegisterComponent]
-    public sealed class PsionicRegenerationPowerComponent : Component
+    public sealed partial class PsionicRegenerationPowerComponent : Component
     {
         [DataField("doAfter")]
         public DoAfterId? DoAfter;
@@ -15,11 +16,16 @@ namespace Content.Shared.Abilities.Psionics
 
         [DataField("useDelay")]
         public float UseDelay = 8f;
-
         [DataField("soundUse")]
+
         public SoundSpecifier SoundUse = new SoundPathSpecifier("/Audio/Nyanotrasen/heartbeat_fast.ogg");
 
-        public InstantAction? PsionicRegenerationPowerAction = null;
+        [DataField("psionicRegenerationActionId",
+        customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+        public string? PsionicRegenerationActionId = "ActionPsionicRegeneration";
+
+        [DataField("psionicRegenerationActionEntity")]
+        public EntityUid? PsionicRegenerationActionEntity;
     }
 }
 

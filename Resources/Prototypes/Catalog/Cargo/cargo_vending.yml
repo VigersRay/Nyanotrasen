@@ -33,7 +33,17 @@
     sprite: Objects/Specific/Service/vending_machine_restock.rsi
     state: base
   product: CrateVendingMachineRestockClothesFilled
-  cost: 5000
+  cost: 6625 #DeltaV
+  category: Service
+  group: market
+
+- type: cargoProduct
+  id: CrateVendingMachineRestockDinnerware
+  icon:
+    sprite: Objects/Specific/Service/vending_machine_restock.rsi
+    state: base
+  product: CrateVendingMachineRestockDinnerwareFilled
+  cost: 2000
   category: Service
   group: market
 
@@ -45,16 +55,6 @@
     state: base
   product: CrateVendingMachineRestockCondimentStationFilled
   cost: 300
-  category: Service
-  group: market
-
-- type: cargoProduct
-  id: CrateVendingMachineRestockDinnerware
-  icon:
-    sprite: Objects/Specific/Service/vending_machine_restock.rsi
-    state: base
-  product: CrateVendingMachineRestockDinnerwareFilled
-  cost: 2000
   category: Service
   group: market
 
@@ -104,7 +104,7 @@
     sprite: Objects/Specific/Service/vending_machine_restock.rsi
     state: base
   product: CrateVendingMachineRestockChemVendFilled
-  cost: 3820
+  cost: 6300 #Delta V - was 3820, see rebase PR #53
   category: Medical
   group: market
 
@@ -164,7 +164,7 @@
     sprite: Objects/Specific/Service/vending_machine_restock.rsi
     state: base
   product: CrateVendingMachineRestockSeedsFilled
-  cost: 3000
+  cost: 3375
   category: Hydroponics
   group: market
 
@@ -195,7 +195,7 @@
     state: base
   product: CrateVendingMachineRestockRoboticsFilled
   cost: 1600
-  category: Science
+  category: Epistemics # DeltaV - Epistemics Department replacing Science
   group: market
 
 - type: cargoProduct

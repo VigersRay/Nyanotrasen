@@ -3,35 +3,45 @@
   hostile:
     - NanoTrasen
     - Syndicate
-    - RatPassive
-    - RatHostile
-    - SimpleHostile
     - Xeno
-    - Pet
+    - PetsNT
+    - Zombie
+    - Revolutionary
 
 - type: npcFaction
   id: NanoTrasen
   hostile:
   - SimpleHostile
   - Syndicate
-  - RatHostile
   - Xeno
+  - Zombie
+  - Revolutionary
+
+- type: npcFaction
+  id: Mouse
+  hostile:
+    - PetsNT
 
 - type: npcFaction
   id: Passive
+
+- type: npcFaction
+  id: PetsNT
+  hostile:
+  - Mouse
+  - SimpleHostile
+  - Zombie
+  - Xeno
 
 - type: npcFaction
   id: SimpleHostile
   hostile:
   - NanoTrasen
   - Syndicate
-  - RatPassive
-  - RatHostile
-  - Cat
-  - Xeno
-  - Dragon
-  - Pet
   - Passive
+  - PetsNT
+  - Zombie
+  - Revolutionary
 
 - type: npcFaction
   id: SimpleNeutral
@@ -42,99 +52,34 @@
   - NanoTrasen
   - SimpleHostile
   - Xeno
-  - Pet
+  - PetsNT
+  - Zombie
 
 - type: npcFaction
   id: Xeno
   hostile:
   - NanoTrasen
   - Syndicate
-  - SimpleHostile
   - Passive
-  - Pet
-  - RatPassive
-  - RatHostile
-
-- type: npcFaction
-  id: RatPassive
-  hostile:
-  - Cat
-  - SimpleHostile
-  - Xeno
-  - Dragon
-
-- type: npcFaction
-  id: RatHostile
-  hostile:
-  - Cat
-  - SimpleHostile
-  - Xeno
-  - Dragon
-  - NanoTrasen
-  - Syndicate
-  - Pet
-
-- type: npcFaction
-  id: Pet
-  hostile:
-  - SimpleHostile
-  - Xeno
-  - Dragon
-  - RatHostile
-
-- type: npcFaction
-  id: Cat
-  hostile:
-  - RatPassive
-  - RatHostile
-  - SimpleHostile
-
-- type: npcFaction
-  id: Pibble #Enhances the 'pet' faction
-  hostile:
-  - Cat
-  - RatPassive
-  - Mailman
-
-- type: npcFaction
-  id: Mailman
-
-- type: npcFaction
-  id: GlimmerMonster # Crew hostile psionic
-  hostile:
-  - PsionicInterloper
-
-- type: npcFaction
-  id: PsionicInterloper # Crew aligned psionic
-  hostile:
-  - GlimmerMonster
+  - PetsNT
+  - Zombie
+  - Revolutionary
 
 - type: npcFaction
   id: Zombie
   hostile:
   - NanoTrasen
-  - Syndicate
-  - RatPassive
-  - RatHostile
-  - Cat
-  - Xeno
-  - Dragon
-  - Pet
-  - Passive
+  - SimpleNeutral
   - SimpleHostile
-  - MalfunctioningRobot
+  - Syndicate
+  - Passive
+  - PetsNT
+  - Revolutionary
 
 - type: npcFaction
-  id: MalfunctioningRobot
+  id: Revolutionary
   hostile:
   - NanoTrasen
-  - Syndicate
-  - RatPassive
-  - RatHostile
-  - Cat
-  - Xeno
-  - Dragon
-  - Pet
-  - Passive
-  - SimpleHostile
   - Zombie
+  - SimpleHostile
+  - Dragon

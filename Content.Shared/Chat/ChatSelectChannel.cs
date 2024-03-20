@@ -42,11 +42,6 @@
         Emotes = ChatChannel.Emotes,
 
         /// <summary>
-        ///     Telepathic
-        /// </summary>
-        Telepathic = ChatChannel.Telepathic,
-
-        /// <summary>
         ///     Deadchat
         /// </summary>
         Dead = ChatChannel.Dead,
@@ -55,6 +50,11 @@
         ///     Admin chat
         /// </summary>
         Admin = ChatChannel.AdminChat,
+
+        /// <summary>
+        ///     Nyano - Summary:. Telepathic channel for all psionic entities. 
+        /// </summary>
+        Telepathic = ChatChannel.Telepathic,
 
         Console = ChatChannel.Unspecified
     }

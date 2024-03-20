@@ -4,22 +4,27 @@
   description: job-description-warden
   playTimeTracker: JobWarden
   requirements:
-    - !type:DepartmentTimeRequirement
+#    - !type:RoleTimeRequirement # DeltaV - No SecurityOfficer time requirement
+#      role: JobSecurityOfficer
+#      time: 36000 #10 hrs
+    - !type:DepartmentTimeRequirement # DeltaV - Security time requirement
       department: Security
-      time: 10800
+      time: 36000 # 10 hours
   startingGear: WardenGear
-  icon: "Warden"
+  icon: "JobIconWarden"
   supervisors: job-supervisors-hos
   canBeAntag: false
-  whitelistRequired: true
   access:
   - Security
+  #- Brig # Delta V: Removed
   - Armory
   - Maintenance
   - Service
-  - Brig
   - External
   - Detective
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
 
 - type: startingGear
   id: WardenGear
@@ -28,11 +33,12 @@
     jumpsuit: ClothingUniformJumpsuitWarden
     back: ClothingBackpackSecurityFilled
     shoes: ClothingShoesBootsCombatFilled
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesGlassesSunglasses
     outerClothing: ClothingOuterCoatWarden
     id: WardenPDA
     ears: ClothingHeadsetSecurity
     belt: ClothingBeltSecurityFilled
-  innerclothingskirt: ClothingUniformJumpskirtWarden
+    pocket1: WeaponPistolMk58Nonlethal
+  innerClothingSkirt: ClothingUniformJumpskirtWarden
   satchel: ClothingBackpackSatchelSecurityFilled
   duffelbag: ClothingBackpackDuffelSecurityFilled

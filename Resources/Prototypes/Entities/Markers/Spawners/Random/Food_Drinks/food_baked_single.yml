@@ -25,6 +25,9 @@
       - FoodBreadJellySlice
       - FoodBreadFrenchToast
       - FoodBreadTwoSlice
+      - FoodBreadVolcanicSlice
+      - FoodBreadTofuSlice
+      - FoodBreadBaguetteSlice
       - FoodCakeBlueberrySlice
       - FoodCakePlainSlice
       - FoodCakeCarrotSlice
@@ -66,8 +69,12 @@
       - FoodPieMeatSlice
       - FoodPieCherrySlice
       - FoodPieFrostySlice
+      - FoodPiePumpkinSlice # DeltaV - Pumpkin Pie
       - FoodTartGrape
       - FoodTartCoco
+      - FoodBakedBrownie
+      - FoodPieBananaCreamSlice
+      - FoodTartMimeSlice
     chance: 0.8
     offset: 0.0
     #rare
@@ -80,6 +87,7 @@
       - FoodTartGapple
       - FoodBreadMeatXenoSlice
       - FoodPieXenoSlice
-      - FoodMothMothmallowSlice
-      - FoodPizzaCorncobSlice
+      - FoodMothMothmallowSlice # Nyanotrasen - Moth Recipes
+      - FoodMothMoffin # Nyanotrasen - Moth Recipes
+      - FoodBakedCannabisBrownie # Nyanotrasen - Canabis Brownie
     rareChance: 0.05

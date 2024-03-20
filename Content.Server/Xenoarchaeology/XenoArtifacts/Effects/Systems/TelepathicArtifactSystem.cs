@@ -1,8 +1,6 @@
 using Content.Server.Xenoarchaeology.XenoArtifacts.Effects.Components;
 using Content.Server.Xenoarchaeology.XenoArtifacts.Events;
 using Content.Shared.Popups;
-using Content.Shared.Abilities.Psionics;
-using Content.Shared.Psionics.Glimmer;
 using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -14,7 +12,6 @@ public sealed class TelepathicArtifactSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
 
     public override void Initialize()
     {
@@ -29,9 +26,6 @@ public sealed class TelepathicArtifactSystem : EntitySystem
         foreach (var victimUid in victims)
         {
             if (!EntityManager.HasComponent<ActorComponent>(victimUid))
-                continue;
-
-            if (HasComp<PsionicInsulationComponent>(victimUid))
                 continue;
 
             // roll if msg should be usual or drastic
@@ -51,8 +45,6 @@ public sealed class TelepathicArtifactSystem : EntitySystem
 
             // show it as a popup, but only for the victim
             _popupSystem.PopupEntity(msg, victimUid, victimUid);
-            if (_random.Prob(0.05f))
-                _glimmerSystem.Glimmer++;
         }
     }
 }

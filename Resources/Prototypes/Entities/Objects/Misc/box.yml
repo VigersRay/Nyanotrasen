@@ -21,5 +21,5 @@
   - type: PhysicalComposition
     materialComposition:
       Cardboard: 100
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 10

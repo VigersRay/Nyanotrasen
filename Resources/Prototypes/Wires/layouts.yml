@@ -4,7 +4,6 @@
   - !type:PowerWireAction
   - !type:PowerWireAction
     pulseTimeout: 15
-  - !type:AccessWireAction
   - !type:DoorBoltWireAction
   - !type:DoorBoltLightWireAction
   - !type:DoorTimingWireAction
@@ -27,12 +26,12 @@
   wires:
   - !type:PowerWireAction
     pulseTimeout: 10
-  - !type:AccessWireAction
   - !type:DoorBoltWireAction
   - !type:DoorBoltLightWireAction
   - !type:DoorTimingWireAction
   - !type:DoorSafetyWireAction
   dummyWires: 5
+
 - type: wireLayout
   id: Vending
   wires:
@@ -53,7 +52,6 @@
   id: FireAlarm
   wires:
   - !type:PowerWireAction
-  - !type:AccessWireAction
   - !type:AtmosMonitorDeviceNetWire
     alarmOnPulse: true
 
@@ -98,3 +96,25 @@
   - !type:DoorBoltLightWireAction
   - !type:DoorTimingWireAction
   - !type:DoorSafetyWireAction
+
+- type: wireLayout
+  id: Defusable
+  dummyWires: 3
+  wires:
+    - !type:ActivateWireAction
+    - !type:BoltWireAction
+    - !type:DelayWireAction
+    - !type:ProceedWireAction
+    - !type:BoomWireAction
+    - !type:BoomWireAction
+    - !type:BoomWireAction
+
+- type: wireLayout
+  id: TrainingDefusable
+  dummyWires: 0
+  wires:
+    - !type:ActivateWireAction
+    - !type:BoltWireAction
+    - !type:DelayWireAction
+    - !type:ProceedWireAction
+    - !type:BoomWireAction

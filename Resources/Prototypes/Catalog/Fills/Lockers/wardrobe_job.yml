@@ -13,7 +13,6 @@
        - id: ClothingShoesColorBlack
          amount: 2
        - id: ClothingMaskMuzzle
-       - id: HyperlinkBookSpaceLaw
 
 #- type: entity
 #  id: WardrobePajamaFilled
@@ -159,16 +158,17 @@
        - id: ClothingUniformJumpsuitSec
        - id: ClothingBackpackSecurity
        - id: ClothingShoesBootsJack
-       - id: ClothingEyesGlassesSecurity
+       - id: ClothingEyesGlassesSunglasses
        - id: ClothingHeadHelmetBasic
-       - id: ClothingOuterArmorBasic
+       - id: ClothingOuterArmorPlateCarrier # DeltaV - ClothingOuterArmorBasic replaced in favour of plate carrier and stabproof vest
+       - id: ClothingOuterArmorDuraVest
        - id: ClothingUniformJumpskirtSec
 
  - type: entity
    id: WardrobeCargoFilled
    suffix: Filled
    parent: WardrobeCargo
-   description: "This locker? Maybe 500 zorkmids. Brotherhood? Priceless."
+   description: "This locker? Maybe 500 spesos. Brotherhood? Priceless."
    components:
    - type: StorageFill
      contents:

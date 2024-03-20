@@ -1,27 +1,38 @@
 - type: department
+  id: Logistics # DeltaV - Logistics Department replacing Cargo
+  description: department-Cargo-description
+  color: "#A46106"
+  roles:
+  - CargoTechnician
+  - Quartermaster
+  - SalvageSpecialist
+  - MailCarrier # Nyanotrasen - MailCarrier, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Cargo/mail-carrier.yml
+
+- type: department
   id: Civilian
   description: department-Civilian-description
   color: "#9FED58"
   roles:
   - Bartender
+  - Borg
   - Botanist
   - Boxer
+  # - Chaplain # DeltaV - Move Chaplain into Epistemics
   - Chef
   - Clown
-  - Gladiator
   - HeadOfPersonnel
   - Janitor
   - Lawyer
-  - MailCarrier
-  - MartialArtist
+  - Librarian
   - Mime
   - Musician
   - Passenger
   - Reporter
-  - Valet
   - Zookeeper
-  - Quartermaster
-  - Prisoner
+  - ServiceWorker
+  - MartialArtist # Nyanotrasen - MartialArtist, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/martialartist.yml
+  - Prisoner # Nyanotrasen - Prisoner, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/prisoner.yml
+  - Gladiator # Nyanotrasen - Gladiator, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/gladiator.yml
 
 - type: department
   id: Command
@@ -32,14 +43,10 @@
   - CentralCommandOfficial
   - ChiefEngineer
   - ChiefMedicalOfficer
-  - ERTEngineer
-  - ERTJanitor
-  - ERTLeader
-  - ERTMedical
-  - ERTSecurity
   - HeadOfPersonnel
   - HeadOfSecurity
-  - Mystagogue
+  - ResearchDirector
+  - Quartermaster
 
 - type: department
   id: Engineering
@@ -48,19 +55,22 @@
   roles:
   - AtmosphericTechnician
   - ChiefEngineer
+  - SeniorEngineer
   - StationEngineer
-  - SalvageTechnician
+  - TechnicalAssistant
 
 - type: department
   id: Medical
   description: department-Medical-description
   color: "#52B4E9"
   roles:
+  - Chemist
   - ChiefMedicalOfficer
   - MedicalDoctor
+  - MedicalIntern
   - Psychologist
   - Paramedic
-  - MedicalRobot
+  - SeniorPhysician
 
 - type: department
   id: Security
@@ -68,26 +78,36 @@
   color: "#DE3A3A"
   roles:
   - HeadOfSecurity
-  - PrisonGuard
   - SecurityCadet
   - SecurityOfficer
+  - SeniorOfficer
+  - Detective
   - Warden
+  - PrisonGuard # Nyanotrasen - PrisonGuard, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Security/prisonguard.yml
+  - Brigmedic # DeltaV - Brigmedic, see Resources/Prototypes/DeltaV/Roles/Jobs/Security/brigmedic.yml
 
 - type: department
-  id: Epistemics
-  description: department-Epistemics-description
+  id: Epistemics # DeltaV - Epistemics Department replacing Science
+  description: department-Science-description
   color: "#D381C9"
   roles:
-  - Mystagogue
-  - ForensicMantis
-  - Epistemologist
-  - Chaplain
-  - Cataloguer
+  - ResearchDirector
+  - SeniorResearcher
+  - Scientist
+  - ResearchAssistant
+  - Chaplain # DeltaV - Move Chaplain into Epistemics
+  - ForensicMantis # Nyanotrasen - ForensicMantis, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Epistemics/forensicmantis.yml
 
 - type: department
-  id: Silicon
-  description: department-Silicon-description
-  color: "#8D9AAC"
+  id: Specific
+  description: department-Specific-description
+  color: "#9FED58"
   roles:
-  - Robot
-  - MedicalRobot
+  - Boxer
+  - Reporter
+  - Zookeeper
+  - Psychologist
+  - MartialArtist # Nyanotrasen - MartialArtist, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/martialartist.yml
+  - Gladiator # Nyanotrasen - Gladiator, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/gladiator.yml
+  - Prisoner # Nyanotrasen - Prisoner, see Resrouces/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/prisoner.yml
+  - Brigmedic # DeltaV - Corpsman, see Resources/Prototypes/DeltaV/Roles/Jobs/Security/brigmedic.yml

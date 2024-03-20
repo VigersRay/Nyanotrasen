@@ -23,6 +23,15 @@
     Plastic: 200
 
 - type: latheRecipe
+  id: Igniter
+  result: Igniter
+  completetime: 2
+  materials:
+    Steel: 300
+    Plastic: 100
+    Glass: 100
+
+- type: latheRecipe
   id: ChemicalPayload
   result: ChemicalPayload
   completetime: 2
@@ -33,7 +42,7 @@
 - type: latheRecipe
   id: FlashPayload
   result: FlashPayload
-  completetime: 1
+  completetime: 2
   materials:
     Steel: 50
     Plastic: 100
@@ -43,11 +52,13 @@
 - type: latheRecipe
   id: ExplosivePayload
   result: ExplosivePayload
-  completetime: 1
+  completetime: 4
   materials:
-    Steel: 50
+    Steel: 100
     Plastic: 100
     Glass: 50
+    Plasma: 50
+    Silver: 50
 
 - type: latheRecipe
   id: Signaller
@@ -61,6 +72,14 @@
 - type: latheRecipe
   id: AnomalyLocator
   result: AnomalyLocatorEmpty
+  completetime: 3
+  materials:
+    Steel: 400
+    Glass: 100
+
+- type: latheRecipe
+  id: AnomalyLocatorWide
+  result: AnomalyLocatorWideEmpty
   completetime: 3
   materials:
     Steel: 400
@@ -87,27 +106,43 @@
   result: ClothingBackpackHolding
   completetime: 5
   materials:
-    Bluespace: 600
-    Durathread: 1500
-    Steel: 400
+    Steel: 2000
+    Silver: 750
+    Plasma: 1250 #Higher Plasma due to it needing less bluespace
+    Uranium: 150
+    Bluespace: 300 #DeltaV: Bluespace Exists
 
 - type: latheRecipe
   id: ClothingBackpackSatchelHolding
   result: ClothingBackpackSatchelHolding
   completetime: 5
   materials:
-    Bluespace: 600
-    Durathread: 1500
-    Steel: 400
+    Steel: 2000
+    Silver: 750
+    Plasma: 1250 #Higher Plasma due to it needing less bluespace
+    Uranium: 150
+    Bluespace: 300 #DeltaV: Bluespace Exists
 
 - type: latheRecipe
   id: ClothingBackpackDuffelHolding
   result: ClothingBackpackDuffelHolding
   completetime: 5
   materials:
-    Bluespace: 600
-    Durathread: 1500
-    Steel: 400
+    Steel: 2000
+    Silver: 750
+    Plasma: 1250 #Higher Plasma due to it needing less bluespace
+    Uranium: 150
+    Bluespace: 300 #DeltaV: Bluespace Exists
+
+- type: latheRecipe
+  id: OreBagOfHolding
+  result: OreBagOfHolding
+  completetime: 5
+  materials:
+    Steel: 2000
+    Silver: 750
+    Plasma: 1000 #DeltaV: Bluespace Exists so less plasma used, no uranium
+    Bluespace: 200 #DeltaV: Bluespace Exists
 
 - type: latheRecipe
   id: WeaponCrusher
@@ -128,13 +163,22 @@
     Plastic: 50
 
 - type: latheRecipe
-  id: WeaponForceGun
-  result: WeaponForceGun
+  id: WeaponCrusherGlaive
+  result: WeaponCrusherGlaive
   completetime: 5
   materials:
-    Steel: 500
-    Glass: 400
-    Silver: 200
+    Steel: 1500
+    Glass: 250
+    Silver: 250
+
+#- type: latheRecipe #DeltaV - LRP
+#  id: WeaponForceGun
+#  result: WeaponForceGun
+#  completetime: 5
+#  materials:
+#    Steel: 500
+#    Glass: 400
+#    Silver: 200
 
 - type: latheRecipe
   id: WeaponProtoKineticAccelerator
@@ -145,20 +189,20 @@
     Glass: 500
     Silver: 100
 
-- type: latheRecipe
-  id: WeaponTetherGun
-  result: WeaponTetherGun
-  completetime: 5
-  materials:
-    Steel: 500
-    Glass: 400
-    Silver: 100
+#- type: latheRecipe #DeltaV - LRP
+#  id: WeaponTetherGun
+#  result: WeaponTetherGun
+#  completetime: 5
+#  materials:
+#    Steel: 500
+#    Glass: 400
+#    Silver: 100
 
-- type: latheRecipe
-  id: WeaponGrapplingGun
-  result: WeaponGrapplingGun
-  completetime: 5
-  materials:
-    Steel: 500
-    Glass: 400
-    Gold: 100
+#- type: latheRecipe #DeltaV - LRP
+#  id: WeaponGrapplingGun
+#  result: WeaponGrapplingGun
+#  completetime: 5
+#  materials:
+#    Steel: 500
+#    Glass: 400
+#    Gold: 100

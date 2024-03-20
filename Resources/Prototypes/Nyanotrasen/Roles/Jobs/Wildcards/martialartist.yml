@@ -2,11 +2,12 @@
   id: MartialArtist
   name: job-name-martialartist
   description: job-description-martialartist
-  playTimeTracker: JobBoxer
-  startingGear: MartialGear
-  icon: "MartialArtist"
+  playTimeTracker: JobMartialArtist
+  startingGear: MartialArtistGear
+  icon: "JobIconMartialArtist"
   supervisors: job-supervisors-hop
-  whitelistRequired: true
+  setPreference: true
+#  whitelistRequired: true
   access:
   - Service
   extendedAccess:
@@ -16,20 +17,20 @@
     components:
     - type: Boxer
       modifiers:
-        coefficients: #Remember these only apply to unarmed
+        coefficients: # These only apply to unarmed
           Blunt: 1.5
           Slash: 1.5
           Piercing: 1.5
 
 - type: startingGear
-  id: MartialGear
+  id: MartialArtistGear
   equipment:
     jumpsuit: ClothingUniformMartialGi
     belt: ClothingBeltMartialBlack
     back: ClothingBackpackFilled
     id: MartialArtistPDA
     ears: ClothingHeadsetService
-    shoes: ClothingShoesWizard
+    shoes: ClothingShoesGeta
     gloves: ClothingHandsGlovesBoxingRed
   satchel: ClothingBackpackSatchelFilled
   duffelbag: ClothingBackpackDuffelFilled

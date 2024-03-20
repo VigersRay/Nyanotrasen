@@ -2,9 +2,9 @@
   parent: DrinkBottleBaseFull
   id: DrinkSakeBottleFull
   name: sake bottle
-  description: | 
-    Clear, or sometimes foggy 
-    Chilled like ice cream alcohol 
+  description: |
+    Clear, or sometimes foggy
+    Chilled like ice cream alcohol
     Fill a cup, drink up!
   components:
   - type: SolutionContainerManager
@@ -60,4 +60,4 @@
         - ReagentId: HolyWater
           Quantity: 100
   - type: Sprite
-    sprite: Objects/Consumable/Drinks/flaskholywater.rsi
+    sprite: Nyanotrasen/Objects/Consumable/Drinks/flaskholywater.rsi

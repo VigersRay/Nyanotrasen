@@ -25,6 +25,9 @@ reagent-desc-ketchunaise = So-called Russian dressing, popular among Space Ameri
 reagent-name-mayo = mayonnaise
 reagent-desc-mayo = Creamy sauce, made from oil, egg, and some (edible) acid.
 
+reagent-name-mustard = mustard
+reagent-desc-mustard = Basic yellow mustard, made from the seeds of the mustard plant.
+
 reagent-name-vinaigrette = vinaigrette
 reagent-desc-vinaigrette = A basic salad dressing made with oil, vinegar and seasoning.
 
@@ -33,12 +36,3 @@ reagent-desc-soysauce = A salty soy-based flavoring.
 
 reagent-name-table-salt = table salt
 reagent-desc-table-salt = Commonly known as salt, Sodium Chloride is often used to season food or kill borers instantly.
-
-reagent-name-tomatosauce = tomato sauce
-reagent-desc-tomatosauce = Tomato with salt and herbs.
-
-reagent-name-pesto = pesto
-reagent-desc-pesto = A combination of salt, herbs, garlic, oil, and pine nuts.
-
-reagent-name-bechamel = bechamel sauce
-reagent-desc-bechamel = A classic white sauce common to several European cultures.

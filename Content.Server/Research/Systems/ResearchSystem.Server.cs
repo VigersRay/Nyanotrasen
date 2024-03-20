@@ -133,7 +133,6 @@ public sealed partial class ResearchSystem
     public int GetPointsPerSecond(EntityUid uid, ResearchServerComponent? component = null)
     {
         var points = 0;
-        var sources = 0;
 
         if (!Resolve(uid, ref component))
             return points;
@@ -141,17 +140,12 @@ public sealed partial class ResearchSystem
         if (!CanRun(uid))
             return points;
 
-        var ev = new ResearchServerGetPointsPerSecondEvent(uid, points, sources);
+        var ev = new ResearchServerGetPointsPerSecondEvent(uid, points);
         foreach (var client in component.Clients)
         {
             RaiseLocalEvent(client, ref ev);
         }
-
-        // Begin Nyano-code: limit passive point generation.
-        component.PointSourcesLastUpdate = ev.Sources;
-        var passiveLimit = component.PassiveLimitPerSource * ev.Sources;
-        return Math.Max(0, Math.Min(ev.Points, passiveLimit - component.Points));
-        // End Nyano-code.
+        return ev.Points;
     }
 
     /// <summary>

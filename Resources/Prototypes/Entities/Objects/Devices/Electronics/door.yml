@@ -12,8 +12,8 @@
       tags:
         - DoorElectronics
         - DroneUsable
-    - type: ReverseEngineering
+    - type: ReverseEngineering # Nyano
       recipes:
         - DoorElectronics
-    - type: DynamicPrice
+    - type: StaticPrice
       price: 55

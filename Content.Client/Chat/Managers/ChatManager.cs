@@ -14,8 +14,7 @@ namespace Content.Client.Chat.Managers
         [Dependency] private readonly IEntitySystemManager _systems = default!;
 
         private ISawmill _sawmill = default!;
-        public event Action? PermissionsUpdated;
-
+        public event Action? PermissionsUpdated; //Nyano - Summary: need to be able to update perms for new psionics.
         public void Initialize()
         {
             _sawmill = Logger.GetSawmill("chat");
@@ -68,6 +67,7 @@ namespace Content.Client.Chat.Managers
                     _consoleHost.ExecuteCommand($"whisper \"{CommandParsing.Escape(str)}\"");
                     break;
 
+                //Nyano - Summary: sends the command for telepath communication.
                 case ChatSelectChannel.Telepathic:
                     _consoleHost.ExecuteCommand($"tsay \"{CommandParsing.Escape(str)}\"");
                     break;
@@ -76,7 +76,7 @@ namespace Content.Client.Chat.Managers
                     throw new ArgumentOutOfRangeException(nameof(channel), channel, null);
             }
         }
-
+        //Nyano - Summary: fires off the update permissions script. 
         public void UpdatePermissions()
         {
             PermissionsUpdated?.Invoke();

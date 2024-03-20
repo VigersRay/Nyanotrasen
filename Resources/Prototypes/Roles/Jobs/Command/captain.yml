@@ -5,30 +5,44 @@
   playTimeTracker: JobCaptain
   requirements:
     - !type:DepartmentTimeRequirement
+      department: Logistics # DeltaV - Logistics Department replacing Cargo
+      time: 18000 # DeltaV - 5 hours
+    - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 18000
+      time: 18000 # DeltaV - 5 hours
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 18000
+      time: 18000 # DeltaV - 5 hours
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 18000
-    - !type:OverallPlaytimeRequirement
-      time: 108000
+      time: 18000 # DeltaV - 5 hours
+    - !type:DepartmentTimeRequirement # DeltaV - Epistemics dept time requirement
+      department: Epistemics # DeltaV - Epistemics Department replacing Science
+      time: 18000 # 5 hours
+    - !type:DepartmentTimeRequirement
+      department: Command
+      time: 108000 # DeltaV - 30 hours
+    - !type:OverallPlaytimeRequirement # DeltaV - Playtime requirement
+      time: 108000 # 30 hours
+    - !type:WhitelistRequirement # DeltaV - Whitelist requirement
   weight: 20
   startingGear: CaptainGear
-  icon: "Captain"
+  icon: "JobIconCaptain"
   requireAdminNotify: true
   joinNotifyCrew: true
-  whitelistRequired: true
   supervisors: job-supervisors-centcom
   canBeAntag: false
   accessGroups:
   - AllAccess
   special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
     components:
-    - type: PsionicBonusChance
+      - type: CommandStaff
+  - !type:AddComponentSpecial
+    components:
+    - type: PsionicBonusChance #Nyano - Summary: makes it more likely to become psionic.
       flatBonus: 0.025
 
 - type: startingGear
@@ -36,13 +50,13 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitCaptain
     back: ClothingBackpackCaptainFilled
-    shoes: ClothingShoesColorBlack
+    shoes: ClothingShoesBootsLaceup
     head: ClothingHeadHatCaptain
     eyes: ClothingEyesGlassesSunglasses
     gloves: ClothingHandsGlovesCaptain
     outerClothing: ClothingOuterArmorCaptainCarapace
     id: CaptainPDA
     ears: ClothingHeadsetAltCommand
-  innerclothingskirt: ClothingUniformJumpskirtCaptain
+  innerClothingSkirt: ClothingUniformJumpskirtCaptain
   satchel: ClothingBackpackSatchelCaptainFilled
   duffelbag: ClothingBackpackDuffelCaptainFilled

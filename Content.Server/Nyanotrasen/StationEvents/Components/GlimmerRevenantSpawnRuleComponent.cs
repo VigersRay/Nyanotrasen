@@ -3,8 +3,8 @@ using Content.Server.StationEvents.Events;
 namespace Content.Server.StationEvents.Components;
 
 [RegisterComponent, Access(typeof(GlimmerRevenantRule))]
-public sealed class GlimmerRevenantRuleComponent : Component
+public sealed partial class GlimmerRevenantRuleComponent : Component
 {
     [DataField("prototype")]
-    public readonly string RevenantPrototype = "MobRevenant";
+    public string RevenantPrototype = "MobRevenant";
 }

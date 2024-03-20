@@ -6,16 +6,13 @@ using Content.Server.Afk;
 using Content.Server.Chat.Managers;
 using Content.Server.Connection;
 using Content.Server.Database;
+using Content.Server.Discord;
 using Content.Server.EUI;
 using Content.Server.GhostKick;
 using Content.Server.Info;
 using Content.Server.Maps;
-using Content.Server.Redial;
 using Content.Server.MoMMI;
-using Content.Server.NewCon;
 using Content.Server.NodeContainer.NodeGroups;
-using Content.Server.Objectives;
-using Content.Server.Objectives.Interfaces;
 using Content.Server.Players.PlayTimeTracking;
 using Content.Server.Preferences.Managers;
 using Content.Server.ServerInfo;
@@ -25,7 +22,6 @@ using Content.Server.Worldgen.Tools;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Administration.Managers;
 using Content.Shared.Kitchen;
-using Robust.Shared.Toolshed;
 
 namespace Content.Server.IoC
 {
@@ -42,7 +38,6 @@ namespace Content.Server.IoC
             IoCManager.Register<INodeGroupFactory, NodeGroupFactory>();
             IoCManager.Register<IConnectionManager, ConnectionManager>();
             IoCManager.Register<ServerUpdateManager>();
-            IoCManager.Register<IObjectivesManager, ObjectivesManager>();
             IoCManager.Register<IAdminManager, AdminManager>();
             IoCManager.Register<ISharedAdminManager, AdminManager>();
             IoCManager.Register<EuiManager, EuiManager>();
@@ -58,10 +53,11 @@ namespace Content.Server.IoC
             IoCManager.Register<ISharedAdminLogManager, AdminLogManager>();
             IoCManager.Register<IAdminLogManager, AdminLogManager>();
             IoCManager.Register<PlayTimeTrackingManager>();
-            IoCManager.Register<RedialManager>();
             IoCManager.Register<UserDbDataManager>();
             IoCManager.Register<ServerInfoManager>();
             IoCManager.Register<PoissonDiskSampler>();
+            IoCManager.Register<DiscordWebhook>();
+            IoCManager.Register<ServerDbEntryManager>();
         }
     }
 }

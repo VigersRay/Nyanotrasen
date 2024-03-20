@@ -13,9 +13,6 @@
   - type: EmitSoundOnActivate
     sound:
       collection: ToySqueak
-  - type: EmitSoundOnTrigger
-    sound:
-      collection: ToySqueak
   - type: EmitSoundOnCollide
     sound:
       collection: ToySqueak
@@ -23,9 +20,6 @@
     sound:
       collection: ToyFall
   - type: ItemCooldown
-  - type: Tag
-    tags:
-    - Payload # yes, you can even make re-usable plushie grenades
   - type: UseDelay
     delay: 1.0
   - type: MeleeWeapon
@@ -37,8 +31,61 @@
   - type: PhysicalComposition
     materialComposition:
       Cloth: 100
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 5
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieGhost
+  name: ghost soft toy
+  description: The start of your personal GHOST GANG!
+  components:
+    - type: Sprite
+      sprite: Mobs/Ghosts/ghost_human.rsi
+      state: icon
+      noRot: true
+    - type: Item
+    - type: Fixtures
+      fixtures:
+        fix1:
+          shape:
+            !type:PhysShapeAabb
+            bounds: "-0.25,-0.25,0.25,0.25"
+          density: 20
+          mask:
+            - ItemMask
+          restitution: 0.98
+          friction: 0.01
+    - type: Physics
+      angularDamping: 0.02
+      linearDamping: 0.02
+      fixedRotation: true
+      bodyType: Dynamic
+    - type: TileFrictionModifier
+      modifier: 0.1
+    - type: Tag
+      tags:
+        - ForceableFollow
+        - PlushieGhost
+    - type: RandomWalk
+      accumulatorRatio: 0.5
+      maxSpeed: 1
+      minSpeed: 0.25
+
+- type: entity
+  parent: PlushieGhost
+  id: PlushieGhostRevenant
+  name: revenant soft toy
+  suffix: DO NOT MAP
+  description: So soft it almost makes you want to take a nap...
+  components:
+    - type: Sprite
+      sprite: DeltaV/Mobs/Ghosts/revenant.rsi # DeltaV - Custom revenant sprite
+      state: icon
+      noRot: true
+    - type: Construction
+      graph: PlushieGhostRevenant
+      node: plushie
 
 - type: entity
   parent: BasePlushie
@@ -47,7 +94,11 @@
   description: A cute toy that resembles an even cuter programmer. You'd have to be a monster to grind this up.
   components:
   - type: Sprite
+    sprite: Objects/Fun/toys.rsi
     state: plushie_h
+  - type: Item
+    sprite: Objects/Fun/toys.rsi
+    heldPrefix: bee
   - type: Extractable
     grindableSolutionName: bee
   - type: SolutionContainerManager
@@ -56,6 +107,12 @@
         reagents:
           - ReagentId: GroundBee
             Quantity: 10
+  - type: Clothing
+    quickEquip: false
+    sprite: Objects/Fun/toys.rsi
+    equippedPrefix: bee
+    slots:
+    - HEAD
 
 - type: entity
   parent: BasePlushie
@@ -75,6 +132,7 @@
     sound:
       path: /Audio/Items/Toys/mousesqueek.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: 180
     soundHit:
       path: /Audio/Items/Toys/mousesqueek.ogg
 
@@ -120,23 +178,50 @@
     radius: 1.5
     energy: 2
     netsync: false
+
 - type: entity
   parent: BasePlushie
-  id: PlushieLizard
+  id: PlushieLizard #Weh!
   name: lizard plushie
   description: An adorable stuffed toy that resembles a lizardperson. Made by CentCom as a token initiative to combat speciesism in work environments. "Welcome your new colleagues as you do this plush, with open arms!"
   components:
   - type: Sprite
     state: plushie_lizard
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Items/Toys/weh.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/Items/Toys/weh.ogg
 
 - type: entity
   parent: BasePlushie
-  id: PlushieSpaceLizard
+  id: PlushieSpaceLizard #ᵂᵉʰ!
   name: space lizard plushie
   description: An adorable stuffed toy that resembles a lizardperson in an EVA suit. Made by CentCom as a token initiative to combat speciesism in space environments. "Welcome your new colleges as you do this plush, with open arms!"
   components:
   - type: Sprite
     state: plushie_spacelizard
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Items/Toys/muffled_weh.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/Toys/muffled_weh.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Items/Toys/muffled_weh.ogg
+  - type: MeleeWeapon
+    wideAnimationRotation: 180
+    soundHit:
+      path: /Audio/Items/Toys/muffled_weh.ogg
 
 - type: entity
   parent: BasePlushie
@@ -160,6 +245,7 @@
       sound:
         path: /Audio/Items/Toys/toy_rustle.ogg
     - type: MeleeWeapon
+      wideAnimationRotation: 180
       soundHit:
         path: /Audio/Items/Toys/toy_rustle.ogg
     - type: SolutionContainerManager
@@ -210,6 +296,9 @@
     state: blue
   - type: Item
     heldPrefix: blue
+  - type: Tag
+    tags:
+      - PlushieSharkBlue
 
 - type: entity
   parent: PlushieSharkBlue
@@ -222,6 +311,9 @@
     state: pink
   - type: Item
     heldPrefix: pink
+  - type: Tag
+    tags:
+      - PlushieSharkPink
 
 - type: entity
   parent: PlushieSharkBlue
@@ -234,6 +326,9 @@
     state: grey
   - type: Item
     heldPrefix: grey
+  - type: Tag
+    tags:
+      - PlushieSharkGrey
 
 - type: entity
   parent: BasePlushie
@@ -272,16 +367,12 @@
   - type: EmitSoundOnActivate
     sound:
       path: /Audio/Effects/bite.ogg
-  - type: EmitSoundOnTrigger
-    sound:
-      path: /Audio/Effects/bite.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: -90
     soundHit:
       path: /Audio/Effects/bite.ogg
-  # for fish labeler crafting
-  - type: Tag
-    tags:
-    - PlushieCarp
+    angle: 0
+    animation: WeaponArcBite # Rrrr!
 
 - type: entity
   parent: BasePlushie
@@ -303,10 +394,8 @@
   - type: EmitSoundOnUse
     sound:
       path: /Audio/Items/Toys/rattle.ogg
-  - type: EmitSoundOnTrigger
-    sound:
-      path: /Audio/Items/Toys/rattle.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: 180
     soundHit:
       path: /Audio/Items/Toys/rattle.ogg
 
@@ -321,38 +410,10 @@
   - type: EmitSoundOnUse
     sound:
       path: /Audio/Items/Toys/mousesqueek.ogg
-  - type: EmitSoundOnTrigger # Piep!
-    sound:
-      path: /Audio/Items/Toys/mousesqueek.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: -90
     soundHit:
       path: /Audio/Items/Toys/mousesqueek.ogg
-  - type: MeleeSound
-    soundGroups:
-      Brute:
-        path:
-          "/Audio/Items/Toys/mousesqueek.ogg"
-  - type: Damageable
-    damageContainer: Inorganic
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 50
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          path: /Audio/Items/Toys/mousesqueek.ogg
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          MaterialCloth1:
-            min: 1
-            max: 1
-      - !type:DoActsBehavior
-        acts: [ "Destruction" ]
-  - type: NpcFactionMember
-    factions:
-    - RatPassive
   - type: Clothing
     quickEquip: false
     sprite: Objects/Fun/toys.rsi
@@ -374,16 +435,7 @@
     sprite: Objects/Fun/ducky.rsi
     slots:
     - HEAD
-  - type: MeleeWeapon
-    attackRate: 1.5
-    range: 1.3
-    damage:
-      types:
-        Blunt: 0.1
   - type: EmitSoundOnUse
-    sound:
-      path: /Audio/Items/Toys/quack.ogg
-  - type: EmitSoundOnTrigger
     sound:
       path: /Audio/Items/Toys/quack.ogg
 
@@ -401,10 +453,8 @@
   - type: EmitSoundOnLand
     sound:
       path: /Audio/Voice/Vox/shriek1.ogg
-  - type: EmitSoundOnTrigger
-    sound:
-      path: /Audio/Voice/Vox/shriek1.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: 180
     soundHit:
       path: /Audio/Voice/Vox/shriek1.ogg
 
@@ -435,6 +485,7 @@
     sound:
       path: /Audio/Weapons/Xeno/alien_spitacid.ogg
   - type: MeleeWeapon
+    wideAnimationRotation: 180
     soundHit:
       path: /Audio/Weapons/Xeno/alien_spitacid.ogg
 
@@ -452,7 +503,7 @@
   - type: PhysicalComposition
     materialComposition:
       Plastic: 100
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 25
   - type: Tag
     tags:
@@ -475,6 +526,20 @@
   components:
   - type: Sprite
     state: nuketoy
+  - type: UseDelay
+    delay: 180.0
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Machines/Nuke/nuke_alarm.ogg
+      params:
+        volume: -5
+        maxDistance: 10
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Machines/Nuke/nuke_alarm.ogg
+      params:
+        volume: -5
+        maxDistance: 10
 
 - type: entity
   parent: BasePlushie
@@ -485,9 +550,6 @@
   - type: Sprite
     state: ian
   - type: EmitSoundOnUse
-    sound:
-      path: /Audio/Items/Toys/ian.ogg
-  - type: EmitSoundOnTrigger
     sound:
       path: /Audio/Items/Toys/ian.ogg
   - type: MeleeWeapon
@@ -550,7 +612,6 @@
   parent: ToyGunBase
   id: RevolverCapGun
   name: cap gun
-  suffix: Toy
   description: Looks almost like the real thing! Ages 8 and up.
   components:
   - type: Sprite
@@ -561,12 +622,18 @@
   - type: Item
     sprite: Objects/Fun/toys.rsi
     heldPrefix: capgun
+  - type: Tag
+    tags:
+    - Sidearm
   - type: Gun
     selectedMode: SemiAuto
     availableModes:
       - SemiAuto
+    fireRate: 2
     soundGunshot:
       path: /Audio/Weapons/Guns/Gunshots/revolver.ogg
+      params:
+        volume: 2.25
     clumsyProof: true
   - type: RevolverAmmoProvider
     whitelist:
@@ -587,7 +654,7 @@
   parent: RevolverCapGun
   id: RevolverCapGunFake
   name: cap gun
-  suffix: Real Gun, No Map
+  suffix: Fake
   description: Looks almost like the real thing! Ages 8 and up.
   components:
     - type: RevolverAmmoProvider
@@ -597,7 +664,7 @@
           - SpeedLoaderCap
           - CartridgeMagnum
           - SpeedLoaderMagnum
-      proto: CartridgeMagnum
+      proto: CartridgeMagnumAP
 
 - type: entity
   parent: BaseItem
@@ -688,6 +755,11 @@
     size: 24
     sprite: Objects/Fun/toys.rsi
     heldPrefix: synb
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Tag
+    tags:
+    - Balloon
 
 - type: entity
   parent: BaseItem
@@ -702,6 +774,11 @@
     size: 24
     sprite: Objects/Fun/toys.rsi
     heldPrefix: corgib
+  - type: Damageable
+    damageContainer: Inorganic
+  - type: Tag
+    tags:
+    - Balloon
 
 - type: entity
   parent: BaseItem
@@ -744,6 +821,7 @@
     modifier: 0.001
 
 - type: entity
+  parent: BaseItem
   id: ToySword
   name: toy sword
   description: New Sandy-Cat plastic sword! Comes with realistic sound and full color! Looks almost like the real thing!
@@ -753,7 +831,7 @@
       colorOptions:
         - DodgerBlue
     - type: Sprite
-      sprite: Objects/Weapons/Melee/e_sword.rsi
+      sprite: Objects/Fun/toy_sword.rsi
       layers:
         - state: e_sword
         - state: e_sword_blade
@@ -763,7 +841,7 @@
           map: [ "blade" ]
     - type: Item
       size: 5
-      sprite: Objects/Weapons/Melee/e_sword.rsi
+      sprite: Objects/Fun/toy_sword.rsi
     - type: UseDelay
       delay: 1.0
     - type: PointLight
@@ -790,6 +868,23 @@
       damage:
         types:
           Blunt: 0
+
+- type: entity
+  parent: BasePlushie
+  id: ToyAmongPequeno
+  name: among pequeno
+  description: sus!
+  components:
+  - type: Sprite
+    sprite: Objects/Fun/pequeno.rsi
+    layers:
+    - state: base
+      map: [ "enum.DamageStateVisualLayers.Base" ]
+    - state: visor
+  - type: RandomSprite
+    available:
+      - enum.DamageStateVisualLayers.Base:
+          base: Sixteen
 
 - type: entity
   parent: BaseItem
@@ -829,6 +924,9 @@
       collection: ClownRecorder
   - type: UseDelay
     delay: 30.0
+  - type: Tag
+    tags:
+    - ClownRecorder
 
 - type: entity
   parent: BaseItem
@@ -952,9 +1050,8 @@
   name: crazy glue
   description:  A bottle of crazy glue manufactured by Honk! Co.
   components:
-  - type: Drink
-    isOpen: false
-    openSounds:
+  - type: Openable
+    sound:
       collection: packetOpenSounds
   - type: Sprite
     sprite: Objects/Fun/glue.rsi
@@ -971,3 +1068,38 @@
         reagents:
         - ReagentId: SpaceGlue
           Quantity: 100
+  - type: TrashOnSolutionEmpty
+    solution: drink
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieMoth
+  name: moth plushie
+  description: Cute and fluffy moth plushie. Enjoy, bz!
+  components:
+  - type: Sprite
+    state: plushie_moth
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Voice/Moth/moth_squeak.ogg # DeltaV - Give back the mothplushie the squeak
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Voice/Moth/moth_scream.ogg # DeltaV - Make the mothplushie scream on landing
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Voice/Moth/moth_squeak.ogg # DeltaV - Give back the mothplushie the squeak
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Voice/Moth/moth_squeak.ogg # DeltaV - Give back the mothplushie the squeak
+  - type: Construction # DeltaV - Mothroach hide craft, see Prototypes/Nyanotrasen/Recipes/Crafting/Graphs/fun/mothplushie.yml
+    graph: MothPlushie
+    node: plush
+
+- type: entity
+  parent: BasePlushie
+  id: PlushiePenguin
+  name: penguin plushie
+  description: I use arch btw!
+  components:
+  - type: Sprite
+    state: plushie_penguin

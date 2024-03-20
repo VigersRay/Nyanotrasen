@@ -20,6 +20,15 @@
 
 - type: entity
   parent: PaintingBase
+  id: PaintingMoony
+  name: Abstract No.1
+  description: An imposing abstract painting. It feels like it's pressuring you to do good.
+  components:
+  - type: Sprite
+    state: painting1
+
+- type: entity
+  parent: PaintingBase
   id: PaintingPersistenceOfMemory
   name: The Persistence of Memory
   description: This painting depicts a barren landscape. It's filled with various surreal objects.
@@ -155,9 +164,27 @@
 
 - type: entity
   parent: PaintingBase
+  id: PaintingAmogusTriptych
+  name: Amogus Triptych (Untitled.)
+  description: This painting is made up of 3 individual sections. Each depicts a religious figure.
+  components:
+  - type: Sprite
+    state: painting17
+
+- type: entity
+  parent: PaintingBase
   id: PaintingHelloWorld
   name: Hello World
   description: This painting is made up of lots of multicolored squares arranged in a peculiar pattern. Perhaps it means something?
   components:
   - type: Sprite
     state: painting18
+
+- type: entity
+  parent: PaintingBase
+  id: PaintingSadClown
+  name: Sad Clown
+  description: This painting is a sad clown! It sparks joy.
+  components:
+  - type: Sprite
+    state: painting19  

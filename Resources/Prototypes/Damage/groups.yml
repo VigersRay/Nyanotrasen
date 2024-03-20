@@ -35,8 +35,3 @@
   id: Genetic
   damageTypes:
     - Cellular
-
-- type: damageGroup
-  id: Immaterial
-  damageTypes:
-  - Holy

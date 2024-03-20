@@ -9,11 +9,6 @@
     sprite: Clothing/OuterClothing/Bio/general.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/general.rsi
-  - type: DiseaseProtection
-    protection: 0.2
-  - type: Tag
-    tags:
-      - FullBodyOuter
   - type: Armor
     modifiers:
       coefficients:
@@ -30,11 +25,6 @@
     sprite: Clothing/OuterClothing/Bio/cmo.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/cmo.rsi
-  - type: Tag
-    tags:
-      - FullBodyOuter
-  - type: DiseaseProtection
-    protection: 0.5
 
 - type: entity
   parent: ClothingOuterBioGeneral
@@ -47,26 +37,18 @@
     sprite: Clothing/OuterClothing/Bio/janitor.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/janitor.rsi
-  - type: Tag
-    tags:
-      - FullBodyOuter
 
 - type: entity
   parent: ClothingOuterBioGeneral
   id: ClothingOuterBioScientist
   name: bio suit
-  suffix: Science
+  suffix: Epistemics # DeltaV - Epistemics Department replacing Science
   description: A suit that protects against biological contamination, in Scientist colors.
   components:
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/scientist.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/scientist.rsi
-  - type: Tag
-    tags:
-      - FullBodyOuter
-  - type: DiseaseProtection
-    protection: 0.3
 
 - type: entity
   parent: ClothingOuterBioGeneral
@@ -79,11 +61,6 @@
     sprite: Clothing/OuterClothing/Bio/security.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/security.rsi
-  - type: Tag
-    tags:
-      - FullBodyOuter
-  - type: DiseaseProtection
-    protection: 0.3
 
 - type: entity
   parent: ClothingOuterBioGeneral
@@ -96,8 +73,3 @@
     sprite: Clothing/OuterClothing/Bio/virology.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Bio/virology.rsi
-  - type: Tag
-    tags:
-      - FullBodyOuter
-  - type: DiseaseProtection
-    protection: 0.5

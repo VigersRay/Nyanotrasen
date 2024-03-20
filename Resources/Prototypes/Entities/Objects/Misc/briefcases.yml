@@ -8,15 +8,6 @@
     size: 60
   - type: Storage
     capacity: 60
-  - type: MeleeWeapon
-    bluntStaminaDamageFactor: 3.0
-    attackRate: 0.9
-    range: 1.75
-    damage:
-      types:
-        Blunt: 3.5
-  - type: StaminaDamageOnHit
-    damage: 4.5
   - type: Tag
     tags:
     - Briefcase
@@ -37,6 +28,7 @@
   parent: BaseStorageItem
   abstract: true
   id: BriefcaseSyndieBase
+  suffix: Syndicate, Empty
   description: Useful for carrying items in your hands.
   components:
   - type: Item

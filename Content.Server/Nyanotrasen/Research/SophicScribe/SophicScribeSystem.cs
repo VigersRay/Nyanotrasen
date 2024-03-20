@@ -1,81 +1,86 @@
-using Robust.Shared.Prototypes;
 using Content.Server.Abilities.Psionics;
+using Content.Server.Chat.Systems;
 using Content.Server.Radio.Components;
 using Content.Server.Radio.EntitySystems;
 using Content.Server.StationEvents.Events;
-using Content.Server.NPC.Events;
-using Content.Server.NPC.Systems;
-using Content.Server.NPC.Prototypes;
+using Content.Shared.Interaction;
 using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Radio;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 
-namespace Content.Server.Research.SophicScribe
+namespace Content.Server.Nyanotrasen.Research.SophicScribe;
+
+public sealed partial class SophicScribeSystem : EntitySystem
 {
-    public sealed partial class SophicScribeSystem : EntitySystem
+    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
+    [Dependency] private readonly RadioSystem _radioSystem = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+
+    public override void Update(float frameTime)
     {
-        [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
-        [Dependency] private readonly RadioSystem _radioSystem = default!;
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly NPCConversationSystem _conversationSystem = default!;
+        base.Update(frameTime);
 
-        private readonly ISawmill _sawmill = default!;
+        if (_glimmerSystem.Glimmer == 0)
+            return; // yes, return. Glimmer value is global.
 
-        public override void Initialize()
+        var curTime = _timing.CurTime;
+
+        var query = EntityQueryEnumerator<SophicScribeComponent>();
+        while (query.MoveNext(out var scribe, out var scribeComponent))
         {
-            base.Initialize();
-            SubscribeLocalEvent<SophicScribeComponent, NPCConversationGetGlimmerEvent>(OnGetGlimmer);
-            SubscribeLocalEvent<GlimmerEventEndedEvent>(OnGlimmerEventEnded);
-        }
+            if (curTime < scribeComponent.NextAnnounceTime)
+                continue;
 
-        private void OnGetGlimmer(EntityUid uid, SophicScribeComponent component, NPCConversationGetGlimmerEvent args)
-        {
-            if (args.Text == null)
-            {
-                _sawmill.Error($"{ToPrettyString(uid)} heard a glimmer reading prompt but has no text for it.");
-                return;
-            }
+            if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio))
+                continue;
 
-            var tier = _glimmerSystem.GetGlimmerTier() switch
-            {
-                GlimmerTier.Minimal => Loc.GetString("glimmer-reading-minimal"),
-                GlimmerTier.Low => Loc.GetString("glimmer-reading-low"),
-                GlimmerTier.Moderate => Loc.GetString("glimmer-reading-moderate"),
-                GlimmerTier.High => Loc.GetString("glimmer-reading-high"),
-                GlimmerTier.Dangerous => Loc.GetString("glimmer-reading-dangerous"),
-                _ => Loc.GetString("glimmer-reading-critical"),
-            };
+            var message = Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer));
+            var channel = _prototypeManager.Index<RadioChannelPrototype>("Science");
+            _radioSystem.SendRadioMessage(scribe, message, channel, scribe);
 
-            var glimmerReadingText = Loc.GetString(args.Text,
-                ("glimmer", _glimmerSystem.Glimmer), ("tier", tier));
-
-            var response = new NPCResponse(glimmerReadingText);
-            _conversationSystem.QueueResponse(uid, response);
-        }
-
-        private void OnGlimmerEventEnded(GlimmerEventEndedEvent args)
-        {
-            var query = EntityQueryEnumerator<SophicScribeComponent>();
-            while (query.MoveNext(out var scribe, out _))
-            {
-                if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio)) return;
-
-                // mind entities when...
-                var speaker = scribe;
-                if (TryComp<MindSwappedComponent>(scribe, out var swapped))
-                {
-                    speaker = swapped.OriginalEntity;
-                }
-
-                var message = Loc.GetString(args.Message, ("decrease", args.GlimmerBurned), ("level", _glimmerSystem.Glimmer));
-                var channel = _prototypeManager.Index<RadioChannelPrototype>("Common");
-                _radioSystem.SendRadioMessage(speaker, message, channel, speaker);
-            }
+            scribeComponent.NextAnnounceTime = curTime + scribeComponent.AnnounceInterval;
         }
     }
 
-    public sealed class NPCConversationGetGlimmerEvent : NPCConversationEvent
+    public override void Initialize()
     {
-        [DataField("text")]
-        public readonly string? Text;
+        base.Initialize();
+
+        SubscribeLocalEvent<SophicScribeComponent, InteractHandEvent>(OnInteractHand);
+        SubscribeLocalEvent<GlimmerEventEndedEvent>(OnGlimmerEventEnded);
+    }
+
+    private void OnInteractHand(EntityUid uid, SophicScribeComponent component, InteractHandEvent args)
+    {
+        //TODO: the update function should be removed eventually too.
+        if (_timing.CurTime < component.StateTime)
+            return;
+
+        component.StateTime = _timing.CurTime + component.StateCD;
+
+        _chat.TrySendInGameICMessage(uid, Loc.GetString("glimmer-report", ("level", _glimmerSystem.Glimmer)), InGameICChatType.Speak, true);
+    }
+
+    private void OnGlimmerEventEnded(GlimmerEventEndedEvent args)
+    {
+        var query = EntityQueryEnumerator<SophicScribeComponent>();
+        while (query.MoveNext(out var scribe, out _))
+        {
+            if (!TryComp<IntrinsicRadioTransmitterComponent>(scribe, out var radio)) return;
+
+            // mind entities when...
+            var speaker = scribe;
+            if (TryComp<MindSwappedComponent>(scribe, out var swapped))
+            {
+                speaker = swapped.OriginalEntity;
+            }
+
+            var message = Loc.GetString(args.Message, ("decrease", args.GlimmerBurned), ("level", _glimmerSystem.Glimmer));
+            var channel = _prototypeManager.Index<RadioChannelPrototype>("Common");
+            _radioSystem.SendRadioMessage(speaker, message, channel, speaker);
+        }
     }
 }

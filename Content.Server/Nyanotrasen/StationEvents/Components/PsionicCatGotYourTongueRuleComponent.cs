@@ -4,7 +4,7 @@ using Content.Server.StationEvents.Events;
 namespace Content.Server.StationEvents.Components;
 
 [RegisterComponent, Access(typeof(PsionicCatGotYourTongueRule))]
-public sealed class PsionicCatGotYourTongueRuleComponent : Component
+public sealed partial class PsionicCatGotYourTongueRuleComponent : Component
 {
     [DataField("minDuration")]
     public TimeSpan MinDuration = TimeSpan.FromSeconds(20);

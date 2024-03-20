@@ -5,7 +5,7 @@ using Content.Server.Hands.Systems;
 using Content.Server.Resist;
 using Content.Server.Popups;
 using Content.Server.Contests;
-using Content.Server.Climbing;
+using Content.Shared.Climbing; // Shared instead of Server
 using Content.Shared.Mobs;
 using Content.Shared.DoAfter;
 using Content.Shared.Buckle.Components;
@@ -14,6 +14,7 @@ using Content.Shared.Hands;
 using Content.Shared.Stunnable;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Verbs;
+using Content.Shared.Climbing.Events; // Added this.
 using Content.Shared.Carrying;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
@@ -183,7 +184,7 @@ namespace Content.Server.Carrying
             args.Cancelled = true;
         }
 
-        private void OnStartClimb(EntityUid uid, BeingCarriedComponent component, StartClimbEvent args)
+        private void OnStartClimb(EntityUid uid, BeingCarriedComponent component, ref StartClimbEvent args)
         {
             DropCarried(component.Carrier, uid);
         }
@@ -226,7 +227,7 @@ namespace Content.Server.Carrying
             component.CancelToken = new CancellationTokenSource();
 
             var ev = new CarryDoAfterEvent();
-            var args = new DoAfterArgs(carrier, length, ev, carried, target: carried)
+            var args = new DoAfterArgs(EntityManager, carrier, length, ev, carried, target: carried)
             {
                 BreakOnTargetMove = true,
                 BreakOnUserMove = true,
@@ -299,8 +300,8 @@ namespace Content.Server.Carrying
             if (HasComp<BeingCarriedComponent>(carrier) || HasComp<BeingCarriedComponent>(carried))
                 return false;
 
-            if (_respirator.IsReceivingCPR(carried))
-                return false;
+        //  if (_respirator.IsReceivingCPR(carried))
+            //  return false; 
 
             if (!TryComp<HandsComponent>(carrier, out var hands))
                 return false;

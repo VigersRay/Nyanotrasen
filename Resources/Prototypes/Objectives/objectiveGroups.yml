@@ -2,9 +2,9 @@
 - type: weightedRandom
   id: TraitorObjectiveGroups
   weights:
-    TraitorObjectiveGroupSteal: 2.5
+    TraitorObjectiveGroupSteal: 1
     TraitorObjectiveGroupKill: 1
-    TraitorObjectiveGroupState: 0.5 #As in, something about your character. Alive, dead, arrested, gained an ability...
+    TraitorObjectiveGroupState: 1 #As in, something about your character. Alive, dead, arrested, gained an ability...
     TraitorObjectiveGroupSocial: 1 #Involves helping/harming others without killing them or stealing their stuff
 
 - type: weightedRandom
@@ -14,30 +14,39 @@
     CMOHyposprayStealObjective: 1
     RDHardsuitStealObjective: 1
     NukeDiskStealObjective: 1
-    IDComputerBoardStealObjective: 1
     MagbootsStealObjective: 1
-    SupplyConsoleBoardStealObjective: 1
-    MantisKnifeStealObjective: 1
+    # CorgiMeatStealObjective: 1 # DeltaV - Disable the horrible murder of Ian as an objective
+    MantisKnifeStealObjective: 1 # Nyanotrasen - ForensicMantis steal objective, see Resources/Prototypes/Nyanotrasen/Objectives/traitor.yml
+    ClipboardStealObjective: 1
     CaptainGunStealObjective: 0.5
     CaptainJetpackStealObjective: 0.5
+    HandTeleporterStealObjective: 0.5
+    SecretDocumentsStealObjective: 0.5
+    LOLuckyBillStealObjective: 0.5 # DeltaV - LO steal objective, see Resources/Prototypes/DeltaV/Objectives/traitor.yml
+    HoPBookIanDossierStealObjective: 1 # DeltaV - HoP steal objective, see Resources/Prototypes/DeltaV/Objectives/traitor.yml
+    HoSGunStealObjective: 0.5
 
 - type: weightedRandom
   id: TraitorObjectiveGroupKill
   weights:
-    KillRandomObjective: 1
+    KillRandomPersonObjective: 1
     KillRandomHeadObjective: 0.25
 
 - type: weightedRandom
   id: TraitorObjectiveGroupState
   weights:
-    BecomePsionicObjective: 1
-    BecomeGolemObjective: 0.5
+    EscapeShuttleObjective: 1
+    # DieObjective: 0.05 # DeltaV - Disable the lrp objective aka murderbone justification
+    HijackShuttleObjective: 0.02
+    BecomePsionicObjective: 1 # Nyanotrasen - Become Psionic objective, see Resources/Prototypes/Nyanotrasen/Objectives/traitor.yml
+    #BecomeGolemObjective: 0.5 # Nyanotrasen - Become a golem objective, see Resources/Prototypes/Nyanotrasen/Objectives/traitor.yml
 
 - type: weightedRandom
   id: TraitorObjectiveGroupSocial
   weights:
     RandomTraitorAliveObjective: 1
     RandomTraitorProgressObjective: 1
-    RaiseGlimmerObjective: 0.5
+    RaiseGlimmerObjective: 0.5 # Nyanotrasen - Raise glimmer to a target amount, see Resources/Prototypes/Nyanotrasen/Objectives/traitor.yml
+
 
 #Changeling, crew, wizard, when you code it...

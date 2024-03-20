@@ -124,7 +124,9 @@
     damage:
       types:
         Heat: 20
-  - type: DynamicPrice
+  - type: PointLight
+    enabled: true
+  - type: StaticPrice
     price: 25
   - type: AmbientOnPowered
   - type: AmbientSound

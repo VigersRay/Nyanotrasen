@@ -12,6 +12,7 @@ using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Robust.Shared.Timing;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.ReverseEngineering;
 
@@ -196,10 +197,11 @@ public sealed class ReverseEngineeringSystem : EntitySystem
         var scanning = TryComp<ActiveReverseEngineeringMachineComponent>(uid, out var active);
         var canScan = (item != null && !scanning);
         var remaining = active != null ? _timing.CurTime - active.StartTime : TimeSpan.Zero;
+        EntityManager.TryGetNetEntity(item, out var netItem);
 
-        var state = new ReverseEngineeringMachineScanUpdateState(item, canScan, component.CachedMessage, scanning, component.SafetyOn, component.AutoScan, component.Progress, remaining, component.AnalysisDuration);
+        var state = new ReverseEngineeringMachineScanUpdateState(netItem, canScan, component.CachedMessage, scanning, component.SafetyOn, component.AutoScan, component.Progress, remaining, component.AnalysisDuration);
 
-        UserInterfaceSystem.SetUiState(bui, state);
+        _ui.SetUiState(bui, state);
     }
 
     private ReverseEngineeringTickResult Roll(ReverseEngineeringMachineComponent component, out int actualRoll)

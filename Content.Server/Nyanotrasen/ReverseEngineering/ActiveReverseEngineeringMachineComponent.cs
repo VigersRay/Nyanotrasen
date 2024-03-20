@@ -3,7 +3,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations;
 namespace Content.Server.ReverseEngineering;
 
 [RegisterComponent]
-public sealed class ActiveReverseEngineeringMachineComponent : Component
+public sealed partial class ActiveReverseEngineeringMachineComponent : Component
 {
     /// <summary>
     /// When did the scanning start?

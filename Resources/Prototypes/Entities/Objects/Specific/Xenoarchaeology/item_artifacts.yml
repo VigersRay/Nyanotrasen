@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   parent: BaseItem
   id: BaseXenoArtifactItem
   name: alien artifact
@@ -59,7 +59,7 @@
     sprite: Objects/Specific/Xenoarchaeology/item_artifacts.rsi
     heldPrefix: ano01
   - type: Actions
-  - type: Psionic
+  - type: Psionic #Nyano - Summary: makes psionic on creation.
   - type: Construction
     graph: Artifact
     node: done
@@ -178,6 +178,8 @@
     - enum.ArtifactsVisualLayers.Base:
         wizardball6: ""
   - type: Appearance
+  - type: Item
+    size: 150
   - type: Tag
     tags:
     - ArtifactFragment
@@ -187,7 +189,19 @@
       - ReagentId: Artifexium
         Quantity: 10
   - type: StaticPrice
-    price: 250
+    price: 0
+  - type: Stack
+    stackType: ArtifactFragment
   - type: GuideHelp
     guides:
     - Xenoarchaeology
+
+- type: entity
+  parent: ArtifactFragment
+  id: ArtifactFragment1
+  suffix: Single
+  components:
+  - type: Stack
+    count: 1
+  - type: Item
+    size: 5

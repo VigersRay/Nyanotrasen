@@ -5,14 +5,17 @@
   components:
   - type: Loadout
     prototypes:
+      - HoPGear
       - ClownGear
       - MimeGear
       - JanitorGear
-      - ValetGear
+      - ServiceWorkerGear
       - MusicianGear
       - BotanistGear
       - ChefGear
+      # - ChaplainGear # DeltaV - Move Chaplain into Epistemics
       - PassengerGear
+      - MartialArtistGear # Nyanotrasen - MartialArtist, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Wildcards/martialartist.yml
 
 - type: entity
   parent: SalvageHumanCorpse
@@ -21,19 +24,21 @@
   components:
   - type: Loadout
     prototypes:
+    - TechnicalAssistantGear
     - AtmosphericTechnicianGear
     - StationEngineerGear
-    - SalvageTechnicianGear
 
 - type: entity
   parent: SalvageHumanCorpse
   id: MobRandomCargoCorpse
-  suffix: Dead, Cargo
+  suffix: Dead, Logistics # DeltaV - Logistics Department replacing Cargo
   components:
   - type: Loadout
     prototypes:
-    - QuartermasterGear
-    - MailCarrierGear
+    - CargoTechGear
+    - SalvageSpecialistGear
+    - MailCarrierGear # Nyanotrasen - Old Mail Carrier gear, see Resources/Prototypes/Nyanotrasen/Roles/Jobs/Cargo/mail_carrier.yml
+    - CourierGear # DeltaV - Courier, see Resources/Prototypes/DeltaV/Roles/Jobs/Cargo/courier.yml
 
 - type: entity
   parent: SalvageHumanCorpse
@@ -42,31 +47,34 @@
   components:
   - type: Loadout
     prototypes:
+    - MedicalInternGear
     - PsychologistGear
-    - ParamedicGear
+    - ChemistGear
     - DoctorGear
 
 - type: entity
   parent: SalvageHumanCorpse
   id: MobRandomScienceCorpse
-  suffix: Dead, Epistemics
+  suffix: Dead, Epistemics # DeltaV - Epistemics Department replacing Science
   components:
   - type: Loadout
     prototypes:
-    - EpistemologistGear
-    - CataloguerGear
-    - ChaplainGear
-    - ForensicMantisGear
+    - ResearchAssistantGear
+    - ScientistGear
+    - ChaplainGear # DeltaV - Move Chaplain into Epistemics
+    - ForensicMantisGear # Nyanotrasen - Forensic Mantis
 
 - type: entity
   parent: SalvageHumanCorpse
   id: MobRandomSecurityCorpse
   suffix: Dead, Security
+  noSpawn: true # DeltaV - Prevent security corpses from being mapped in
   components:
   - type: Loadout
     prototypes:
     - SecurityCadetGear
     - SecurityOfficerGear
+    - DetectiveGear
     - WardenGear
 
 - type: entity
@@ -77,8 +85,10 @@
   - type: Loadout
     prototypes:
     - HoPGear
+    - CentcomGear
     - CaptainGear
     - HoSGear
-    - MystagogueGear
+    - ResearchDirectorGear
     - CMOGear
     - ChiefEngineerGear
+    - QuartermasterGear

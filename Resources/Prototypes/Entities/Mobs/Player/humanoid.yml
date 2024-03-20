@@ -1,28 +1,61 @@
 # Random humanoids
 
+## Death Squad
+
+- type: entity
+  id: RandomHumanoidSpawnerDeathSquad
+  name: Death Squad Agent
+  suffix: ERTRole, Death Squad
+  components:
+    - type: Sprite
+      sprite: Clothing/OuterClothing/Hardsuits/deathsquad.rsi
+      state: icon
+    - type: RandomMetadata
+      nameSegments:
+        - NamesFirstMilitaryLeader
+        - NamesLastMilitary
+    - type: RandomHumanoidSpawner
+      settings: DeathSquad
+
+- type: randomHumanoidSettings
+  id: DeathSquad
+  randomizeName: false
+  components:
+    - type: MindShield
+    - type: GhostRole
+      name: ghost-role-information-Death-Squad-name
+      description: ghost-role-information-Death-Squad-description
+    - type: GhostTakeoverAvailable
+    - type: Loadout
+      prototypes: [ DeathSquadGear ]
+    - type: RandomMetadata
+      nameSegments:
+        - NamesFirstMilitaryLeader
+        - NamesLastMilitary
+
+
 ## ERT Leader
 
 - type: entity
   id: RandomHumanoidSpawnerERTLeader
   name: ERT leader
+  suffix: ERTRole, Basic
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertleader
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitaryLeader
-      - names_last
+      - NamesLastMilitary
     - type: RandomHumanoidSpawner
       settings: ERTLeader
 
 - type: randomHumanoidSettings
   id: ERTLeader
   randomizeName: false
-  speciesBlacklist:
-    - Arachne
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-leader-name
       description: ghost-role-information-ert-leader-description
@@ -32,16 +65,15 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitaryLeader
-      - names_last
+      - NamesLastMilitary
 
 - type: entity
   id: RandomHumanoidSpawnerERTLeaderEVA
   parent: RandomHumanoidSpawnerERTLeader
   name: ERT leader
-  suffix: EVA
+  suffix: ERTRole, Armored EVA
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertleadereva
     - type: RandomHumanoidSpawner
@@ -51,6 +83,7 @@
   id: ERTLeaderEVA
   parent: ERTLeader
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-leader-name
       description: ghost-role-information-ert-leader-description
@@ -58,21 +91,41 @@
     - type: Loadout
       prototypes: [ ERTLeaderGearEVA ]
 
+- type: entity
+  id: RandomHumanoidSpawnerERTLeaderEVALecter
+  parent: RandomHumanoidSpawnerERTLeaderEVA
+  suffix: ERTRole, Lecter, EVA
+  components:
+    - type: RandomHumanoidSpawner
+      settings: ERTLeaderEVALecter
+
+- type: randomHumanoidSettings
+  id: ERTLeaderEVALecter
+  parent: ERTLeaderEVA
+  components:
+    - type: MindShield
+    - type: GhostRole
+      name: ghost-role-information-ert-leader-name
+      description: ghost-role-information-ert-leader-description
+    - type: GhostTakeoverAvailable
+    - type: Loadout
+      prototypes: [ ERTLeaderGearEVALecter ]
+
 ## ERT Janitor
 
 - type: entity
   id: RandomHumanoidSpawnerERTJanitor
   parent: RandomHumanoidSpawnerERTLeader
   name: ERT janitor
+  suffix: ERTRole, Basic
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertjanitor
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: RandomHumanoidSpawner
       settings: ERTJanitor
 
@@ -80,6 +133,7 @@
   id: ERTJanitor
   parent: ERTLeader
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-janitor-name
       description: ghost-role-information-ert-janitor-description
@@ -87,7 +141,7 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: Loadout
       prototypes: [ ERTJanitorGear ]
 
@@ -95,10 +149,9 @@
   id: RandomHumanoidSpawnerERTJanitorEVA
   parent: RandomHumanoidSpawnerERTJanitor
   name: ERT janitor
-  suffix: EVA
+  suffix: ERTRole, Enviro EVA
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertjanitoreva
     - type: RandomHumanoidSpawner
@@ -108,6 +161,7 @@
   id: ERTJanitorEVA
   parent: ERTJanitor
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-janitor-name
       description: ghost-role-information-ert-janitor-description
@@ -121,15 +175,15 @@
   id: RandomHumanoidSpawnerERTEngineer
   parent: RandomHumanoidSpawnerERTLeader
   name: ERT engineer
+  suffix: ERTRole, Basic
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertengineer
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: RandomHumanoidSpawner
       settings: ERTEngineer
 
@@ -137,6 +191,7 @@
   id: ERTEngineer
   parent: ERTLeader
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-engineer-name
       description: ghost-role-information-ert-engineer-description
@@ -144,7 +199,7 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: Loadout
       prototypes: [ ERTEngineerGear ]
 
@@ -152,10 +207,9 @@
   id: RandomHumanoidSpawnerERTEngineerEVA
   parent: RandomHumanoidSpawnerERTEngineer
   name: ERT engineer
-  suffix: EVA
+  suffix: ERTRole, Enviro EVA
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertengineereva
     - type: RandomHumanoidSpawner
@@ -165,6 +219,7 @@
   id: ERTEngineerEVA
   parent: ERTEngineer
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-engineer-name
       description: ghost-role-information-ert-engineer-description
@@ -178,15 +233,15 @@
   id: RandomHumanoidSpawnerERTSecurity
   parent: RandomHumanoidSpawnerERTLeader
   name: ERT security
+  suffix: ERTRole, Basic
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertsecurity
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: RandomHumanoidSpawner
       settings: ERTSecurity
 
@@ -194,6 +249,7 @@
   id: ERTSecurity
   parent: ERTLeader
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-security-name
       description: ghost-role-information-ert-security-description
@@ -201,7 +257,7 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: Loadout
       prototypes: [ ERTSecurityGear ]
 
@@ -209,10 +265,9 @@
   id: RandomHumanoidSpawnerERTSecurityEVA
   parent: RandomHumanoidSpawnerERTSecurity
   name: ERT security
-  suffix: EVA
+  suffix: ERTRole, Armored EVA
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertsecurityeva
     - type: RandomHumanoidSpawner
@@ -222,6 +277,7 @@
   id: ERTSecurityEVA
   parent: ERTSecurity
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-security-name
       description: ghost-role-information-ert-security-description
@@ -229,21 +285,41 @@
     - type: Loadout
       prototypes: [ ERTSecurityGearEVA ]
 
+- type: entity
+  id: RandomHumanoidSpawnerERTSecurityEVALecter
+  parent: RandomHumanoidSpawnerERTSecurityEVA
+  suffix: ERTRole, Lecter, EVA
+  components:
+    - type: RandomHumanoidSpawner
+      settings: ERTSecurityEVALecter
+
+- type: randomHumanoidSettings
+  id: ERTSecurityEVALecter
+  parent: ERTSecurityEVA
+  components:
+    - type: MindShield
+    - type: GhostRole
+      name: ghost-role-information-ert-security-name
+      description: ghost-role-information-ert-security-description
+    - type: GhostTakeoverAvailable
+    - type: Loadout
+      prototypes: [ ERTSecurityGearEVALecter ]
+
 ## ERT Medic
 
 - type: entity
   id: RandomHumanoidSpawnerERTMedical
   parent: RandomHumanoidSpawnerERTLeader
   name: ERT medic
+  suffix: ERTRole, Basic
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertmedical
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: RandomHumanoidSpawner
       settings: ERTMedical
 
@@ -251,6 +327,7 @@
   id: ERTMedical
   parent: ERTLeader
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-medical-name
       description: ghost-role-information-ert-medical-description
@@ -258,7 +335,7 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
     - type: Loadout
       prototypes: [ ERTMedicalGear ]
 
@@ -266,10 +343,9 @@
   id: RandomHumanoidSpawnerERTMedicalEVA
   parent: RandomHumanoidSpawnerERTMedical
   name: ERT medic
-  suffix: EVA
+  suffix: ERTRole, Armored EVA
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: ertmedicaleva
     - type: RandomHumanoidSpawner
@@ -279,6 +355,7 @@
   id: ERTMedicalEVA
   parent: ERTMedical
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-ert-medical-name
       description: ghost-role-information-ert-medical-description
@@ -291,9 +368,9 @@
 - type: entity
   id: RandomHumanoidSpawnerCBURNUnit
   name: CBURN Agent
+  suffix: ERTRole
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: cburn
     - type: RandomHumanoidSpawner
@@ -301,9 +378,8 @@
 
 - type: randomHumanoidSettings
   id: CBURNAgent
-  speciesBlacklist:
-    - Arachne
   components:
+    - type: MindShield
     - type: Loadout
       prototypes: [CBURNGear]
     - type: GhostRole
@@ -313,7 +389,7 @@
     - type: RandomMetadata
       nameSegments:
       - NamesFirstMilitary
-      - names_last
+      - NamesLastMilitary
 ## Central Command
 
 - type: entity
@@ -321,7 +397,6 @@
   id: RandomHumanoidSpawnerCentcomOfficial
   components:
     - type: Sprite
-      netsync: false
       sprite: Markers/jobs.rsi
       state: centcom
     - type: RandomHumanoidSpawner
@@ -330,6 +405,7 @@
 - type: randomHumanoidSettings
   id: CentcomOfficial
   components:
+    - type: MindShield
     - type: GhostRole
       name: ghost-role-information-centcom-official-name
       description: ghost-role-information-centcom-official-description
@@ -344,7 +420,6 @@
   name: Syndicate Agent
   components:
     - type: Sprite
-      netsync: false
       sprite: Mobs/Species/Human/parts.rsi
       state: full
     - type: RandomMetadata
@@ -354,8 +429,6 @@
 
 - type: randomHumanoidSettings
   id: SyndicateAgent
-  speciesBlacklist:
-    - Arachne
   components:
     - type: Loadout
       prototypes: [SyndicateOperativeGearExtremelyBasic]
@@ -365,7 +438,6 @@
   name: Nuclear Operative
   components:
     - type: Sprite
-      netsync: false
       sprite: Mobs/Species/Human/parts.rsi
       state: full
     - type: RandomHumanoidSpawner
@@ -373,10 +445,33 @@
 
 - type: randomHumanoidSettings
   id: NukeOp
-  speciesBlacklist:
-    - Arachne
   components:
     - type: NukeOperative
-    - type: PsionicBonusChance
+    - type: PsionicBonusChance #Nyano - Summary: makes more likely to be psionic. 
       multiplier: 7
       warn: false
+
+- type: entity
+  id: RandomHumanoidSpawnerCluwne
+  name: Cluwne
+  suffix: spawns a cluwne
+  components:
+    - type: Sprite
+      sprite: Markers/jobs.rsi
+      state: cluwne
+    - type: RandomHumanoidSpawner
+      settings: Cluwne
+    - type: RandomMetadata
+      nameSegments:
+      - names_first
+      - names_last
+
+- type: randomHumanoidSettings
+  id: Cluwne
+  randomizeName: false
+  components:
+    - type: GhostRole
+      name: ghost-role-information-cluwne-name
+      description: ghost-role-information-cluwne-description
+    - type: GhostTakeoverAvailable
+    - type: Cluwne

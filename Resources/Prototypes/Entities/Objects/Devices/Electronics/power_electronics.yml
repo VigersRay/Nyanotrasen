@@ -1,4 +1,4 @@
-# APC
+﻿# APC
 - type: entity
   id: APCElectronics
   parent: BaseElectronics
@@ -9,7 +9,7 @@
     - type: Sprite
       sprite: Objects/Misc/module.rsi
       state: charger_APC
-    - type: ReverseEngineering
+    - type: ReverseEngineering # Nyano
       recipes:
         - APCElectronics
     - type: PhysicalComposition
@@ -17,7 +17,7 @@
         Glass: 50
       chemicalComposition:
         Silicon: 20
-    - type: DynamicPrice
+    - type: StaticPrice
       price: 34
 
 # Wallmount Substation

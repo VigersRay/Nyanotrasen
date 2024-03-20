@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   parent: BaseStructureDynamic
   id: BaseXenoArtifact
   name: alien artifact
@@ -55,7 +55,7 @@
           ano01_on: Rainbow
     - type: Appearance
     - type: Actions
-    - type: Psionic
+    - type: Psionic #Nyano - Summary: Makes psionic on creation.
     - type: GuideHelp
       guides:
       - Xenoarchaeology

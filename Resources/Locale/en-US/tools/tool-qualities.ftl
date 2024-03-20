@@ -22,8 +22,11 @@ tool-quality-slicing-tool-name = Knife
 tool-quality-sawing-name = Sawing
 tool-quality-sawing-tool-name = Saw
 
-tool-quality-digging-name = Digging
-tool-quality-digging-tool-name = Shovel
+tool-quality-honking-name = Honking
+tool-quality-honking-tool-name = Bike Horn
 
 tool-quality-woodcutting-name = Woodcutting
 tool-quality-woodcutting-tool-name = Hatchet
+
+tool-quality-rolling-name = Rolling
+tool-quality-rolling-tool-name = Rolling Pin

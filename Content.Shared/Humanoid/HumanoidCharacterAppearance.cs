@@ -9,7 +9,7 @@ namespace Content.Shared.Humanoid
 {
     [DataDefinition]
     [Serializable, NetSerializable]
-    public sealed class HumanoidCharacterAppearance : ICharacterAppearance
+    public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance
     {
         public HumanoidCharacterAppearance(string hairStyleId,
             Color hairColor,
@@ -29,25 +29,25 @@ namespace Content.Shared.Humanoid
         }
 
         [DataField("hair")]
-        public string HairStyleId { get; }
+        public string HairStyleId { get; private set; }
 
         [DataField("hairColor")]
-        public Color HairColor { get; }
+        public Color HairColor { get; private set; }
 
         [DataField("facialHair")]
-        public string FacialHairStyleId { get; }
+        public string FacialHairStyleId { get; private set; }
 
         [DataField("facialHairColor")]
-        public Color FacialHairColor { get; }
+        public Color FacialHairColor { get; private set; }
 
         [DataField("eyeColor")]
-        public Color EyeColor { get; }
+        public Color EyeColor { get; private set; }
 
         [DataField("skinColor")]
-        public Color SkinColor { get; }
+        public Color SkinColor { get; private set; }
 
         [DataField("markings")]
-        public List<Marking> Markings { get; }
+        public List<Marking> Markings { get; private set; }
 
         public HumanoidCharacterAppearance WithHairStyleName(string newName)
         {
@@ -104,7 +104,8 @@ namespace Content.Shared.Humanoid
                 HumanoidSkinColor.HumanToned => Humanoid.SkinColor.HumanSkinTone(speciesPrototype.DefaultHumanSkinTone),
                 HumanoidSkinColor.Hues => speciesPrototype.DefaultSkinTone,
                 HumanoidSkinColor.TintedHues => Humanoid.SkinColor.TintedHues(speciesPrototype.DefaultSkinTone),
-                HumanoidSkinColor.None => Color.White,
+                // DeltaV - Blended tint for moths
+                HumanoidSkinColor.TintedHuesSkin => Humanoid.SkinColor.TintedHuesSkin(speciesPrototype.DefaultSkinTone, speciesPrototype.DefaultSkinTone),
                 _ => Humanoid.SkinColor.ValidHumanSkinTone
             };
 
@@ -154,6 +155,7 @@ namespace Content.Shared.Humanoid
             var newEyeColor = random.Pick(RealisticEyeColors);
 
             var skinType = IoCManager.Resolve<IPrototypeManager>().Index<SpeciesPrototype>(species).SkinColoration;
+            var skinTone = IoCManager.Resolve<IPrototypeManager>().Index<SpeciesPrototype>(species).DefaultSkinTone; // DeltaV, required for tone blending
 
             var newSkinColor = Humanoid.SkinColor.ValidHumanSkinTone;
             switch (skinType)
@@ -162,14 +164,17 @@ namespace Content.Shared.Humanoid
                     var tone = random.Next(0, 100);
                     newSkinColor = Humanoid.SkinColor.HumanSkinTone(tone);
                     break;
-                case HumanoidSkinColor.None:
-                    newSkinColor = Color.White;
-                    break;
                 case HumanoidSkinColor.Hues:
                 case HumanoidSkinColor.TintedHues:
-                    var rbyte = random.Next(0, 255);
-                    var gbyte = random.Next(0, 255);
-                    var bbyte = random.Next(0, 255);
+                    var rbyte = random.NextByte();
+                    var gbyte = random.NextByte();
+                    var bbyte = random.NextByte();
+                    newSkinColor = new Color(rbyte, gbyte, bbyte);
+                    break;
+                case HumanoidSkinColor.TintedHuesSkin: // DeltaV, tone blending
+                    rbyte = random.NextByte();
+                    gbyte = random.NextByte();
+                    bbyte = random.NextByte();
                     newSkinColor = new Color(rbyte, gbyte, bbyte);
                     break;
             }
@@ -177,6 +182,11 @@ namespace Content.Shared.Humanoid
             if (skinType == HumanoidSkinColor.TintedHues)
             {
                 newSkinColor = Humanoid.SkinColor.ValidTintedHuesSkinTone(newSkinColor);
+            }
+
+            if (skinType == HumanoidSkinColor.TintedHuesSkin) // DeltaV, tone blending
+            {
+                newSkinColor = Humanoid.SkinColor.ValidTintedHuesSkinTone(skinTone, newSkinColor);
             }
 
             return new HumanoidCharacterAppearance(newHairStyle, newHairColor, newFacialHairStyle, newHairColor, newEyeColor, newSkinColor, new ());
@@ -192,7 +202,7 @@ namespace Content.Shared.Humanoid
             return new(color.RByte, color.GByte, color.BByte);
         }
 
-        public static HumanoidCharacterAppearance EnsureValid(HumanoidCharacterAppearance appearance, string species)
+        public static HumanoidCharacterAppearance EnsureValid(HumanoidCharacterAppearance appearance, string species, Sex sex)
         {
             var hairStyleId = appearance.HairStyleId;
             var facialHairStyleId = appearance.FacialHairStyleId;
@@ -227,6 +237,7 @@ namespace Content.Shared.Humanoid
                 }
 
                 markingSet.EnsureSpecies(species, skinColor, markingManager);
+                markingSet.EnsureSexes(sex, markingManager);
             }
 
             return new HumanoidCharacterAppearance(

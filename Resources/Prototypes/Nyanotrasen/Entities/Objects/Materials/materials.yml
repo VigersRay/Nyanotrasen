@@ -41,7 +41,7 @@
     count: 1
   - type: Item
     size: 1
-
+    
 - type: entity
   parent: BaseItem
   id: HideMothroach

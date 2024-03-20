@@ -30,11 +30,10 @@
         shader: unshaded
   - type: ItemCooldown
   - type: MeleeWeapon
-    attackRate: 1.1
+    wideAnimationRotation: -90
     damage:
       types:
-        Blunt: 5.5
-  - type: ItemStatus
+        Blunt: 5 #i mean... i GUESS you could use it like that
   - type: RefillableSolution
     solution: Welder
   - type: SolutionContainerManager
@@ -50,9 +49,9 @@
     qualities: Welding
   - type: Welder
     litMeleeDamageBonus:
-      types: # When lit, negate standard melee damage and replace with heat
-        Heat: 7
-        Blunt: -5.5
+      types:
+        Heat: 8
+        Blunt: -5
   - type: PointLight
     enabled: false
     radius: 1.5
@@ -63,7 +62,7 @@
   - type: PhysicalComposition
     materialComposition:
       Steel: 200
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 40
   - type: IgnitionSource
     temperature: 700

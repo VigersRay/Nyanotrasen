@@ -1,12 +1,11 @@
 using Content.Server.Destructible.Thresholds.Triggers;
-using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Configuration;
 using static Content.IntegrationTests.Tests.Destructible.DestructibleTestPrototypes;
 
 namespace Content.IntegrationTests.Tests.Destructible
@@ -19,15 +18,14 @@ namespace Content.IntegrationTests.Tests.Destructible
         [Test]
         public async Task AndTest()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
 
-            var testMap = await PoolManager.CreateTestMap(pairTracker);
+            var testMap = await pair.CreateTestMap();
 
             var sEntityManager = server.ResolveDependency<IEntityManager>();
             var sPrototypeManager = server.ResolveDependency<IPrototypeManager>();
             var sEntitySystemManager = server.ResolveDependency<IEntitySystemManager>();
-            var sConfigManager = server.ResolveDependency<IConfigurationManager>();
 
             EntityUid sDestructibleEntity = default;
             DamageableComponent sDamageableComponent = null;
@@ -45,7 +43,6 @@ namespace Content.IntegrationTests.Tests.Destructible
                 sTestThresholdListenerSystem.ThresholdsReached.Clear();
 
                 sDamageableSystem = sEntitySystemManager.GetEntitySystem<DamageableSystem>();
-                sConfigManager.SetCVar(CCVars.DamageVariance, 0f);
             });
 
             await server.WaitRunTicks(5);
@@ -196,7 +193,7 @@ namespace Content.IntegrationTests.Tests.Destructible
                 // No new thresholds reached as triggers once is set to true and it already triggered before
                 Assert.That(sTestThresholdListenerSystem.ThresholdsReached, Is.Empty);
             });
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
     }
 }

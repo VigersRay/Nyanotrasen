@@ -30,10 +30,10 @@ public sealed class MaterialArbitrageTest
     [Test]
     public async Task NoMaterialArbitrage()
     {
-        await using var pairTracker = await PoolManager.GetServerClient();
-        var server = pairTracker.Pair.Server;
+        await using var pair = await PoolManager.GetServerClient();
+        var server = pair.Server;
 
-        var testMap = await PoolManager.CreateTestMap(pairTracker);
+        var testMap = await pair.CreateTestMap();
         await server.WaitIdleAsync();
 
         var entManager = server.ResolveDependency<IEntityManager>();
@@ -65,7 +65,7 @@ public sealed class MaterialArbitrageTest
         Dictionary<string, ConstructionComponent> constructionRecipes = new();
         foreach (var proto in protoManager.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.NoSpawn || proto.Abstract || pairTracker.Pair.IsTestPrototype(proto))
+            if (proto.NoSpawn || proto.Abstract || pair.IsTestPrototype(proto))
                 continue;
 
             if (!proto.Components.TryGetValue(constructionName, out var destructible))
@@ -125,7 +125,7 @@ public sealed class MaterialArbitrageTest
         // Here we get the set of entities/materials spawned when destroying an entity.
         foreach (var proto in protoManager.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.NoSpawn || proto.Abstract || pairTracker.Pair.IsTestPrototype(proto))
+            if (proto.NoSpawn || proto.Abstract || pair.IsTestPrototype(proto))
                 continue;
 
             if (!proto.Components.TryGetValue(destructibleName, out var destructible))
@@ -177,15 +177,13 @@ public sealed class MaterialArbitrageTest
         {
             foreach (var (id, (spawnedEnts, spawnedMats)) in spawnedOnDestroy)
             {
-                // I disabled this one because we have dynamic price lol
-                // also the assumption that raw materials are always worth less than something constructed is just wrong in real life and here
-                // // Check cargo sell price
-                // // several constructible entities have no sell price
-                // // also this test only really matters if the entity is also purchaseable.... eh..
-                // var spawnedPrice = await GetSpawnedPrice(spawnedEnts);
-                // var price = await GetPrice(id);
-                // if (spawnedPrice > 0 && price > 0)
-                //     Assert.That(spawnedPrice, Is.LessThanOrEqualTo(price), $"{id} increases in price after being destroyed");
+                // Check cargo sell price
+                // several constructible entities have no sell price
+                // also this test only really matters if the entity is also purchaseable.... eh..
+                var spawnedPrice = await GetSpawnedPrice(spawnedEnts);
+                var price = await GetPrice(id);
+                if (spawnedPrice > 0 && price > 0)
+                    Assert.That(spawnedPrice, Is.LessThanOrEqualTo(price), $"{id} increases in price after being destroyed");
 
                 // Check lathe production
                 if (latheRecipes.TryGetValue(id, out var recipe))
@@ -258,11 +256,11 @@ public sealed class MaterialArbitrageTest
         {
             foreach (var (id, deconstructedMats) in deconstructionMaterials)
             {
-                // // Check cargo sell price
-                // var deconstructedPrice = await GetDeconstructedPrice(deconstructedMats);
-                // var price = await GetPrice(id);
-                // if (deconstructedPrice > 0 && price > 0)
-                //     Assert.That(deconstructedPrice, Is.LessThanOrEqualTo(price), $"{id} increases in price after being deconstructed");
+                // Check cargo sell price
+                var deconstructedPrice = await GetDeconstructedPrice(deconstructedMats);
+                var price = await GetPrice(id);
+                if (deconstructedPrice > 0 && price > 0)
+                    Assert.That(deconstructedPrice, Is.LessThanOrEqualTo(price), $"{id} increases in price after being deconstructed");
 
                 // Check lathe production
                 if (latheRecipes.TryGetValue(id, out var recipe))
@@ -292,7 +290,7 @@ public sealed class MaterialArbitrageTest
         Dictionary<string, PhysicalCompositionComponent> physicalCompositions = new();
         foreach (var proto in protoManager.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.NoSpawn || proto.Abstract || pairTracker.Pair.IsTestPrototype(proto))
+            if (proto.NoSpawn || proto.Abstract || pair.IsTestPrototype(proto))
                 continue;
 
             if (!proto.Components.TryGetValue(compositionName, out var composition))
@@ -340,7 +338,7 @@ public sealed class MaterialArbitrageTest
         });
 
         await server.WaitPost(() => mapManager.DeleteMap(testMap.MapId));
-        await pairTracker.CleanReturnAsync();
+        await pair.CleanReturnAsync();
 
         async Task<double> GetSpawnedPrice(Dictionary<string, int> ents)
         {

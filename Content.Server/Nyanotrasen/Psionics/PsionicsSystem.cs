@@ -12,6 +12,7 @@ using Content.Server.Electrocution;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Random;
@@ -29,6 +30,7 @@ namespace Content.Server.Psionics
         [Dependency] private readonly ChatSystem _chat = default!;
         [Dependency] private readonly NpcFactionSystem _npcFactonSystem = default!;
         [Dependency] private readonly IConfigurationManager _cfg = default!;
+        [Dependency] private readonly SharedAudioSystem _audio = default!;
 
         /// <summary>
         /// Unfortunately, since spawning as a normal role and anything else is so different,
@@ -51,8 +53,6 @@ namespace Content.Server.Psionics
             SubscribeLocalEvent<AntiPsionicWeaponComponent, MeleeHitEvent>(OnMeleeHit);
             SubscribeLocalEvent<AntiPsionicWeaponComponent, StaminaMeleeHitEvent>(OnStamHit);
 
-            SubscribeLocalEvent<PotentialPsionicComponent, MobStateChangedEvent>(OnDeathGasp);
-
             SubscribeLocalEvent<PsionicComponent, ComponentInit>(OnInit);
             SubscribeLocalEvent<PsionicComponent, ComponentRemove>(OnRemove);
         }
@@ -71,7 +71,7 @@ namespace Content.Server.Psionics
             {
                 if (HasComp<PsionicComponent>(entity))
                 {
-                    SoundSystem.Play("/Audio/Effects/lightburn.ogg", Filter.Pvs(entity), entity);
+                    _audio.PlayPvs("/Audio/Effects/lightburn.ogg", entity);
                     args.ModifiersList.Add(component.Modifiers);
                     if (_random.Prob(component.DisableChance))
                         _statusEffects.TryAddStatusEffect(entity, "PsionicsDisabled", TimeSpan.FromSeconds(10), true, "PsionicsDisabled");
@@ -86,29 +86,6 @@ namespace Content.Server.Psionics
                 if (component.Punish && HasComp<PotentialPsionicComponent>(entity) && !HasComp<PsionicComponent>(entity) && _random.Prob(0.5f))
                     _electrocutionSystem.TryDoElectrocution(args.User, null, 20, TimeSpan.FromSeconds(5), false);
             }
-        }
-
-        private void OnDeathGasp(EntityUid uid, PotentialPsionicComponent component, MobStateChangedEvent args)
-        {
-            if (args.NewMobState != MobState.Dead)
-                return;
-
-            string message;
-
-            switch (_glimmerSystem.GetGlimmerTier())
-            {
-                case GlimmerTier.Critical:
-                    message = Loc.GetString("death-gasp-high", ("ent", Identity.Entity(uid, EntityManager)));
-                    break;
-                case GlimmerTier.Dangerous:
-                    message = Loc.GetString("death-gasp-medium", ("ent",Identity.Entity(uid, EntityManager)));
-                    break;
-                default:
-                    message = Loc.GetString("death-gasp-normal", ("ent", Identity.Entity(uid, EntityManager)));
-                    break;
-            }
-
-            _chat.TrySendInGameICMessage(uid, message, InGameICChatType.Emote, false, force:true);
         }
 
         private void OnInit(EntityUid uid, PsionicComponent component, ComponentInit args)

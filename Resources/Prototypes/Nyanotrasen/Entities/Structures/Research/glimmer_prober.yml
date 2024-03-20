@@ -13,7 +13,7 @@
     pointspersecond: 20
     active: true
   - type: Sprite
-    sprite: Nyanotrasen/Structures/Machines/glimmer_machines.rsi
+    sprite: DeltaV/Structures/Machines/glimmer_machines.rsi # DeltaV reskin
     noRot: true
     layers:
     - state: base
@@ -67,22 +67,22 @@
   - type: AmbientSound
     range: 6
     volume: -6
-    sound: /Audio/Ambience/Objects/prober_hum_low.ogg
+    sound: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_low.ogg
   - type: AmbientOnPowered
   - type: GlimmerSound
     glimmerTier:
       Minimal:
-        path: /Audio/Ambience/Objects/prober_hum_low.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_low.ogg
       Low:
-        path: /Audio/Ambience/Objects/prober_hum_low.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_low.ogg
       Moderate:
-        path: /Audio/Ambience/Objects/prober_hum_moderate.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_moderate.ogg
       High:
-        path: /Audio/Ambience/Objects/prober_hum_high.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_high.ogg
       Dangerous:
-        path: /Audio/Ambience/Objects/prober_hum_dangerous.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_dangerous.ogg
       Critical:
-        path: /Audio/Ambience/Objects/prober_hum_dangerous.ogg
+        path: /Audio/Nyanotrasen/Ambience/Objects/prober_hum_dangerous.ogg
 
 - type: entity
   parent: BaseMachinePowered
@@ -97,7 +97,7 @@
     graph: GlimmerDevices
     node: glimmerDrain
   - type: Sprite
-    sprite: Nyanotrasen/Structures/Machines/glimmer_machines.rsi
+    sprite: DeltaV/Structures/Machines/glimmer_machines.rsi # DeltaV reskin
     noRot: true
     layers:
     - state: base
@@ -149,7 +149,7 @@
     - type: Anchorable
     - type: Rotatable
     - type: Pullable
-    - type: Construction
+    - type: Construction #Files are in place, but commented out
       graph: GlimmerDevices
       node: frame
     - type: Damageable
@@ -164,7 +164,7 @@
         - !type:DoActsBehavior
           acts: ["Destruction"]
     - type: Sprite
-      sprite: Nyanotrasen/Structures/Machines/glimmer_machines.rsi
+      sprite: DeltaV/Structures/Machines/glimmer_machines.rsi # DeltaV reskin
       noRot: true
       layers:
       - state: base

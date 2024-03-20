@@ -1,24 +1,25 @@
-using Content.Server.Chemistry.Components.SolutionManager;
-using Content.Server.Chemistry.EntitySystems;
-using Content.Server.Nutrition;
+using Content.Server.Nutrition; // DeltaV
 using Content.Server.Nutrition.Components;
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry.Components.SolutionManager;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
-using Content.Shared.Item;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
+using Robust.Shared.Player;
 
 namespace Content.Server.Nutrition.EntitySystems
 {
-    internal sealed class SliceableFoodSystem : EntitySystem
+    public sealed class SliceableFoodSystem : EntitySystem
     {
         [Dependency] private readonly SolutionContainerSystem _solutionContainerSystem = default!;
-        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
+        [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
-        [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
+        [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
 
         public override void Initialize()
         {
@@ -47,7 +48,7 @@ namespace Content.Server.Nutrition.EntitySystems
                 return false;
             }
 
-            if (!_solutionContainerSystem.TryGetSolution(uid, food.SolutionName, out var solution))
+            if (!_solutionContainerSystem.TryGetSolution(uid, food.Solution, out var solution))
             {
                 return false;
             }
@@ -57,12 +58,7 @@ namespace Content.Server.Nutrition.EntitySystems
                 return false;
             }
 
-            var attemptEvent = new SliceFoodAttemptEvent(user, usedItem, uid);
-            RaiseLocalEvent(uid, attemptEvent);
-            if (attemptEvent.Cancelled)
-                return false;
-
-            var sliceUid = Spawn(component.Slice, transform.Coordinates);
+            var sliceUid = Slice(uid, user, component, transform);
 
             var lostSolution = _solutionContainerSystem.SplitSolution(uid, solution,
                 solution.Volume / FixedPoint2.New(component.Count));
@@ -70,19 +66,7 @@ namespace Content.Server.Nutrition.EntitySystems
             // Fill new slice
             FillSlice(sliceUid, lostSolution);
 
-            var inCont = _containerSystem.IsEntityInContainer(component.Owner);
-            if (inCont)
-            {
-                _handsSystem.PickupOrDrop(user, sliceUid);
-            }
-            else
-            {
-                var xform = Transform(sliceUid);
-                _containerSystem.AttachParentToContainerOrGrid(xform);
-                xform.LocalRotation = 0;
-            }
-
-            _audioSystem.PlayPvs(component.Sound, uid, AudioParams.Default.WithVolume(-2f));
+            _audio.PlayPvs(component.Sound, transform.Coordinates, AudioParams.Default.WithVolume(-2));
 
             // Decrease size of item based on count - Could implement in the future
             // Bug with this currently is the size in a container is not updated
@@ -92,9 +76,6 @@ namespace Content.Server.Nutrition.EntitySystems
             // }
 
             component.Count--;
-
-            var sliceEvent = new SliceFoodEvent(user, usedItem, uid, sliceUid);
-            RaiseLocalEvent(uid, sliceEvent);
 
             // If someone makes food proto with 1 slice...
             if (component.Count < 1)
@@ -107,11 +88,26 @@ namespace Content.Server.Nutrition.EntitySystems
             if (component.Count > 1)
                 return true;
 
-            sliceUid = Spawn(component.Slice, transform.Coordinates);
+            sliceUid = Slice(uid, user, component, transform);
 
             // Fill last slice with the rest of the solution
             FillSlice(sliceUid, solution);
 
+            DeleteFood(uid, user);
+            return true;
+        }
+
+        /// <summary>
+        /// Create a new slice in the world and returns its entity.
+        /// The solutions must be set afterwards.
+        /// </summary>
+        public EntityUid Slice(EntityUid uid, EntityUid user, SliceableFoodComponent? comp = null, TransformComponent? transform = null)
+        {
+            if (!Resolve(uid, ref comp, ref transform))
+                return EntityUid.Invalid;
+
+            var sliceUid = Spawn(comp.Slice, transform.Coordinates);
+            var inCont = _containerSystem.IsEntityInContainer(uid);
             if (inCont)
             {
                 _handsSystem.PickupOrDrop(user, sliceUid);
@@ -119,15 +115,16 @@ namespace Content.Server.Nutrition.EntitySystems
             else
             {
                 var xform = Transform(sliceUid);
-                _containerSystem.AttachParentToContainerOrGrid(xform);
+                _containerSystem.AttachParentToContainerOrGrid((sliceUid, xform));
                 xform.LocalRotation = 0;
             }
 
-            var sliceSplitEvent = new SliceFoodEvent(user, usedItem, uid, sliceUid);
-            RaiseLocalEvent(uid, sliceSplitEvent);
+            // DeltaV - Begin deep frier related code
+            var sliceEvent = new SliceFoodEvent(user, uid, sliceUid);
+            RaiseLocalEvent(uid, sliceEvent);
+            // DeltaV - End deep frier related code
 
-            DeleteFood(uid, user);
-            return true;
+            return sliceUid;
         }
 
         private void DeleteFood(EntityUid uid, EntityUid user)
@@ -146,7 +143,7 @@ namespace Content.Server.Nutrition.EntitySystems
         {
             // Replace all reagents on prototype not just copying poisons (example: slices of eaten pizza should have less nutrition)
             if (TryComp<FoodComponent>(sliceUid, out var sliceFoodComp) &&
-                _solutionContainerSystem.TryGetSolution(sliceUid, sliceFoodComp.SolutionName, out var itsSolution))
+                _solutionContainerSystem.TryGetSolution(sliceUid, sliceFoodComp.Solution, out var itsSolution))
             {
                 _solutionContainerSystem.RemoveAllSolution(sliceUid, itsSolution);
 
@@ -161,72 +158,12 @@ namespace Content.Server.Nutrition.EntitySystems
             var foodComp = EnsureComp<FoodComponent>(uid);
 
             EnsureComp<SolutionContainerManagerComponent>(uid);
-            _solutionContainerSystem.EnsureSolution(uid, foodComp.SolutionName);
+            _solutionContainerSystem.EnsureSolution(uid, foodComp.Solution);
         }
 
         private void OnExamined(EntityUid uid, SliceableFoodComponent component, ExaminedEvent args)
         {
             args.PushMarkup(Loc.GetString("sliceable-food-component-on-examine-remaining-slices-text", ("remainingCount", component.Count)));
-        }
-    }
-
-    public sealed class SliceFoodAttemptEvent : CancellableEntityEventArgs
-    {
-        /// <summary>
-        /// Who's doing the slicing?
-        /// <summary>
-        public EntityUid User;
-
-        /// <summary>
-        /// What's doing the slicing?
-        /// <summary>
-        public EntityUid Tool;
-
-        /// <summary>
-        /// What's being sliced?
-        /// <summary>
-        public EntityUid Food;
-
-        public SliceFoodAttemptEvent(EntityUid user, EntityUid tool, EntityUid food)
-        {
-            User = user;
-            Tool = tool;
-            Food = food;
-        }
-    }
-
-    public sealed class SliceFoodEvent : EntityEventArgs
-    {
-        /// <summary>
-        /// Who did the slicing?
-        /// <summary>
-        public EntityUid User;
-
-        /// <summary>
-        /// What did the slicing?
-        /// <summary>
-        public EntityUid Tool;
-
-        /// <summary>
-        /// What has been sliced?
-        /// <summary>
-        /// <remarks>
-        /// This could soon be deleted if there was not enough food left to
-        /// continue slicing.
-        /// </remarks>
-        public EntityUid Food;
-
-        /// <summary>
-        /// What is the slice?
-        /// <summary>
-        public EntityUid Slice;
-
-        public SliceFoodEvent(EntityUid user, EntityUid tool, EntityUid food, EntityUid slice)
-        {
-            User = user;
-            Tool = tool;
-            Food = food;
-            Slice = slice;
         }
     }
 }

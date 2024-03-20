@@ -14,6 +14,10 @@
   id: OreSpaceQuartz
   oreEntity: SpaceQuartz1
 
+- type: ore
+  id: OreCoal
+  oreEntity: Coal1
+
 # Medium yields
 - type: ore
   id: OreGold
@@ -33,8 +37,28 @@
   oreEntity: UraniumOre1
 
 - type: ore
+  id: OreBananium
+  oreEntity: BananiumOre1
+
+- type: ore
+  id: OreQuartzCrab
+  oreEntity: MobQuartzCrab
+
+- type: ore
+  id: OreIronCrab
+  oreEntity: MobIronCrab
+
+- type: ore
+  id: OreSilverCrab
+  oreEntity: MobSilverCrab
+
+- type: ore
+  id: OreUraniumCrab
+  oreEntity: MobUraniumCrab
+
+- type: ore
   id: OreArtifactFragment
-  oreEntity: ArtifactFragment
+  oreEntity: ArtifactFragment1
   minOreYield: 2
   maxOreYield: 4
 
@@ -42,19 +66,19 @@
   id: RandomOreDistributionStandard
   weights:
     OreSteel: 10
+    OreCoal: 10
     OreSpaceQuartz: 8
     OreGold: 2
     OrePlasma: 4
     OreSilver: 1
     OreUranium: 1
+    OreBananium: 0.5
+    OreArtifactFragment: 0.5
 
 - type: weightedRandomOre
-  id: RandomOreDistributionHigh
+  id: OreCrab
   weights:
-    OreSteel: 1
-    OreSpaceQuartz: 2
-    OreGold: 10
-    OrePlasma: 8
-    OreSilver: 4
-    OreUranium: 6
-    OreArtifactFragment: 0.5
+    OreQuartzCrab: 5
+    OreIronCrab: 5
+    OreUraniumCrab: 2
+    OreSilverCrab: 3

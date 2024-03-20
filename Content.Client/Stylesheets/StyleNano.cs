@@ -4,7 +4,6 @@ using Content.Client.ContextMenu.UI;
 using Content.Client.Examine;
 using Content.Client.PDA;
 using Content.Client.Resources;
-using Content.Client.Targeting.UI;
 using Content.Client.UserInterface.Controls;
 using Content.Client.UserInterface.Controls.FancyTree;
 using Content.Client.Verbs.UI;
@@ -14,6 +13,7 @@ using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.Graphics;
 using static Robust.Client.UserInterface.StylesheetHelpers;
 
 namespace Content.Client.Stylesheets
@@ -56,6 +56,7 @@ namespace Content.Client.Stylesheets
         public const string StyleClassTooltipActionDescription = "tooltipActionDesc";
         public const string StyleClassTooltipActionCooldown = "tooltipActionCooldown";
         public const string StyleClassTooltipActionRequirements = "tooltipActionCooldown";
+        public const string StyleClassTooltipActionCharges = "tooltipActionCharges";
         public const string StyleClassHotbarSlotNumber = "hotbarSlotNumber";
         public const string StyleClassActionSearchBox = "actionSearchBox";
         public const string StyleClassActionMenuItemRevoked = "actionMenuItemRevoked";
@@ -122,8 +123,6 @@ namespace Content.Client.Stylesheets
         public static readonly Color ExamineButtonColorContextPressed = Color.FromHex("#3e6c45");
         public static readonly Color ExamineButtonColorContextDisabled = Color.FromHex("#5A5A5A");
 
-        // UI Panel colors
-        public static readonly Color PanelColorDark = Color.FromHex("#1F1F1F");
         // Fancy Tree elements
         public static readonly Color FancyTreeEvenRowColor = Color.FromHex("#25252A");
         public static readonly Color FancyTreeOddRowColor = FancyTreeEvenRowColor * new Color(0.8f, 0.8f, 0.8f);
@@ -371,13 +370,13 @@ namespace Content.Client.Stylesheets
             {
                 BackgroundColor = new Color(0.25f, 0.25f, 0.25f)
             };
-            progressBarBackground.SetContentMarginOverride(StyleBox.Margin.Vertical, 5);
+            progressBarBackground.SetContentMarginOverride(StyleBox.Margin.Vertical, 14.5f);
 
             var progressBarForeground = new StyleBoxFlat
             {
                 BackgroundColor = new Color(0.25f, 0.50f, 0.25f)
             };
-            progressBarForeground.SetContentMarginOverride(StyleBox.Margin.Vertical, 5);
+            progressBarForeground.SetContentMarginOverride(StyleBox.Margin.Vertical, 14.5f);
 
             // CheckBox
             var checkBoxTextureChecked = resCache.GetTexture("/Textures/Interface/Nano/checkbox_checked.svg.96dpi.png");
@@ -942,6 +941,10 @@ namespace Content.Client.Stylesheets
                 {
                     new StyleProperty("font", notoSans15)
                 }),
+                new StyleRule(new SelectorElement(typeof(RichTextLabel), new[] {StyleClassTooltipActionCharges}, null, null), new[]
+                {
+                    new StyleProperty("font", notoSans15)
+                }),
 
                 // small number for the entity counter in the entity menu
                 new StyleRule(new SelectorElement(typeof(Label), new[] {ContextMenuElement.StyleClassEntityMenuIconLabel}, null, null), new[]
@@ -1149,29 +1152,6 @@ namespace Content.Client.Stylesheets
                         new StyleProperty(Label.StylePropertyFont, notoSansDisplayBold14),
                     }),
 
-                // Targeting doll
-
-                new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {TargetingDoll.StyleClassTargetDollZone}, null,
-                        new[] {TextureButton.StylePseudoClassNormal}), new[]
-                    {
-                        new StyleProperty(Control.StylePropertyModulateSelf, ButtonColorDefault),
-                    }),
-
-                new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {TargetingDoll.StyleClassTargetDollZone}, null,
-                        new[] {TextureButton.StylePseudoClassHover}), new[]
-                    {
-                        new StyleProperty(Control.StylePropertyModulateSelf, ButtonColorHovered),
-                    }),
-
-                new StyleRule(
-                    new SelectorElement(typeof(TextureButton), new[] {TargetingDoll.StyleClassTargetDollZone}, null,
-                        new[] {TextureButton.StylePseudoClassPressed}), new[]
-                    {
-                        new StyleProperty(Control.StylePropertyModulateSelf, ButtonColorPressed),
-                    }),
-
                 // NanoHeading
 
                 new StyleRule(
@@ -1324,7 +1304,7 @@ namespace Content.Client.Stylesheets
 
                 Element<PanelContainer>().Class("WindowHeadingBackground")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenLeft) { Padding = default })
-                    .Prop(Control.StylePropertyModulateSelf, PanelColorDark),
+                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#1F1F1F")),
 
                 Element<PanelContainer>().Class("WindowHeadingBackgroundLight")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenLeft) { Padding = default }),
@@ -1332,12 +1312,11 @@ namespace Content.Client.Stylesheets
                 //The lengths you have to go through to change a background color smh
                 Element<PanelContainer>().Class("PanelBackgroundBaseDark")
                     .Prop("panel", new StyleBoxTexture(BaseButtonOpenBoth) { Padding = default })
-                    .Prop(Control.StylePropertyModulateSelf, PanelColorDark),
+                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#1F1F23")),
 
-                Element<PanelContainer>().Class("PanelBackgroundAngledDark")
-                    .Prop(PanelContainer.StylePropertyPanel, BaseAngleRect)
-                    .Prop(Control.StylePropertyModulateSelf, PanelColorDark),
-
+                Element<PanelContainer>().Class("PanelBackgroundLight")
+                    .Prop("panel", new StyleBoxTexture(BaseButtonOpenBoth) { Padding = default })
+                    .Prop(Control.StylePropertyModulateSelf, Color.FromHex("#2F2F3B")),
 
                 // Window Footer
                 Element<TextureRect>().Class("NTLogoDark")

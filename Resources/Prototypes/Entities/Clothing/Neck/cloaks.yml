@@ -1,14 +1,5 @@
 - type: entity
   parent: ClothingNeckBase
-  id: ClothingNeckSalvager
-  name: salvager's cloak
-  description: Worn by dangerous people who've deconstructed stations with ease.
-  components:
-  - type: Sprite
-    sprite: Clothing/Neck/Cloaks/salvage.rsi
-
-- type: entity
-  parent: ClothingNeckBase
   id: ClothingNeckCloakCap
   name: captain's cloak
   description: A pompous and comfy blue cloak with a nice gold trim, while not particularly valuable as your other possessions, it sure is fancy.
@@ -46,7 +37,7 @@
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCloakRd
-  name: research director's cloak
+  name: mystagogue's cloak # DeltaV - Epistemics Department replacing Science
   description: A white cloak with violet stripes, showing your status as the arbiter of cutting-edge technology.
   components:
   - type: Sprite
@@ -55,7 +46,7 @@
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCloakQm
-  name: quartermaster's cloak
+  name: logistics officer's cloak # DeltaV - Logistics Department replacing Cargo
   description: A strong brown cloak with a reflective stripe, while not as fancy as others, it does show your managing skills.
   components:
   - type: Sprite
@@ -99,6 +90,15 @@
 
 - type: entity
   parent: ClothingNeckBase
+  id: ClothingNeckCloakAdmin
+  name: admin cloak
+  description: Weh!
+  components:
+  - type: Sprite
+    sprite: Clothing/Neck/Cloaks/admin.rsi
+
+- type: entity
+  parent: ClothingNeckBase
   id: ClothingNeckCloakMiner
   name: miner's cloak
   description: Worn by the most skilled miners, for one who has moved mountains and filled valleys.
@@ -127,6 +127,7 @@
     clothingPrototype: ClothingHeadHatHoodGoliathCloak
     requiredSlot:
     - neck
+    slot: head
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
@@ -152,8 +153,20 @@
     clothingPrototype: ClothingHeadHatHoodMoth
     requiredSlot:
     - neck
+    slot: head
   - type: ContainerContainer
     containers:
       toggleable-clothing: !type:ContainerSlot {}
   - type: TypingIndicatorClothing
     proto: moth
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakVoid
+  name: void cloak
+  description: A cloak of darkness. For those who have gone to the dark side of the force.
+  components:
+  - type: Sprite
+    sprite: Clothing/Neck/Cloaks/void.rsi
+  - type: TypingIndicatorClothing
+    proto: alien

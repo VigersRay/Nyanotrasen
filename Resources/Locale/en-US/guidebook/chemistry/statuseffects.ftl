@@ -9,3 +9,5 @@ reagent-effect-status-effect-ForcedSleep = unconsciousness
 reagent-effect-status-effect-Drunk = drunkness
 reagent-effect-status-effect-PressureImmunity = pressure immunity
 reagent-effect-status-effect-Pacified = combat pacification
+reagent-effect-status-effect-RatvarianLanguage = ratvarian language patterns
+reagent-effect-status-effect-StaminaModifier = modified stamina

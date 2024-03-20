@@ -70,21 +70,20 @@
               Heat: 10
     - type: AtmosExposed
     - type: Kudzu
-      spreadChance: 0.75
       growthTickChance: 0.3
+      spreadChance: 0.4
     - type: GrowingKudzu
     - type: SlowContacts
       walkSpeedModifier: 0.2
       sprintSpeedModifier: 0.2
+      ignoreWhitelist:
+        components:
+        - IgnoreKudzu
+    - type: ActiveEdgeSpreader
     - type: EdgeSpreader
-    - type: NodeContainer
-      nodes:
-        kudzu:
-          !type:SpreaderNode
-          nodeGroupID: Spreader
+      id: Kudzu
     - type: Food
       requiredStomachs: 2 # ruminants have 4 stomachs but i dont care to give them literally 4 stomachs. 2 is good
-      # TODO make botany plants edible to ruminants as well ...
       delay: 0.5
     - type: FlavorProfile
       flavors:
@@ -151,6 +150,7 @@
       damage:
         types:
           Slash: 1.5
+          Piercing: 1.5
       ignoreWhitelist:
         tags:
         - Flesh
@@ -181,13 +181,11 @@
        types:
          Heat: 1
     - type: GrowingKudzu
+      growthTickChance: 0.3
     - type: AtmosExposed
+    - type: ActiveEdgeSpreader
     - type: EdgeSpreader
-    - type: NodeContainer
-      nodes:
-        kudzu:
-          !type:SpreaderNode
-          nodeGroupID: Spreader
+      id: Kudzu
     - type: SlowContacts
       walkSpeedModifier: 0.3
       sprintSpeedModifier: 0.3

@@ -19,57 +19,14 @@
   recognizable: true
 
 - type: reagent
-  id: OilCorn
+  id: Cornoil
   name: reagent-name-cornoil
   group: Foods
   desc: reagent-desc-cornoil
   physicalDesc: reagent-physical-desc-oily
   flavor: oily
   color: yellow
-  meltingPoint: -11.0
-  boilingPoint: 232.2
   recognizable: true
-  metabolisms:
-    Food:
-      effects:
-      - !type:AdjustReagent
-        reagent: Nutriment
-        amount: 0.75
-
-- type: reagent
-  id: OilGhee
-  name: reagent-name-oil-ghee
-  group: Foods
-  desc: reagent-desc-oil-ghee
-  physicalDesc: reagent-physical-desc-oily
-  flavor: butter
-  color: gold
-  recognizable: true
-  metabolisms:
-    Food:
-      effects:
-      - !type:AdjustReagent
-        reagent: Nutriment
-        amount: 0.75
-
-- type: reagent
-  id: OilOlive
-  name: reagent-name-oil-olive
-  group: Foods
-  desc: reagent-desc-oil-olive
-  physicalDesc: reagent-physical-desc-oily
-  flavor: oily
-  flavorMinimum: 0.05
-  color: olive
-  meltingPoint: -6.0
-  boilingPoint: 299.0
-  recognizable: true
-  metabolisms:
-    Food:
-      effects:
-      - !type:AdjustReagent
-        reagent: Nutriment
-        amount: 0.75
 
 - type: reagent
   id: Frostoil
@@ -116,7 +73,8 @@
   group: Foods
   desc: reagent-desc-ketchunaise
   physicalDesc: reagent-physical-desc-saucey
-  flavor: piquant
+  #I love it when people just make up fake prototypes.
+  #flavor: piquant
   color: "#fba399"
   recognizable: true
 
@@ -128,6 +86,16 @@
   physicalDesc: reagent-physical-desc-thick
   flavor: sour
   color: "#f9f5e5"
+  recognizable: true
+
+- type: reagent
+  id: Mustard
+  name: reagent-name-mustard
+  group: Foods
+  desc: reagent-desc-mustard
+  physicalDesc: reagent-physical-desc-thick
+  flavor: sour
+  color: "#ffdb58"
   recognizable: true
 
 - type: reagent
@@ -154,10 +122,6 @@
       effects:
       - !type:SatiateHunger
         factor: 0.5
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-          shouldHave: false
       - !type:SatiateThirst
         factor: -0.5 # high salt content
 

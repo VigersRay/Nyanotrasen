@@ -24,7 +24,7 @@ namespace Content.IntegrationTests.Tests.Oracle
         public async Task AllOracleItemsCanBeTurnedIn()
         {
             await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            var server = pairTracker.Server;
             // Per RobustIntegrationTest.cs, wait until state is settled to access it.
             await server.WaitIdleAsync();
 
@@ -34,12 +34,13 @@ namespace Content.IntegrationTests.Tests.Oracle
             var entitySystemManager = server.ResolveDependency<IEntitySystemManager>();
 
             var oracleSystem = entitySystemManager.GetEntitySystem<OracleSystem>();
+            var oracleComponent = new OracleComponent();
 
-            var testMap = await PoolManager.CreateTestMap(pairTracker);
+            var testMap = await pairTracker.CreateTestMap();
 
             await server.WaitAssertion(() =>
             {
-                var allProtos = oracleSystem.GetAllProtos();
+                var allProtos = oracleSystem.GetAllProtos(oracleComponent);
                 var coordinates = testMap.GridCoords;
 
                 Assert.That((allProtos.Count > 0), "Oracle has no valid prototypes!");
@@ -49,7 +50,7 @@ namespace Content.IntegrationTests.Tests.Oracle
                     var spawned = entityManager.SpawnEntity(proto, coordinates);
 
                     Assert.That(entityManager.HasComponent<ItemComponent>(spawned),
-                        $"Oracle can request non-item  {proto}");
+                        $"Oracle can request non-item {proto}");
 
                     Assert.That(!entityManager.HasComponent<SolutionTransferComponent>(spawned),
                         $"Oracle can request reagent container {proto} that will conflict with the fountain");

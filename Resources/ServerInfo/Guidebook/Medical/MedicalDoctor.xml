@@ -11,6 +11,7 @@ It's best to do both, if possible, as some things (such as poison, or radiation)
 <Box>
 <GuideEntityEmbed Entity="SignExamroom" Caption="examine patient"/>
 <GuideEntityEmbed Entity="MedicalPDA"/>
+<GuideEntityEmbed Entity="MedicalInternPDA" Caption="intern PDA"/>
 <GuideEntityEmbed Entity="HandheldHealthAnalyzer"/>
 </Box>
 

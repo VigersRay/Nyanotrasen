@@ -16,13 +16,10 @@
     behaviours:
       - !type:FadeBehaviour
         id: radiating
-        interpolate: Linear
         maxDuration: 2.0
         startValue: 3.0
         endValue: 2.0
         isLooped: true
-        property: Radius
-        enabled: false
         reverseWhenFinished: true
       - !type:PulseBehaviour
         id: blinking
@@ -31,8 +28,6 @@
         minValue: 0.1
         maxValue: 2.0
         isLooped: true
-        property: Radius
-        enabled: false
   - type: ToggleableLightVisuals
     spriteLayer: light
     inhandVisuals:
@@ -52,13 +47,6 @@
       cell_slot:
         name: power-cell-slot-component-slot-name-default
         startingItem: PowerCellMedium
-  - type: MeleeWeapon
-    attackRate: 0.8
-    damage:
-      types:
-        Blunt: 7
-  - type: StaminaDamageOnHit
-    damage: 9.5
   - type: Sprite
     sprite: Objects/Tools/flashlight.rsi
     layers:
@@ -76,7 +64,7 @@
     radius: 6
     netsync: false
   - type: Appearance
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 40
 
 - type: entity
@@ -88,7 +76,6 @@
   - type: Tag
     tags:
       - SecBeltEquip
-      - ForensicBeltEquip
   - type: ItemSlots
     slots:
       cell_slot:
@@ -104,14 +91,6 @@
       right:
       - state: inhand-right-light
         shader: unshaded
-  - type: MeleeWeapon
-    attackRate: 0.9
-    bluntStaminaDamageFactor: 3.0
-    damage:
-      types:
-        Blunt: 6.5
-  - type: StaminaDamageOnHit
-    damage: 2
   - type: Sprite
     sprite: Objects/Tools/seclite.rsi
     layers:
@@ -120,6 +99,11 @@
         shader: unshaded
         visible: false
         map: [ "light" ]
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 10
+    bluntStaminaDamageFactor: 2.0 # DeltaV - seclite is now a viable nonlethal takedown tool against unarmoured targets.
   - type: Item
     sprite: Objects/Tools/seclite.rsi
   - type: PointLight

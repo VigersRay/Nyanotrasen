@@ -28,6 +28,7 @@
       - FoodMealRibs
       - FoodMealEggsbenedict
       - FoodMealOmelette
+      - FoodMealScrambledEggs #DeltaV
       - FoodMealFriedegg
       - FoodMealQueso
       - FoodMealSashimi
@@ -35,6 +36,9 @@
       - FoodNoodlesChowmein
       - FoodNoodlesSpesslaw
       - FoodNoodlesMeatball
+      - FoodNoodlesBoiled
+      - FoodNoodles
+      - FoodNoodlesButter
       - FoodMealHappyHonkClown
       - FoodSoupPea
       - FoodSaladHerb
@@ -45,6 +49,7 @@
       - FoodSaladCaesar
       - FoodSaladColeslaw
       - FoodSaladKimchi
+      - FoodSaladWatermelonFruitBowl
       - FoodRiceBoiled
       - FoodRiceEgg
       - FoodRicePork
@@ -60,34 +65,38 @@
       - FoodSoupMiso
       - FoodSoupMushroom
       - FoodSoupBeet
+      - FoodSoupBeetRed
       - FoodSoupPotato
       - FoodSoupOnion
       - FoodSoupBisque
       - FoodSoupBungo
-      - FoodMothHerbyCheese
-      - FoodMothSqueakingFry
-      - FoodMothChiliCabbageWrap
-      - FoodMothBakedCheese
-      - FoodMothBakedRice
-      - FoodMothGreenLasagne
-      - FoodMothBakedCorn
-      - FoodMothButteredBakedCorn
-      - FoodMothMozzarellaSticks
-      - FoodMothMacBalls
-      - FoodMothCottonSoup
-      - FoodMothCheeseSoup
-      - FoodMothSeedSoup
-      - FoodMothBeanStew
-      - FoodMothOatStew
-      - FoodMothHeartburnSoup
-      - FoodMothHuaMulanCongee
-      - FoodMothCornmealPorridge
-      - FoodMothCheesyPorridge
-      - FoodMothEggplantPolenta
-      - FoodMothCapreseSalad
-      - FoodMothFleetSalad
-      - FoodMothCottonSalad
-      - FoodMothKachumbariSalad
+      - FoodMothHerbyCheese # Nyanotrasen - Moth Recipes
+      - FoodMothSqueakingFry # Nyanotrasen - Moth Recipes
+      - FoodMothChiliCabbageWrap # Nyanotrasen - Moth Recipes
+      - FoodMothBakedCheese # Nyanotrasen - Moth Recipes
+      - FoodMothBakedRice # Nyanotrasen - Moth Recipes
+      - FoodMothGreenLasagne # Nyanotrasen - Moth Recipes
+      - FoodMothBakedCorn # Nyanotrasen - Moth Recipes
+      - FoodMothButteredBakedCorn # Nyanotrasen - Moth Recipes
+      - FoodMothMozzarellaSticks # Nyanotrasen - Moth Recipes
+      - FoodMothMacBalls # Nyanotrasen - Moth Recipes
+      - FoodMothCottonSoup # Nyanotrasen - Moth Recipes
+      - FoodMothCheeseSoup # Nyanotrasen - Moth Recipes
+      - FoodMothSeedSoup # Nyanotrasen - Moth Recipes
+      - FoodMothBeanStew # Nyanotrasen - Moth Recipes
+      - FoodMothOatStew # Nyanotrasen - Moth Recipes
+      - FoodMothHeartburnSoup # Nyanotrasen - Moth Recipes
+      - FoodMothHuaMulanCongee # Nyanotrasen - Moth Recipes
+      - FoodMothCornmealPorridge # Nyanotrasen - Moth Recipes
+      - FoodMothCheesyPorridge # Nyanotrasen - Moth Recipes
+      - FoodMothEggplantPolenta # Nyanotrasen - Moth Recipes
+      - FoodMothCapreseSalad # Nyanotrasen - Moth Recipes
+      - FoodMothFleetSalad # Nyanotrasen - Moth Recipes
+      - FoodMothCottonSalad # Nyanotrasen - Moth Recipes
+      - FoodMothKachumbariSalad # Nyanotrasen - Moth Recipes
+      - FoodMealSoftTaco
+      - FoodMealCornInButter
+      - FoodSoupStew
     chance: 0.8
     offset: 0.0
     #rare
@@ -109,7 +118,7 @@
       - FoodSoupChiliClown
       - FoodSoupMonkey
       - FoodSoupEyeball
-      - FoodMothEyeballSoup
       - FoodSoupElectron
-      - FoodMothBakedCheesePlatter
+      - FoodMothBakedCheesePlatter # Nyanotrasen - Moth Recipes
+      - FoodNoodlesCopy
     rareChance: 0.05

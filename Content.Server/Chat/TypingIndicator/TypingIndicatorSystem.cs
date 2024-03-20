@@ -1,6 +1,6 @@
 using Content.Shared.ActionBlocker;
 using Content.Shared.Chat.TypingIndicator;
-using Robust.Server.GameObjects;
+using Robust.Shared.Player;
 
 namespace Content.Server.Chat.TypingIndicator;
 
@@ -54,9 +54,7 @@ public sealed class TypingIndicatorSystem : SharedTypingIndicatorSystem
         SetTypingIndicatorEnabled(uid.Value, ev.IsTyping);
     }
 
-    // Begin Nyano-code: API made public for conversational NPCs.
-    public void SetTypingIndicatorEnabled(EntityUid uid, bool isEnabled, AppearanceComponent? appearance = null)
-    // End Nyano-code.
+    private void SetTypingIndicatorEnabled(EntityUid uid, bool isEnabled, AppearanceComponent? appearance = null)
     {
         if (!Resolve(uid, ref appearance, false))
             return;

@@ -2,10 +2,13 @@
   id: MothroachHide
 
 - type: Tag
-  id: RuinedDwelling
+  id: MagazineUniversalMagnum
 
 - type: Tag
-  id: RuinedHospital
+  id: CoreSilver
 
 - type: Tag
-  id: RuinedShop
+  id: BluespaceCrystal
+
+- type: Tag
+  id: NormalityCrystal

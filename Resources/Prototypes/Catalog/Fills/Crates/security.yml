@@ -4,7 +4,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterArmorBulletproof
+      - id: ClothingOuterArmorPlateCarrier # DeltaV - ClothingOuterArmorBulletproof replaced in favour of plate carrier
         amount: 3
 
 - type: entity
@@ -29,8 +29,6 @@
       - id: BoxFlashbang
       - id: Flash
         amount: 3
-      - id: Bola
-        amount: 2
 #      - Pepperspray
 #      - GrenadeTeargas
 
@@ -40,15 +38,16 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingOuterArmorRiot
+      - id: ClothingOuterArmorARC # DeltaV - ClothingOuterArmorRiot replaced in favour of ARC suit
         amount: 2
       - id: ClothingHeadHelmetRiot
         amount: 2
-      - id: WeaponShotgunEnforcerNonLethal
+      - id: WeaponShotgunEnforcerRubber
         amount: 2
       - id: BoxBeanbag
         amount: 2
-#      - ShieldRiot
+      - id: RiotShield
+        amount: 2
 #      - SecGasmask
 
 - type: entity
@@ -61,8 +60,7 @@
       - id: BoxSechud
 #      - SecBelt
 #      - SecGasmask
-      - id: HyperlinkBookSpaceLaw
-        amount: 1
+#      - SpacelawBook
 
 - type: entity
   id: CrateRestraints
@@ -88,4 +86,16 @@
       - id: ClothingMaskSterile
         amount: 2
 
+- type: entity
+  id: CrateSecurityTrackingMindshieldImplants
+  name: Implanter Crate
+  parent: CrateSecgear
+  components:
+  - type: StorageFill
+    contents:
+      - id: MindShieldImplanter
+        amount: 4
+      - id: TrackingImplanter
+        amount: 4
+        
 # Cosmetic Crates

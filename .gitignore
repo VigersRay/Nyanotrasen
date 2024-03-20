@@ -162,6 +162,7 @@ PublishScripts/
 # NuGet v3's project.json files produces more ignoreable files
 *.nuget.props
 *.nuget.targets
+.nuget/
 
 # Microsoft Azure Build Output
 csx/
@@ -306,6 +307,5 @@ Resources/MapImages
 # Direnv stuff
 .direnv/
 
-### Nyanotrasen Specific
-Tools/gen_build_info.py
-
+# Changelog package lock
+package-lock.json

@@ -111,6 +111,8 @@
       prob: 0.10
     - id: BookGnominomicon
       prob: 0.2
+    - id: BookFishops # DeltaV - fishops book
+      prob: 0.2
     - id: BookSalvageEpistemics1
       prob: 0.025
 
@@ -578,6 +580,10 @@
       orGroup: Plushie
     - id: PlushieRouny
       orGroup: Plushie
+    - id: PlushieLizard
+      orGroup: Plushie
+    - id: PlushieSpaceLizard
+      orGroup: Plushie
     - id: PlushieRatvar
       orGroup: Plushie
     - id: PlushieNar
@@ -588,14 +594,14 @@
       orGroup: Plushie
     - id: PlushieSnake
       orGroup: Plushie
-    - id: PlushieMoffRandom
+    - id: PlushieMothRandom
       orGroup: Plushie
-    - id: PlushieMoff
+    - id: PlushieMoth
       orGroup: Plushie
-    - id: PlushieMoffsician
+    - id: PlushieMothMusician
       prob: 0.5
       orGroup: Plushie
-    - id: PlushieMoffbar
+    - id: PlushieMothBartender
       prob: 0.5
       orGroup: Plushie
 
@@ -631,6 +637,16 @@
 #   - type: Mail
 #     contents:
 #     - id: DrinkCanPack
+
+- type: entity
+  noSpawn: true
+  parent: BaseMail
+  id: MailSkub
+  suffix: skub
+  components:
+  - type: Mail
+    contents:
+    - id: Skub
 
 - type: entity
   noSpawn: true

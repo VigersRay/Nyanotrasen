@@ -3,45 +3,50 @@ ghost-role-component-default-rules = You don't remember any of your previous lif
                                      You are allowed to remember knowledge about the game in general, such as how to cook, how to use objects, etc.
                                      You are absolutely [color=red]NOT[/color] allowed to remember, say, the name, appearance, etc. of your previous character.
 
+# Delta V soft antag rule
+deltav-ghost-role-information-softantag-rules = You are allowed to attack the crew without provocation. 
+                                                You are allowed to coexist with the crew.
+                                                The crew is allowed to kill you without warning.
+
+# Delta V salvage antag rule
+deltav-ghost-role-information-salvageantag-rules =  You are a salvage mob. 
+                                                    You are allowed to attack salvagers without provocation. DO NOT GIB THEIR CORPSES!
+                                                    You are allowed to attack the salvage shuttle. 
+                                                    You are NOT allowed to go to the station. If the salvagers go to the station, you can't follow them.
+
 ghost-role-information-mouse-name = Mouse
 ghost-role-information-mouse-description = A hungry and mischievous mouse.
 
+ghost-role-information-mothroach-name = Mothroach
+ghost-role-information-mothroach-description = A cute but mischievous mothroach.
+
 ghost-role-information-giant-spider-name = Giant spider
 ghost-role-information-giant-spider-description = Wreak havoc on the station's inhabitants!
-
-ghost-role-information-giant-spider-vampire-name = Oneirophage
-ghost-role-information-giant-spider-vampire-description = Nest. Lure. Ambush. Consume.
 
 ghost-role-information-cognizine-description = Made conscious with the magic of cognizine.
 
 ghost-role-information-hamster-name = Hamster
 ghost-role-information-hamster-description = A grumpy little ball of fluff.
 
-ghost-role-information-cancer-mouse-name = Cancer Mouse
-ghost-role-information-cancer-mouse-description = Make off color comments, but not so edgy that they break the rules of the server.
-
-ghost-role-information-medibot-name = Medibot
-ghost-role-information-medibot-description = Click people to heal them. Heal anyone your autoinjector lets you.
-
-ghost-role-information-cleanbot-name = CleanBot
-ghost-role-information-cleanbot-description = Click puddles to mop them up.
-
-ghost-role-information-mothroach-name = Mothroach
-ghost-role-information-mothroach-description = A cute but mischievous mothroach.
-
-ghost-role-information-hamlet-name = Hamlet the hamster
+ghost-role-information-hamlet-name = Hamlet the hamster.
 ghost-role-information-hamlet-description = Lives in the station bridge, has a bit of a temper and is always hungry.
 
 ghost-role-information-slimes-name = Slime
 ghost-role-information-slimes-description = An ordinary slime with no special needs or interests. He just lives.
 ghost-role-information-angry-slimes-description = Everything around you irritates your instincts, destroy them!
 
+ghost-role-information-smile-name = Smile the Slime
+ghost-role-information-smile-description = The sweetest creature in the world. Smile Slime!
+ghost-role-information-smile-rules = You are a crew-aligned pet. You can defend yourself and even attack threats to the station, but you generally should not attack the station's crew nor destroy their property.
+
 ghost-role-information-punpun-name = Pun Pun
 ghost-role-information-punpun-description = An honorable member of the monkey society in charge of the bar and helping the bartenders in any way he can.
 
 ghost-role-information-xeno-name = Xeno
 ghost-role-information-xeno-description = You are a xeno, co-operate with your hive to kill all crewmembers!
-ghost-role-information-xeno-rules = You are an antagonist, smack, slash, and wack!
+ghost-role-information-xeno-rules = You are a xeno.
+                                    Your objective is to cooperate with your fellow xenos and kill all the crew.
+                                    Strike fast, make them fear the shadows.
 
 ghost-role-information-revenant-name = Revenant
 ghost-role-information-revenant-description = You are a Revenant. Use your powers to harvest souls and unleash chaos upon the crew. Unlock new abilities with the essence you harvest.
@@ -67,8 +72,11 @@ ghost-role-information-salvage-carp-description = Defend the loot inside the sal
 ghost-role-information-sentient-carp-name = Sentient Carp
 ghost-role-information-sentient-carp-description = Help the dragon flood the station with carps!
 
-ghost-role-information-willow-name = Willow the Kangaroo
-ghost-role-information-willow-description = You're a kangaroo named Willow! Willow likes to box.
+ghost-role-information-salvage-shark-name = Space sharkminnow on salvage wreck
+ghost-role-information-salvage-shark-description = Help the younger fellow carp protect their prey. Smell the blood!
+
+ghost-role-information-willow-name = Willow the kangaroo
+ghost-role-information-willow-description = You're a kangaroo named willow! willow likes to box.
 
 ghost-role-information-space-tick-name = Space tick
 ghost-role-information-space-tick-description = Wreak havoc on the station!
@@ -84,6 +92,12 @@ ghost-role-information-jonkbot-description = An artificial being of pure evil.
 
 ghost-role-information-mimebot-name = Mimebot
 ghost-role-information-mimebot-description = A Mimebot, act like a mime but dont act like a greytider.
+
+ghost-role-information-taxibot-name = TaxiBot
+ghost-role-information-taxibot-description = Drive the station crew to their destination.
+
+ghost-role-information-supplybot-name = SupplyBot
+ghost-role-information-supplybot-description = Deliver goods around the station.
 
 ghost-role-information-space-bear-name = Space bear
 ghost-role-information-space-bear-description = You're a bear! Do bear things.
@@ -103,11 +117,20 @@ ghost-role-information-space-spider-description =  Space spiders are just as agg
 ghost-role-information-salvage-spider-name = Space spider on salvage wreck
 ghost-role-information-salvage-spider-description = Space spiders are just as aggressive as regular spiders, feed.
 
+ghost-role-information-space-cobra-name = Space cobra
+ghost-role-information-space-cobra-description = Space cobras really don't like guests, and will always snack on a visitor.
+
+ghost-role-information-salvage-cobra-name = Space cobra on salvage wreck
+ghost-role-information-salvage-cobra-description = Space cobras really don't like guests, and will always snack on a visitor.
+
 ghost-role-information-guardian-name = Guardian
 ghost-role-information-guardian-description = Listen to your owner. Don't tank damage. Punch people hard.
 
 ghost-role-information-holoparasite-name = Holoparasite
 ghost-role-information-holoparasite-description = Listen to your owner. Don't tank damage. Punch people hard.
+
+ghost-role-information-holoclown-name = Holoclown
+ghost-role-information-holoclown-description = Listen to your owner. Utilize your pockets and hand to help your owner.
 
 ghost-role-information-ifrit-name = Ifrit
 ghost-role-information-ifrit-description = Listen to your owner. Don't tank damage. Punch people hard.
@@ -125,13 +148,16 @@ ghost-role-information-skeleton-pirate-description = Cause chaos and loot the st
 ghost-role-information-skeleton-biker-name = Skeleton Biker
 ghost-role-information-skeleton-biker-description = Ride around on your sweet ride.
 
+ghost-role-information-closet-skeleton-name = Closet Skeleton
+ghost-role-information-closet-skeleton-description = Wreak havoc! You are a primordial force with no allegiance. Live happily with the crew or wage sweet skeletal war.
+
 ghost-role-information-onestar-mecha-name = Onestar Mecha
 ghost-role-information-onestar-mecha-description = You are an experimental mecha created by who-knows-what, all you know is that you have weapons and you detect fleshy moving targets nearby...
 ghost-role-information-onestar-mecha-rules = Use your weapons to cause havoc. You are an antagonist.
 
 ghost-role-information-remilia-name = Remilia, the chaplain's familiar
-ghost-role-information-remilia-description = Obey your master. Drink blood.
-ghost-role-information-remilia-rules = You are an intelligent vampire bat. Follow the chaplain around. Don't cause any trouble unless the chaplain tells you to.
+ghost-role-information-remilia-description = Obey your master. Eat fruit.
+ghost-role-information-remilia-rules = You are an intelligent fruit bat. Follow the chaplain around. Don't cause any trouble unless the chaplain tells you to.
 
 ghost-role-information-cerberus-name = Cerberus, Evil Famili
 ghost-role-information-cerberus-description = Obey your master. Spread chaos.
@@ -150,10 +176,34 @@ ghost-role-information-ert-security-name = ERT Security
 ghost-role-information-ert-security-description = Assist with security efforts to resolve the stations issues.
 
 ghost-role-information-ert-medical-name = ERT Medical
-ghost-role-information-ert-medical-description = Assist with medicaling efforts to resolve the stations issues.
+ghost-role-information-ert-medical-description = Assist with medical efforts to resolve the stations issues.
 
 ghost-role-information-cburn-agent-name = CBURN Agent
 ghost-role-information-cburn-agent-description = A highly trained CentCom agent, capable of dealing with various threats.
 
-ghost-role-information-centcom-official-name = CentCom official
-ghost-role-information-centcom-official-description = Inspect the station, jot down performance reviews for heads of staff, bug the Captain.
+ghost-role-information-centcom-official-name = CentComm official
+ghost-role-information-centcom-official-description = Perform CentComm related duties such as inspect the station, jotting down performance reviews for heads of staff, and managing the fax machine.
+
+ghost-role-information-nukeop-rules = You are a syndicate operative tasked with the destruction of the station. As an antagonist, do whatever is required to complete this task.
+
+ghost-role-information-loneop-name = Lone Operative
+ghost-role-information-loneop-description = You are a lone nuclear operative. Destroy the station!
+ghost-role-information-loneop-rules = You are a syndicate operative tasked with the destruction of the station. As an antagonist, do whatever is required to complete this task.
+
+ghost-role-information-behonker-name = Behonker
+ghost-role-information-behonker-description = You are an antagonist, bring death and honks to those who do not follow the honkmother.
+
+ghost-role-information-Death-Squad-name = Death Squad Operative
+ghost-role-information-Death-Squad-description = One of Nanotrasen's top internal affairs agents. Await orders from CentComm or an official.
+
+ghost-role-information-Shiva-name = Shiva
+ghost-role-information-Shiva-description = Shiva, the stations first defender. Help the Head of Security in their work
+ghost-role-information-Shiva-rules = Protect security staff and the crew from danger. Stay with Security staff or around the Security department, try to disable criminals and not kill them if the situation allows for it.
+
+ghost-role-information-Cak-name = Cak
+ghost-role-information-Cak-description = You are the chef's favorite child. You're a living cake cat.  
+ghost-role-information-Cak-rules = You are a living edible sweet cat. Your task is to find your place in this world where everything wants to eat you.
+
+ghost-role-information-BreadDog-name = BreadDog
+ghost-role-information-BreadDog-description = You are the chef's favorite child. You're a living bread dog.
+ghost-role-information-BreadDog-rules = You're an edible dog made of bread. Your task is to find your place in this world where everything wants to eat you.

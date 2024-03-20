@@ -28,8 +28,8 @@
   - type: PlacementReplacement
     key: walls
   - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: MetallicStructure
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallic
   - type: Physics
     bodyType: Static
   - type: Fixtures
@@ -45,7 +45,7 @@
         density: 1000
   - type: Occluder
   - type: Airtight
-  - type: DynamicPrice
+  - type: StaticPrice #was DynamicPrice
     price: 75
   - type: RadiationBlocker
     resistance: 2
@@ -114,7 +114,7 @@
 - type: entity
   parent: BaseWall
   id: WallClown
-  name: clown wall
+  name: bananium wall
   components:
   - type: Tag
     tags:
@@ -124,6 +124,9 @@
     sprite: Structures/Walls/clown.rsi
   - type: Icon
     sprite: Structures/Walls/clown.rsi
+  - type: Construction
+    graph: Girder
+    node: bananiumWall
   - type: Destructible
     thresholds:
     - trigger:
@@ -156,9 +159,9 @@
     sprite: Structures/Walls/meat.rsi
   - type: Icon
     sprite: Structures/Walls/meat.rsi
-  # - type: Construction
-  #   graph: Girder
-  #   node: bananiumWall
+  - type: Construction
+    graph: Girder
+    node: bananiumWall
   - type: Destructible
     thresholds:
     - trigger:
@@ -379,6 +382,8 @@
   - type: IconSmooth
     key: walls
     base: plasma
+  - type: RadiationBlocker
+    resistance: 5
 
 - type: entity
   parent: BaseWall
@@ -498,28 +503,28 @@
     graph: Girder
     node: reinforcedWall
   - type: Damageable
-    damageContainer: Inorganic
-    damageModifierSet: StrongMetallic
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 1000 #excess damage (nuke?). avoid computational cost of spawning entities.
+        damage: 600
       behaviors:
-      - !type:PlaySoundBehavior
+      - !type:PlaySoundBehavior #Nyano
         sound:
           path: /Audio/Effects/metalbreak.ogg
       - !type:DoActsBehavior
         acts: ["Destruction"]
     - trigger:
         !type:DamageTrigger
-        damage: 500
+        damage: 400
       behaviors:
       - !type:ChangeConstructionNodeBehavior
         node: girder
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    destroySound:
+    destroySound: #Nyano
       path: /Audio/Effects/metalbreak.ogg
   - type: IconSmooth
     key: walls
@@ -536,7 +541,7 @@
           3: { state: reinf_construct-3, visible: true}
           4: { state: reinf_construct-4, visible: true}
           5: { state: reinf_construct-5, visible: true}
-  - type: DynamicPrice
+  - type: StaticPrice #DynamicPrice
     price: 150
   - type: RadiationBlocker
     resistance: 5
@@ -555,6 +560,9 @@
     sprite: Structures/Walls/riveted.rsi
   - type: Icon
     sprite: Structures/Walls/riveted.rsi
+  - type: Damageable
+    damageContainer: StructuralInorganic
+    damageModifierSet: StructuralMetallicStrong
   - type: Destructible
     thresholds:
     - trigger:
@@ -571,7 +579,7 @@
   - type: IconSmooth
     key: walls
     base: riveted
-  - type: DynamicPrice
+  - type: StaticPrice #DynamicPrice
     price: 150
 
 - type: entity
@@ -645,7 +653,6 @@
     key: walls
     base: silver
 
-#shuttle walls
 - type: entity
   id: WallShuttleDiagonal
   name: shuttle wall
@@ -675,7 +682,7 @@
     state: state0
   - type: Damageable
     damageContainer: Inorganic
-    damageModifierSet: StrongMetallic
+    damageModifierSet: StructuralMetallic
   - type: Physics
     bodyType: Static
   - type: Reflect
@@ -716,7 +723,7 @@
           path: /Audio/Effects/metalbreak.ogg
       - !type:DoActsBehavior
         acts: ["Destruction"]
-    - trigger:
+    - trigger: #this trigger is a Nyano addition
         !type:DamageTrigger
         damage: 300
       behaviors:
@@ -726,44 +733,51 @@
         acts: ["Destruction"]
     destroySound:
       path: /Audio/Effects/metalbreak.ogg
+  - type: Construction
+    graph: Girder
+    node: diagonalshuttleWall
 
 - type: entity
-  parent: WallReinforced
+  parent: WallReinforced #Nyano, basically Reinforced Wall (shuttle variant)
   id: WallShuttle
   name: shuttle wall
   components:
+  - type: Tag
+    tags:
+      - Wall
+      - RCDDeconstructWhitelist
   - type: Sprite
     sprite: Structures/Walls/shuttle.rsi
   - type: Icon
     sprite: Structures/Walls/shuttle.rsi
     state: full
+#  - type: Destructible
+#    thresholds:
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 1000
+#      behaviors:
+#        - !type:DoActsBehavior
+#          acts: [ "Destruction" ]
+#    - trigger:
+#        !type:DamageTrigger
+#        damage: 500
+#      behaviors:
+#      - !type:PlaySoundBehavior
+#        sound:
+#          path: /Audio/Effects/metalbreak.ogg
+#      - !type:DoActsBehavior
+#        acts: ["Destruction"]
+#    destroySound:
+#      path: /Audio/Effects/metalbreak.ogg
+  - type: Reflect
+    reflectProb: 1
   - type: Construction
     graph: Girder
     node: shuttleWall
   - type: IconSmooth
     key: walls
     base: state
-  - type: Reflect
-    reflectProb: 1
-
-- type: entity
-  parent: WallSolid
-  id: WallShuttleInterior
-  name: shuttle wall
-  suffix: Interior
-  components:
-  - type: Sprite
-    sprite: Structures/Walls/shuttleinterior.rsi
-  - type: Icon
-    sprite: Structures/Walls/shuttleinterior.rsi
-  - type: Construction
-    graph: Girder
-    node: shuttleInteriorWall
-  - type: IconSmooth
-    key: walls
-    base: state
-  - type: Reflect
-    reflectProb: 1
 
 - type: entity
   parent: BaseWall
@@ -785,13 +799,13 @@
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 600
+        damage: 400
       behaviors:
       - !type:DoActsBehavior
         acts: ["Destruction"]
     - trigger:
         !type:DamageTrigger
-        damage: 300
+        damage: 200
       behaviors:
       - !type:PlaySoundBehavior
         sound:
@@ -903,6 +917,8 @@
   - type: IconSmooth
     key: walls
     base: uranium
+  - type: RadiationBlocker
+    resistance: 6
 
 - type: entity
   parent: BaseWall
@@ -943,41 +959,122 @@
 
 - type: entity
   parent: BaseWall
-  id: WallPaper
-  name: paper wall
-  description: Helps to contain the repeated screams of martial artists.
+  id: WallWeb
+  name: web wall
+  description: Keeps the spiders in and the greytide out.
   components:
+  - type: Clickable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path:
+          "/Audio/Weapons/slash.ogg"
+  - type: Damageable
+    damageModifierSet: Web
+  - type: Tag
+    tags:
+      - Wall
+      - RCDDeconstructWhitelist
   - type: Sprite
-    sprite: Structures/Walls/paper.rsi
+    sprite: Structures/Walls/web.rsi
   - type: Icon
-    sprite: Structures/Walls/paper.rsi
-  - type: Construction
-    graph: Girder
-    node: paperWall
+    sprite: Structures/Walls/web.rsi
   - type: Destructible
     thresholds:
     - trigger:
         !type:DamageTrigger
-        damage: 300 # #excess damage (nuke?). avoid computational cost of spawning entities.
+        damage: 30
       behaviors:
       - !type:DoActsBehavior
-        acts: ["Destruction"]
-    - trigger:
-        !type:DamageTrigger
-        damage: 150
-      behaviors:
+        acts: [ "Destruction" ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWebSilk:
+            min: 1
+            max: 1
       - !type:PlaySoundBehavior
         sound:
-          path: /Audio/Effects/metalbreak.ogg
-      - !type:ChangeConstructionNodeBehavior
-        node: girder
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-    destroySound:
-      path: /Audio/Effects/metalbreak.ogg
+          path: /Audio/Effects/woodhit.ogg
   - type: IconSmooth
     key: walls
-    base: paperwall
+    base: wall
+  - type: Construction
+    graph: WebStructures
+    node: wall
+
+
+# Lavalend Walls
+
+- type: entity
+  parent: BaseWall
+  id: WallNecropolis
+  name: stone wall
+  components:
+  - type: Tag
+    tags:
+      - Wall
+  - type: Sprite
+    sprite: Structures/Walls/necropolis.rsi
+  - type: Icon
+    sprite: Structures/Walls/necropolis.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 1000
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: necropolis
+
+- type: entity
+  parent: BaseWall
+  id: WallMining
+  name: wall
+  components:
+  - type: Tag
+    tags:
+      - Wall
+  - type: Sprite
+    sprite: Structures/Walls/mining.rsi
+  - type: Icon
+    sprite: Structures/Walls/mining.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 700
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: mining
+
+- type: entity
+  parent: WallShuttleDiagonal
+  id: WallMiningDiagonal
+  name: wall
+  suffix: diagonal
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wall
+  components:
+  - type: Sprite
+    drawdepth: Walls
+    sprite: Structures/Walls/mining_diagonal.rsi
+    state: state0
+  - type: IconSmooth
+    mode: Diagonal
+    key: walls
+    base: state
+  - type: Icon
+    sprite: Structures/Walls/mining_diagonal.rsi
+    state: state0
+
 
 # Vault Walls
 
@@ -1026,7 +1123,6 @@
     sprite: Structures/Walls/vault.rsi
     state: sandstonevault
 
-
 # Mime
 
 - type: entity
@@ -1034,7 +1130,7 @@
   name: Invisible Wall
   components:
   - type: TimedDespawn
-    lifetime: 30
+    lifetime: 15
   - type: Tag
     tags:
       - Wall
@@ -1054,7 +1150,7 @@
 
 - type: entity
   id: WallForce
-  name: force wall
+  name: Force wall
   components:
     - type: TimedDespawn
       lifetime: 20
@@ -1080,5 +1176,110 @@
     - type: Icon
       sprite: Structures/Magic/forcewall.rsi
       state: forcewall
-    - type: Dispellable
-    - type: Clickable
+#    - type: Dispellable
+    - type: Clickable #Nyano
+
+- type: entity
+  parent: BaseWall
+  id: WallCobblebrick
+  name: cobblestone brick wall
+  description: Stone by stone, perfectly fitted together to form a wall.
+  components:
+  - type: Tag
+    tags:
+      - Wall
+      - RCDDeconstructWhitelist
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick.rsi
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallBasaltCobblebrick
+  name: basalt brick wall
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_basalt.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_basalt.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallSnowCobblebrick
+  name: snow brick wall
+  description: A cold, not-so-impenetrable wall.
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_snow.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_snow.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallAsteroidCobblebrick
+  name: asteroid stone brick wall
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_asteroid.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_asteroid.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallSandCobblebrick
+  name: sandstone brick wall
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_sand.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_sand.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallChromiteCobblebrick
+  name: chromite brick wall
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_chromite.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_chromite.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick
+
+- type: entity
+  parent: WallCobblebrick
+  id: WallAndesiteCobblebrick
+  name: andesite brick wall
+  components:
+  - type: Sprite
+    sprite: Structures/Walls/cobblebrick_andesite.rsi
+  - type: Icon
+    sprite: Structures/Walls/cobblebrick_andesite.rsi
+  - type: IconSmooth
+    key: walls
+    base: cobblebrick

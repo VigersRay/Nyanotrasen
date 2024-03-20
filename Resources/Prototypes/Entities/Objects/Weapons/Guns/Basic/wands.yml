@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   parent: WeaponWandBase
   id: WeaponWandPolymorphBase
   abstract: true
@@ -94,6 +94,17 @@
     proto: ProjectilePolyboltDoor
     capacity: 10
     count: 10
+
+- type: entity
+  name: wand of cluwning
+  parent: WeaponWandPolymorphBase
+  id: WeaponWandCluwne
+  description: Make their situation worse by turning them into a cluwne.
+  components:
+  - type: BasicEntityAmmoProvider
+    proto: ProjectilePolyboltCluwne
+    capacity: 3
+    count: 3
 
 - type: entity
   parent: WeaponWandPolymorphBase

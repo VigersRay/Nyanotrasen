@@ -25,12 +25,6 @@
     - type: Pacified
 
 - type: trait
-  id: Colorblindness
-  name: Colorblindness
-  components:
-    - type: DogVision
-
-- type: trait
   id: Paracusia
   name: trait-paracusia-name
   description: trait-paracusia-desc
@@ -55,3 +49,18 @@
   description: trait-uncloneable-desc
   components:
     - type: Uncloneable
+
+- type: trait
+  id: WheelchairBound
+  name: trait-wheelchair-bound-name
+  description: trait-wheelchair-bound-desc
+  components:
+    - type: WheelchairBound
+    - type: LegsParalyzed
+
+- type: trait
+  id: FrontalLisp
+  name: trait-frontal-lisp-name
+  description: trait-frontal-lisp-desc
+  components:
+    - type: FrontalLisp

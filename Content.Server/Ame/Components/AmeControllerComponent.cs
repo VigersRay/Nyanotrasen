@@ -1,10 +1,8 @@
 using Content.Server.Ame.EntitySystems;
 using Content.Shared.Ame;
-using Content.Shared.Radio;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.Ame.Components;
 
@@ -14,7 +12,7 @@ namespace Content.Server.Ame.Components;
 /// </summary>
 [Access(typeof(AmeControllerSystem), typeof(AmeNodeGroup))]
 [RegisterComponent]
-public sealed class AmeControllerComponent : SharedAmeControllerComponent
+public sealed partial class AmeControllerComponent : SharedAmeControllerComponent
 {
     /// <summary>
     /// The id of the container used to store the current fuel container for the AME.
@@ -76,39 +74,32 @@ public sealed class AmeControllerComponent : SharedAmeControllerComponent
     public TimeSpan NextUpdate = default!;
 
     /// <summary>
+    /// The next time this will try to update the controller UI.
+    /// </summary>
+    public TimeSpan NextUIUpdate = default!;
+
+    /// <summary>
     /// The the amount of time that passes between injection attempts.
     /// </summary>
     [DataField("updatePeriod")]
     [ViewVariables(VVAccess.ReadWrite)]
     public TimeSpan UpdatePeriod = TimeSpan.FromSeconds(10.0);
 
-    // Begin Nyano-code: low fuel alert.
-    [DataField("alertChannel", customTypeSerializer: typeof(PrototypeIdSerializer<RadioChannelPrototype>))]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public string AlertChannel = "Engineering";
+    /// <summary>
+    /// The maximum amount of time that passes between UI updates.
+    /// </summary>
+    [ViewVariables]
+    public TimeSpan UpdateUIPeriod = TimeSpan.FromSeconds(3.0);
 
     /// <summary>
-    /// The percentage at which the AME fuel jar has to pass in order for the alert countdown to begin.
+    /// Time at which the admin alarm sound effect can next be played.
     /// </summary>
-    [DataField("fuelAlertLevel")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public float FuelAlertLevel = 0.1f;
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan EffectCooldown;
 
     /// <summary>
-    /// The number of injections left before an alert is raised.
+    /// Time between admin alarm sound effects. Prevents spam
     /// </summary>
-    /// <remarks>
-    /// This is reset any time the fuel is over FuelAlertLevel.
-    /// </remarks>
-    [DataField("fuelAlertCountdown")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public int FuelAlertCountdown;
-
-    /// <summary>
-    /// How many injections between radio reports.
-    /// </summary>
-    [DataField("fuelAlertFrequency")]
-    [ViewVariables(VVAccess.ReadWrite)]
-    public int FuelAlertFrequency = 3;
-    // End Nyano-code.
+    [DataField]
+    public TimeSpan CooldownDuration = TimeSpan.FromSeconds(10f);
 }

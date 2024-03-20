@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   parent: BaseItem
   id: NodeScanner
   name: node scanner
@@ -12,7 +12,7 @@
     - type: NodeScanner
     - type: UseDelay
       delay: 3
-    - type: ReverseEngineering
+    - type: ReverseEngineering # Nyano
       difficulty: 2
       recipes:
         - NodeScanner

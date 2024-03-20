@@ -6,12 +6,13 @@
   startingGear: PrisonerGear
   alwaysUseSpawner: true
   canBeAntag: false
-  whitelistRequired: true
-  icon: "Prisoner"
+#  whitelistRequired: true
+  icon: "JobIconPrisoner"
   supervisors: job-supervisors-security
   requirements:
     - !type:OverallPlaytimeRequirement
       time: 3600
+    - !type:WhitelistRequirement
 
 - type: startingGear
   id: PrisonerGear
@@ -20,4 +21,4 @@
     shoes: ClothingShoesColorBlack
     id: PrisonerPDA
     ears: ClothingHeadsetGrey
-  innerclothingskirt: ClothingUniformJumpsuitPrisoner
+  innerClothingSkirt: ClothingUniformJumpsuitPrisoner

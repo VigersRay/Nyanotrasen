@@ -1,13 +1,11 @@
-using System.Numerics;
 using Content.Server.NPC.Components;
-using Content.Server.NPC.Events;
 using Content.Shared.CombatMode;
 using Content.Shared.Interaction;
-using Content.Shared.Examine;
+using Content.Shared.Physics;
+using Content.Shared.Weapons.Ranged.Components;
+using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
-using static Content.Shared.Examine.ExamineSystemShared;
-using Content.Shared.NPC;
 
 namespace Content.Server.NPC.Systems;
 
@@ -15,6 +13,12 @@ public sealed partial class NPCCombatSystem
 {
     [Dependency] private readonly SharedCombatModeSystem _combat = default!;
     [Dependency] private readonly RotateToFaceSystem _rotate = default!;
+
+    private EntityQuery<CombatModeComponent> _combatQuery;
+    private EntityQuery<NPCSteeringComponent> _steeringQuery;
+    private EntityQuery<RechargeBasicEntityAmmoComponent> _rechargeQuery;
+    private EntityQuery<PhysicsComponent> _physicsQuery;
+    private EntityQuery<TransformComponent> _xformQuery;
 
     // TODO: Don't predict for hitscan
     private const float ShootSpeed = 20f;
@@ -26,46 +30,15 @@ public sealed partial class NPCCombatSystem
 
     private void InitializeRanged()
     {
-        SubscribeLocalEvent<NPCRangedCombatComponent, NPCSteeringEvent>(OnRangedSteering);
+        _combatQuery = GetEntityQuery<CombatModeComponent>();
+        _physicsQuery = GetEntityQuery<PhysicsComponent>();
+        _rechargeQuery = GetEntityQuery<RechargeBasicEntityAmmoComponent>();
+        _steeringQuery = GetEntityQuery<NPCSteeringComponent>();
+        _xformQuery = GetEntityQuery<TransformComponent>();
+
         SubscribeLocalEvent<NPCRangedCombatComponent, ComponentStartup>(OnRangedStartup);
         SubscribeLocalEvent<NPCRangedCombatComponent, ComponentShutdown>(OnRangedShutdown);
     }
-
-    // Begin Nyano-code: support for mobile ranged NPCs.
-    private void OnRangedSteering(EntityUid uid, NPCRangedCombatComponent component, ref NPCSteeringEvent args)
-    {
-        args.Steering.CanSeek = true;
-
-        if (!_physics.TryGetNearestPoints(uid, component.Target, out _, out var pointB))
-            return;
-
-        var idealDistance = 4f;
-        var obstacleDirection = pointB - args.WorldPosition;
-        var obstacleDistance = obstacleDirection.Length();
-
-        if (obstacleDistance > idealDistance || obstacleDistance < 1f)
-        {
-            return;
-        }
-
-        args.Steering.CanSeek = false;
-        obstacleDirection = args.OffsetRotation.RotateVec(obstacleDirection);
-        var norm = obstacleDirection.Normalized();
-
-        var weight = (idealDistance - obstacleDistance) / idealDistance;
-
-        for (var i = 0; i < SharedNPCSteeringSystem.InterestDirections; i++)
-        {
-            var result = -Vector2.Dot(norm, NPCSteeringSystem.Directions[i]) * weight;
-
-            if (result < 0f)
-                continue;
-
-            args.Interest[i] = MathF.Max(args.Interest[i], result);
-        }
-    }
-    // End Nyano-code.
-
 
     private void OnRangedStartup(EntityUid uid, NPCRangedCombatComponent component, ComponentStartup args)
     {
@@ -85,24 +58,26 @@ public sealed partial class NPCCombatSystem
         {
             _combat.SetInCombatMode(uid, false, combat);
         }
-
-        _steering.Unregister(component.Owner);
     }
 
     private void UpdateRanged(float frameTime)
     {
-        var bodyQuery = GetEntityQuery<PhysicsComponent>();
-        var xformQuery = GetEntityQuery<TransformComponent>();
-        var combatQuery = GetEntityQuery<CombatModeComponent>();
-        var query = EntityQueryEnumerator<NPCRangedCombatComponent, TransformComponent, ActiveNPCComponent>();
+        var query = EntityQueryEnumerator<NPCRangedCombatComponent, TransformComponent>();
 
-        while (query.MoveNext(out var uid, out var comp, out var xform, out _))
+        while (query.MoveNext(out var uid, out var comp, out var xform))
         {
             if (comp.Status == CombatStatus.Unspecified)
                 continue;
 
-            if (!xformQuery.TryGetComponent(comp.Target, out var targetXform) ||
-                !bodyQuery.TryGetComponent(comp.Target, out var targetBody))
+            if (_steeringQuery.TryGetComponent(uid, out var steering) && steering.Status == SteeringStatus.NoPath)
+            {
+                comp.Status = CombatStatus.TargetUnreachable;
+                comp.ShootAccumulator = 0f;
+                continue;
+            }
+
+            if (!_xformQuery.TryGetComponent(comp.Target, out var targetXform) ||
+                !_physicsQuery.TryGetComponent(comp.Target, out var targetBody))
             {
                 comp.Status = CombatStatus.TargetUnreachable;
                 comp.ShootAccumulator = 0f;
@@ -116,7 +91,7 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-            if (combatQuery.TryGetComponent(uid, out var combatMode))
+            if (_combatQuery.TryGetComponent(uid, out var combatMode))
             {
                 _combat.SetInCombatMode(uid, true, combatMode);
             }
@@ -128,10 +103,26 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
+            var ammoEv = new GetAmmoCountEvent();
+            RaiseLocalEvent(gunUid, ref ammoEv);
+
+            if (ammoEv.Count == 0)
+            {
+                // Recharging then?
+                if (_rechargeQuery.HasComponent(gunUid))
+                {
+                    continue;
+                }
+
+                comp.Status = CombatStatus.Unspecified;
+                comp.ShootAccumulator = 0f;
+                continue;
+            }
+
             comp.LOSAccumulator -= frameTime;
 
-            var (worldPos, worldRot) = _transform.GetWorldPositionRotation(xform, xformQuery);
-            var (targetPos, targetRot) = _transform.GetWorldPositionRotation(targetXform, xformQuery);
+            var worldPos = _transform.GetWorldPosition(xform);
+            var targetPos = _transform.GetWorldPosition(targetXform);
 
             // We'll work out the projected spot of the target and shoot there instead of where they are.
             var distance = (targetPos - worldPos).Length();
@@ -142,19 +133,19 @@ public sealed partial class NPCCombatSystem
             if (comp.LOSAccumulator < 0f)
             {
                 comp.LOSAccumulator += UnoccludedCooldown;
-                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f);
+                // For consistency with NPC steering.
+                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, Transform(comp.Target).Coordinates, distance + 0.1f);
             }
 
             if (!comp.TargetInLOS)
             {
                 comp.ShootAccumulator = 0f;
+                comp.Status = CombatStatus.NotInSight;
 
-                // Begin Nyano-code: support for mobile ranged NPCs.
-                if (!comp.CanMove || distance >= 9f)
-                    comp.Status = CombatStatus.TargetUnreachable;
-                else
-                    comp.Status = CombatStatus.NotInSight;
-                // End Nyano-code.
+                if (TryComp(uid, out steering))
+                {
+                    steering.ForceMove = true;
+                }
 
                 continue;
             }
@@ -183,23 +174,6 @@ public sealed partial class NPCCombatSystem
                 continue;
             }
 
-
-            if (comp.CanMove)
-            {
-                if (TryComp<NPCSteeringComponent>(comp.Owner, out var steering) &&
-                    steering.Status == SteeringStatus.NoPath)
-                {
-                    comp.Status = CombatStatus.TargetUnreachable;
-                    return;
-                }
-
-                steering = EnsureComp<NPCSteeringComponent>(comp.Owner);
-                steering.Range = 3.5f;
-
-                // Gets unregistered on component shutdown.
-                _steering.TryRegister(comp.Owner, new EntityCoordinates(comp.Target, Vector2.Zero), steering);
-            }
-
             // TODO: LOS
             // TODO: Ammo checks
             // TODO: Burst fire
@@ -220,6 +194,13 @@ public sealed partial class NPCCombatSystem
             else
             {
                 targetCordinates = new EntityCoordinates(xform.MapUid!.Value, targetSpot);
+            }
+
+            comp.Status = CombatStatus.Normal;
+
+            if (gun.NextFire > _timing.CurTime)
+            {
+                return;
             }
 
             _gun.AttemptShoot(uid, gunUid, gun, targetCordinates);

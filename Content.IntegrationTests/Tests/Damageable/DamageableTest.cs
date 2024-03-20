@@ -1,12 +1,10 @@
 using System.Linq;
-using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.FixedPoint;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Map;
-using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.Damageable
@@ -75,14 +73,13 @@ namespace Content.IntegrationTests.Tests.Damageable
         [Test]
         public async Task TestDamageableComponents()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
 
             var sEntityManager = server.ResolveDependency<IEntityManager>();
             var sMapManager = server.ResolveDependency<IMapManager>();
             var sPrototypeManager = server.ResolveDependency<IPrototypeManager>();
             var sEntitySystemManager = server.ResolveDependency<IEntitySystemManager>();
-            var sConfigManager = server.ResolveDependency<IConfigurationManager>();
 
             EntityUid sDamageableEntity = default;
             DamageableComponent sDamageableComponent = null;
@@ -120,8 +117,6 @@ namespace Content.IntegrationTests.Tests.Damageable
                 type3a = sPrototypeManager.Index<DamageTypePrototype>("TestDamage3a");
                 type3b = sPrototypeManager.Index<DamageTypePrototype>("TestDamage3b");
                 type3c = sPrototypeManager.Index<DamageTypePrototype>("TestDamage3c");
-
-                sConfigManager.SetCVar(CCVars.DamageVariance, 0f);
             });
 
             await server.WaitRunTicks(5);
@@ -242,7 +237,7 @@ namespace Content.IntegrationTests.Tests.Damageable
                 sDamageableSystem.TryChangeDamage(uid, new DamageSpecifier(group3, -100));
                 Assert.That(sDamageableComponent.TotalDamage, Is.EqualTo(FixedPoint2.Zero));
             });
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
     }
 }

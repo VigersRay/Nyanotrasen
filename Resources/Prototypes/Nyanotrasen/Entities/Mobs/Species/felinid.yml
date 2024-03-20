@@ -31,11 +31,11 @@
     animation: WeaponArcClaw
     damage:
       types:
-        Blunt: 1
-        Slash: 5
-  - type: DiseaseCarrier
-    naturalImmunities:
-    - OwOnavirus
+        Slash: 4
+        Piercing: 1
+#  - type: DiseaseCarrier
+#    naturalImmunities:
+#    - OwOnavirus
   - type: Thieving
     stealthy: true
     stripTimeReduction: 1
@@ -46,7 +46,7 @@
       types:
         Blunt: 1
   - type: Stamina
-    excess: 85
+    critThreshold: 85
   - type: PseudoItem
   - type: Vocal
     wilhelm: "/Audio/Nyanotrasen/Voice/Felinid/cat_wilhelm.ogg"
@@ -63,5 +63,6 @@
   id: MobFelinidDummy
   noSpawn: true
   description: A dummy felinid meant to be used in character setup.
-
-#Nya~~
+  components:
+  - type: HumanoidAppearance
+    species: Felinid

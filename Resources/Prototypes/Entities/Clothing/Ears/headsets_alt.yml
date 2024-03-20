@@ -13,12 +13,13 @@
 - type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltCargo
-  name: quartermaster's over-ear headset
+  name: logistics officer's over-ear headset # DeltaV - Logistics Department replacing Cargo
   components:
   - type: ContainerFill
     containers:
       key_slots:
       - EncryptionKeyCargo
+      - EncryptionKeyCommand
       - EncryptionKeyCommon
   - type: Sprite
     sprite: Clothing/Ears/Headsets/cargo.rsi
@@ -39,6 +40,16 @@
     sprite: Clothing/Ears/Headsets/centcom.rsi
   - type: Clothing
     sprite: Clothing/Ears/Headsets/centcom.rsi
+
+- type: entity
+  parent: ClothingHeadsetAltCentCom
+  id: ClothingHeadsetAltCentComFake
+  suffix: Fake
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyCommon
 
 - type: entity
   parent: ClothingHeadsetAlt
@@ -105,7 +116,7 @@
 - type: entity
   parent: ClothingHeadsetAlt
   id: ClothingHeadsetAltScience
-  name: research director's over-ear headset
+  name: mystagogue's over-ear headset # DeltaV - Epistemics Department replacing Science
   components:
   - type: ContainerFill
     containers:
@@ -135,3 +146,20 @@
     sprite: Clothing/Ears/Headsets/syndicate.rsi
   - type: Clothing
     sprite: Clothing/Ears/Headsets/syndicate.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltFreelancer
+  name: freelancer's over-ear headset
+  components:
+    - type: Headset
+    - type: EncryptionKeyHolder
+      keySlots: 5
+    - type: ContainerFill
+      containers:
+        key_slots:
+          - EncryptionKeyFreelance
+    - type: Sprite
+      sprite: Clothing/Ears/Headsets/freelance.rsi
+    - type: Clothing
+      sprite: Clothing/Ears/Headsets/freelance.rsi

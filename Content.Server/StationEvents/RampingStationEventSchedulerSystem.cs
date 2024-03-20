@@ -1,4 +1,4 @@
-using Content.Server.GameTicking;
+﻿using Content.Server.GameTicking;
 using Content.Server.GameTicking.Rules;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.StationEvents.Components;
@@ -6,7 +6,6 @@ using Content.Server.StationEvents.Events;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 
 namespace Content.Server.StationEvents;
 
@@ -15,11 +14,11 @@ public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingS
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly EventManagerSystem _event = default!;
-    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly GameTicker _gameTicker = default!;
 
     public float GetChaosModifier(EntityUid uid, RampingStationEventSchedulerComponent component)
     {
-        var roundTime = (float) GameTicker.RoundDuration().TotalSeconds;
+        var roundTime = (float) _gameTicker.RoundDuration().TotalSeconds;
         if (roundTime > component.EndTime)
             return component.MaxChaos;
 
@@ -31,7 +30,6 @@ public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingS
         base.Initialize();
 
         SubscribeLocalEvent<GetSeverityModifierEvent>(OnGetSeverityModifier);
-        SubscribeLocalEvent<RoundEndTextAppendEvent>(OnRoundEnd);
     }
 
     protected override void Started(EntityUid uid, RampingStationEventSchedulerComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
@@ -47,8 +45,6 @@ public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingS
         // This is in minutes, so *60 for seconds (for the chaos calc)
         component.EndTime = _random.NextFloat(avgTime - avgTime / 4, avgTime + avgTime / 4) * 60f;
         component.StartingChaos = component.MaxChaos / 10;
-
-        component.SurvivalTimeGoal = TimeSpan.FromMinutes(_cfg.GetCVar<int>(CCVars.SurvivalGoal));
 
         PickNextEventTime(uid, component);
     }
@@ -87,34 +83,6 @@ public sealed class RampingStationEventSchedulerSystem : GameRuleSystem<RampingS
 
             ev.Modifier *= GetChaosModifier(uid, scheduler);
             Logger.Info($"Ramping set modifier to {ev.Modifier}");
-        }
-    }
-
-    private void OnRoundEnd(RoundEndTextAppendEvent ev)
-    {
-        var query = EntityQueryEnumerator<RampingStationEventSchedulerComponent, GameRuleComponent>();
-        while (query.MoveNext(out var uid, out var ramping, out var gameRule))
-        {
-            if (!GameTicker.IsGameRuleAdded(uid, gameRule))
-                continue;
-
-            var goal = ramping.SurvivalTimeGoal;
-
-            var result = Loc.GetString("survival-round-end-result", ("minutes", goal.TotalMinutes));
-
-            var roundTime = GameTicker.RoundDuration();
-
-            if (roundTime > goal)
-            {
-                result += "\n";
-                result += Loc.GetString("survival-success");
-            } else
-            {
-                result += "\n";
-                result += Loc.GetString("survival-failure", ("progress", Math.Round((roundTime.TotalMinutes / goal.TotalMinutes) * 100)));
-            }
-
-            ev.AddLine(result);
         }
     }
 

@@ -5,7 +5,7 @@
   parent: StorageTank
   suffix: Empty
   components:
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 750
   - type: Sprite
     sprite: Structures/Storage/tanks.rsi
@@ -22,6 +22,12 @@
     solution: tank
   - type: ReagentTank
     tankType: Fuel
+  - type: DamageOnToolInteract
+    tools:
+    - Welding
+    weldingDamage:
+      types:
+        Heat: 10
   - type: Explosive
     explosionType: Default
     totalIntensity: 120 # ~ 5 tile radius
@@ -43,7 +49,7 @@
   id: WeldingFuelTankHighCapacity
   suffix: Full
   components:
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 2500
   - type: Sprite
     sprite: Structures/Storage/tanks.rsi
@@ -73,7 +79,7 @@
   parent: StorageTank
   suffix: Empty
   components:
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 500
   - type: Sprite
     sprite: Structures/Storage/tanks.rsi
@@ -121,12 +127,27 @@
         reagents:
         - ReagentId: Water
           Quantity: 500
-  - type: SolutionRegeneration
-    solution: tank
-    generated:
-      reagents:
-        - ReagentId: Water
-          Quantity: 0.5
+  - type: ContainerContainer
+    containers:
+      bin-container: !type:Container
+  - type: Bin
+    initialContents:
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    - DrinkWaterCup
+    whitelist:
+      requireAll: true
+      components:
+      - FitsInDispenser
+      tags:
+      - Trash
 
 - type: entity
   parent: StorageTank
@@ -158,24 +179,24 @@
   - type: ReagentTank
     transferAmount: 100
 
-# Kvass
 - type: entity
-  id: KvassTank
+  id: GenericTank
   parent: StorageTank
   suffix: Empty
   components:
+    - type: StaticPrice
+      price: 500
     - type: Sprite
-      sprite: Structures/Storage/kvass.rsi
-      state: kvass
+      sprite: Structures/Storage/tanks.rsi
+      layers:
+        - state: generictank-1
+        - state: watertank-2-1
+          map: ["enum.SolutionContainerLayers.Fill"]
+          visible: false
+    - type: Appearance
+    - type: SolutionContainerVisuals
+      maxFillLevels: 5
+      fillBaseName: watertank-2-
+    - type: ExaminableSolution
+      solution: tank
 
-- type: entity
-  parent: KvassTank
-  id: KvassTankFull
-  suffix: Full
-  components:
-    - type: SolutionContainerManager
-      solutions:
-        tank:
-          reagents:
-            - ReagentId: Kvass
-              Quantity: 1500

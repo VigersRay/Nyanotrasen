@@ -9,7 +9,7 @@ namespace Content.Server.Chemistry.ReagentEffects
     /// Rerolls psionics once.
     /// </summary>
     [UsedImplicitly]
-    public sealed class ChemRemovePsionic : ReagentEffect
+    public sealed partial class ChemRemovePsionic : ReagentEffect
     {
         protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
             => Loc.GetString("reagent-effect-guidebook-chem-remove-psionic", ("chance", Probability));

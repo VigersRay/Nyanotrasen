@@ -10,13 +10,10 @@
   - type: Clothing
     slots: [belt]
     quickEquip: false
-    clothingVisuals:
-      belt2: #there should be a cleaner way to do this tbh
-      - state: equipped-BELT
   - type: PhysicalComposition
     materialComposition:
       Cloth: 50
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 25
 
 - type: entity
@@ -26,15 +23,6 @@
   components:
   - type: Storage
     capacity: 40
-    equipSound:
-      path: /Audio/Items/belt_equip.ogg
-  - type: MeleeWeapon
-    attackRate: 1.1
-    range: 1.65
-    damage:
-      types:
-        Blunt: 1
-        Slash: 1
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
@@ -43,3 +31,17 @@
     interfaces:
     - key: enum.StorageUiKey.Key
       type: StorageBoundUserInterface
+
+- type: entity
+  abstract: true
+  parent: ClothingBeltBase
+  id: ClothingBeltAmmoProviderBase
+  components: 
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+  - type: Item
+    size: Ginormous
+  - type: ContainerContainer
+    containers: 
+      ballistic-ammo: !type:Container
+      

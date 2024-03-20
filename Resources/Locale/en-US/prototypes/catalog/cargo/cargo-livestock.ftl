@@ -13,9 +13,6 @@ ent-LivestockChicken = { ent-CrateNPCChicken }
 ent-LivestockDuck = { ent-CrateNPCDuck }
     .desc = { ent-CrateNPCDuck.desc }
 
-ent-LivestockPibble = { ent-CrateNPCPibble }
-    .desc = { ent-CrateNPCPibble.desc }
-
 ent-LivestockCorgi = { ent-CrateNPCCorgi }
     .desc = { ent-CrateNPCCorgi.desc }
 
@@ -46,8 +43,8 @@ ent-LivestockPenguin = { ent-CrateNPCPenguin }
 ent-LivestockSnake = { ent-CrateNPCSnake }
     .desc = { ent-CrateNPCSnake.desc }
 
-ent-LivestockLizard = { ent-CrateNPCLizard }
+ent-LivestockSnake = { ent-CrateNPCLizard }
     .desc = { ent-CrateNPCLizard.desc }
 
-ent-LivestockKangaroo = { ent-CrateNPCKangaroo }
+ent-LivestockSnake = { ent-CrateNPCKangaroo }
     .desc = { ent-CrateNPCKangaroo.desc }

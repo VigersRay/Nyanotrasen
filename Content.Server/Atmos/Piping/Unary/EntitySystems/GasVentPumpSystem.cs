@@ -17,9 +17,9 @@ using Content.Shared.Atmos.Piping.Unary.Components;
 using Content.Shared.Atmos.Visuals;
 using Content.Shared.Audio;
 using Content.Shared.Examine;
+using Content.Shared.Tools.Systems;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
-using Robust.Shared.Timing;
 
 namespace Content.Server.Atmos.Piping.Unary.EntitySystems
 {
@@ -29,10 +29,10 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
         [Dependency] private readonly AtmosphereSystem _atmosphereSystem = default!;
         [Dependency] private readonly DeviceNetworkSystem _deviceNetSystem = default!;
         [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
-        [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
         [Dependency] private readonly SharedAmbientSoundSystem _ambientSoundSystem = default!;
         [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly NodeContainerSystem _nodeContainer = default!;
+        [Dependency] private readonly WeldableSystem _weldable = default!;
 
         public override void Initialize()
         {
@@ -48,12 +48,13 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             SubscribeLocalEvent<GasVentPumpComponent, ExaminedEvent>(OnExamine);
             SubscribeLocalEvent<GasVentPumpComponent, SignalReceivedEvent>(OnSignalReceived);
             SubscribeLocalEvent<GasVentPumpComponent, GasAnalyzerScanEvent>(OnAnalyzed);
+            SubscribeLocalEvent<GasVentPumpComponent, WeldableChangedEvent>(OnWeldChanged);
         }
 
-        private void OnGasVentPumpUpdated(EntityUid uid, GasVentPumpComponent vent, AtmosDeviceUpdateEvent args)
+        private void OnGasVentPumpUpdated(EntityUid uid, GasVentPumpComponent vent, ref AtmosDeviceUpdateEvent args)
         {
             //Bingo waz here
-            if (vent.Welded)
+            if (_weldable.IsWelded(uid))
             {
                 return;
             }
@@ -81,23 +82,26 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 return;
             }
 
-            var timeDelta =  (_gameTiming.CurTime - device.LastProcess).TotalSeconds;
-            var pressureDelta = (float) timeDelta * vent.TargetPressureChange;
+            var timeDelta =  args.dt;
+            var pressureDelta = timeDelta * vent.TargetPressureChange;
 
             if (vent.PumpDirection == VentPumpDirection.Releasing && pipe.Air.Pressure > 0)
             {
                 if (environment.Pressure > vent.MaxPressure)
                     return;
 
-                if (environment.Pressure < vent.UnderPressureLockoutThreshold)
-                {
-                    vent.UnderPressureLockout = true;
-                    return;
-                }
-                vent.UnderPressureLockout = false;
+                vent.UnderPressureLockout = (environment.Pressure < vent.UnderPressureLockoutThreshold);
 
                 if ((vent.PressureChecks & VentPressureBound.ExternalBound) != 0)
-                    pressureDelta = MathF.Min(pressureDelta, vent.ExternalPressureBound - environment.Pressure);
+                {
+                    // Vents cannot supply high pressures from an almost empty pipe, instead it's proportional to the pipe
+                    //   pressure, up to a limit.
+                    // This also means supply pipe pressure indicates minimum pressure on the station, with lower pressure
+                    //   sections getting air first.
+                    var supplyPressure = MathF.Min(pipe.Air.Pressure * vent.PumpPower, vent.ExternalPressureBound);
+                    // Calculate the ratio of supply pressure to current pressure.
+                    pressureDelta = MathF.Min(pressureDelta, supplyPressure - environment.Pressure);
+                }
 
                 if (pressureDelta <= 0)
                     return;
@@ -105,6 +109,15 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 // how many moles to transfer to change external pressure by pressureDelta
                 // (ignoring temperature differences because I am lazy)
                 var transferMoles = pressureDelta * environment.Volume / (pipe.Air.Temperature * Atmospherics.R);
+
+                if (vent.UnderPressureLockout)
+                {
+                    // Leak only a small amount of gas as a proportion of supply pipe pressure.
+                    var pipeDelta = pipe.Air.Pressure - environment.Pressure;
+                    transferMoles = (float)timeDelta * pipeDelta * vent.UnderPressureLockoutLeaking;
+                    if (transferMoles < 0.0)
+                        return;
+                }
 
                 // limit transferMoles so the source doesn't go below its bound.
                 if ((vent.PressureChecks & VentPressureBound.InternalBound) != 0)
@@ -152,12 +165,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
         }
 
-        private void OnGasVentPumpLeaveAtmosphere(EntityUid uid, GasVentPumpComponent component, AtmosDeviceDisabledEvent args)
+        private void OnGasVentPumpLeaveAtmosphere(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceDisabledEvent args)
         {
             UpdateState(uid, component);
         }
 
-        private void OnGasVentPumpEnterAtmosphere(EntityUid uid, GasVentPumpComponent component, AtmosDeviceEnabledEvent args)
+        private void OnGasVentPumpEnterAtmosphere(EntityUid uid, GasVentPumpComponent component, ref AtmosDeviceEnabledEvent args)
         {
             UpdateState(uid, component);
         }
@@ -243,7 +256,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 return;
 
             _ambientSoundSystem.SetAmbience(uid, true);
-            if (!vent.Enabled)
+            if (_weldable.IsWelded(uid))
+            {
+                _ambientSoundSystem.SetAmbience(uid, false);
+                _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Welded, appearance);
+            }
+            else if (!vent.Enabled)
             {
                 _ambientSoundSystem.SetAmbience(uid, false);
                 _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Off, appearance);
@@ -255,11 +273,6 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             else if (vent.PumpDirection == VentPumpDirection.Siphoning)
             {
                 _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.In, appearance);
-            }
-            else if (vent.Welded)
-            {
-                _ambientSoundSystem.SetAmbience(uid, false);
-                _appearance.SetData(uid, VentPumpVisuals.State, VentPumpState.Welded, appearance);
             }
         }
 
@@ -297,6 +310,11 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 gasMixDict.Add(nodeName, pipe.Air);
 
             args.GasMixtures = gasMixDict;
+        }
+
+        private void OnWeldChanged(EntityUid uid, GasVentPumpComponent component, ref WeldableChangedEvent args)
+        {
+            UpdateState(uid, component);
         }
     }
 }

@@ -194,7 +194,7 @@
               amount: 1
               doAfter: 1
 
-        - to: TableWoodReinforced
+        - to: TableWoodReinforced #Nyano - See Resources/Prototypes/Nyanotrasen/Entities/Furniture/Tables/tables.yml
           steps:
             - material: WoodPlank
               amount: 2
@@ -212,7 +212,7 @@
             - tool: Prying
               doAfter: 1
 
-    - node: TableWoodReinforced
+    - node: TableWoodReinforced #Nyano - See Resources/Prototypes/Nyanotrasen/Entities/Furniture/Tables/tables.yml
       entity: TableWoodReinforced
       edges:
         - to: TableWood

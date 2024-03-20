@@ -2,6 +2,7 @@
   name: Civilian
   parent: BaseMobHuman
   id: MobCivilian
+  description: A miserable pile of secrets.
   components:
   - type: InputMover
   - type: MobMover
@@ -12,6 +13,23 @@
     - NanoTrasen
 
 - type: entity
+  name: Salvager
+  parent: BaseMobHuman
+  id: MobSalvager
+  components:
+    - type: NpcFactionMember
+      factions:
+        - Syndicate
+    - type: Loadout
+      prototypes:
+        - SalvageSpecialistGear
+    - type: InputMover
+    - type: MobMover
+    - type: HTN
+      rootTask:
+        task: SimpleHumanoidHostileCompound
+
+- type: entity
   name: Spirate
   parent: BaseMobHuman
   id: MobSpirate
@@ -20,10 +38,14 @@
   - type: NpcFactionMember
     factions:
       - Syndicate
+  - type: Loadout
+    prototypes:
+      - PirateGear
   - type: InputMover
   - type: MobMover
   - type: HTN
-    rootTask: RangedCombatCompound
+    rootTask:
+      task: SimpleHumanoidHostileCompound
 
 - type: entity
   parent: BaseMobHuman
@@ -42,6 +64,16 @@
         Asphyxiation: 76
         Slash: 56
         Blunt: 19
+        Radiation: 1984 # DV: Unrevivable due to prolonged exposure to space.
   - type: Inventory
     templateId: corpse
 
+- type: entity
+  parent: MobHuman
+  id: MobCluwne
+  name: person
+  description: A polymorphed unfortunate.
+  components:
+  - type: Cluwne
+  - type: Speech
+    speechVerb: Cluwne

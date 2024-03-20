@@ -1,50 +1,42 @@
-using Content.Shared.GameTicking;
-using Content.Shared.Damage;
-using Content.Shared.Examine;
-using Content.Shared.Cloning;
-using Content.Shared.Speech;
-using Content.Shared.Atmos;
-using Content.Shared.Tag;
-using Content.Shared.CCVar;
-using Content.Shared.Preferences;
-using Content.Shared.Emoting;
-using Content.Server.Psionics;
-using Content.Server.Cloning.Components;
-using Content.Server.Speech.Components;
-using Content.Server.Mind.Components;
-using Content.Server.Power.EntitySystems;
 using Content.Server.Atmos.EntitySystems;
-using Content.Server.StationEvents.Components;
-using Content.Server.EUI;
-using Content.Server.Humanoid;
-using Content.Server.Ghost.Roles.Components;
-using Content.Shared.Chemistry.Components;
-using Content.Server.Fluids.EntitySystems;
 using Content.Server.Chat.Systems;
+using Content.Server.Cloning.Components;
 using Content.Server.Construction;
-using Content.Server.DeviceLinking.Events;
 using Content.Server.DeviceLinking.Systems;
-using Content.Server.Materials;
+using Content.Server.EUI;
+using Content.Server.Fluids.EntitySystems;
+using Content.Server.Humanoid;
 using Content.Server.Jobs;
-using Content.Server.Mind;
-using Content.Server.Preferences.Managers;
+using Content.Server.Materials;
+using Content.Server.Popups;
+using Content.Server.Power.EntitySystems;
+using Content.Server.Traits.Assorted;
+using Content.Shared.Atmos;
+using Content.Shared.CCVar;
+using Content.Shared.Chemistry.Components;
+using Content.Shared.Cloning;
+using Content.Shared.Damage;
 using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Emag.Components;
-using Content.Server.Mind;
+using Content.Shared.Emag.Systems;
+using Content.Shared.Examine;
+using Content.Shared.GameTicking;
 using Content.Shared.Humanoid;
-using Content.Shared.Humanoid.Prototypes;
-using Content.Shared.Zombies;
+using Content.Shared.Mind;
+using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Systems;
-using Robust.Server.GameObjects;
+using Content.Shared.Roles.Jobs;
 using Robust.Server.Containers;
+using Robust.Server.GameObjects;
 using Robust.Server.Player;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.GameObjects.Components.Localization;
-using Content.Server.Traits.Assorted;
+using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
+using Content.Server.Psionics; //Nyano - Summary: allows the potential psionic ability to be written to the character.
 
 namespace Content.Server.Cloning
 {
@@ -65,15 +57,15 @@ namespace Content.Server.Cloning
         [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
         [Dependency] private readonly PuddleSystem _puddleSystem = default!;
         [Dependency] private readonly ChatSystem _chatSystem = default!;
+        [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly IConfigurationManager _configManager = default!;
         [Dependency] private readonly MaterialStorageSystem _material = default!;
-        [Dependency] private readonly MetempsychoticMachineSystem _metem = default!;
-        [Dependency] private readonly TagSystem _tag = default!;
-        [Dependency] private readonly IServerPreferencesManager _prefs = default!;
-        [Dependency] private readonly MindSystem _mindSystem = default!;
+        [Dependency] private readonly PopupSystem _popupSystem = default!;
+        [Dependency] private readonly SharedMindSystem _mindSystem = default!;
         [Dependency] private readonly MetaDataSystem _metaSystem = default!;
+        [Dependency] private readonly SharedJobSystem _jobs = default!;
 
-        public readonly Dictionary<Mind.Mind, EntityUid> ClonesWaitingForMind = new();
+        public readonly Dictionary<MindComponent, EntityUid> ClonesWaitingForMind = new();
         public const float EasyModeCloningCost = 0.7f;
 
         public override void Initialize()
@@ -88,6 +80,7 @@ namespace Content.Server.Cloning
             SubscribeLocalEvent<CloningPodComponent, PortDisconnectedEvent>(OnPortDisconnected);
             SubscribeLocalEvent<CloningPodComponent, AnchorStateChangedEvent>(OnAnchor);
             SubscribeLocalEvent<CloningPodComponent, ExaminedEvent>(OnExamined);
+            SubscribeLocalEvent<CloningPodComponent, GotEmaggedEvent>(OnEmagged);
         }
 
         private void OnComponentInit(EntityUid uid, CloningPodComponent clonePod, ComponentInit args)
@@ -111,7 +104,7 @@ namespace Content.Server.Cloning
             args.AddPercentageUpgrade("cloning-pod-component-upgrade-biomass-requirement", component.BiomassRequirementMultiplier);
         }
 
-        internal void TransferMindToClone(Mind.Mind mind)
+        internal void TransferMindToClone(EntityUid mindId, MindComponent mind)
         {
             if (!ClonesWaitingForMind.TryGetValue(mind, out var entity) ||
                 !EntityManager.EntityExists(entity) ||
@@ -119,8 +112,8 @@ namespace Content.Server.Cloning
                 mindComp.Mind != null)
                 return;
 
-            _mindSystem.TransferTo(mind, entity, ghostCheckOverride: true);
-            _mindSystem.UnVisit(mind);
+            _mindSystem.TransferTo(mindId, entity, ghostCheckOverride: true, mind: mind);
+            _mindSystem.UnVisit(mindId, mind);
             ClonesWaitingForMind.Remove(mind);
         }
 
@@ -163,7 +156,7 @@ namespace Content.Server.Cloning
             args.PushMarkup(Loc.GetString("cloning-pod-biomass", ("number", _material.GetMaterialAmount(uid, component.RequiredMaterial))));
         }
 
-        public bool TryCloning(EntityUid uid, EntityUid bodyToClone, Mind.Mind mind, CloningPodComponent? clonePod, float failChanceModifier = 1, float karmaBonus = 0.25f)
+        public bool TryCloning(EntityUid uid, EntityUid bodyToClone, Entity<MindComponent> mindEnt, CloningPodComponent? clonePod, float failChanceModifier = 1)
         {
             if (!Resolve(uid, ref clonePod))
                 return false;
@@ -171,12 +164,13 @@ namespace Content.Server.Cloning
             if (HasComp<ActiveCloningPodComponent>(uid))
                 return false;
 
+            var mind = mindEnt.Comp;
             if (ClonesWaitingForMind.TryGetValue(mind, out var clone))
             {
                 if (EntityManager.EntityExists(clone) &&
                     !_mobStateSystem.IsDead(clone) &&
                     TryComp<MindContainerComponent>(clone, out var cloneMindComp) &&
-                    (cloneMindComp.Mind == null || cloneMindComp.Mind == mind))
+                    (cloneMindComp.Mind == null || cloneMindComp.Mind == mindEnt))
                     return false; // Mind already has clone
 
                 ClonesWaitingForMind.Remove(mind);
@@ -192,31 +186,27 @@ namespace Content.Server.Cloning
             if (!TryComp<HumanoidAppearanceComponent>(bodyToClone, out var humanoid))
                 return false; // whatever body was to be cloned, was not a humanoid
 
-            // Begin Nyano-code: allow paradox anomalies to be cloned.
-            var pref = humanoid.LastProfileLoaded;
-            // End Nyano-code.
-
-            if (pref == null)
-                return false;
-
-            if (!_prototype.TryIndex<SpeciesPrototype>(humanoid.Species, out var speciesPrototype))
+            if (!_prototype.TryIndex(humanoid.Species, out var speciesPrototype))
                 return false;
 
             if (!TryComp<PhysicsComponent>(bodyToClone, out var physics))
                 return false;
 
-            var cloningCost = clonePod.ConstantBiomassCost == null ? (int) Math.Round(physics.FixturesMass * clonePod.BiomassRequirementMultiplier) : (int) Math.Round((float) clonePod.ConstantBiomassCost * clonePod.BiomassRequirementMultiplier);
+            var cloningCost = (int) Math.Round(physics.FixturesMass * clonePod.BiomassRequirementMultiplier);
 
-            if (clonePod.ConstantBiomassCost == null && _configManager.GetCVar(CCVars.BiomassEasyMode))
+            if (_configManager.GetCVar(CCVars.BiomassEasyMode))
                 cloningCost = (int) Math.Round(cloningCost * EasyModeCloningCost);
 
             // Check if they have the uncloneable trait
             if (TryComp<UncloneableComponent>(bodyToClone, out _))
             {
                 if (clonePod.ConnectedConsole != null)
+                {
                     _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value,
                         Loc.GetString("cloning-console-uncloneable-trait-error"),
                         InGameICChatType.Speak, false);
+                }
+
                 return false;
             }
 
@@ -235,38 +225,36 @@ namespace Content.Server.Cloning
             // end of biomass checks
 
             // genetic damage checks
-            if (clonePod.CheckGeneticDamage)
+            if (TryComp<DamageableComponent>(bodyToClone, out var damageable) &&
+                damageable.Damage.DamageDict.TryGetValue("Cellular", out var cellularDmg))
             {
-                if (TryComp<DamageableComponent>(bodyToClone, out var damageable) &&
-                    damageable.Damage.DamageDict.TryGetValue("Cellular", out var cellularDmg))
-                {
-                    var chance = Math.Clamp((float) (cellularDmg / 100), 0, 1);
-                    chance *= failChanceModifier;
+                var chance = Math.Clamp((float) (cellularDmg / 100), 0, 1);
+                chance *= failChanceModifier;
 
-                    if (cellularDmg > 0 && clonePod.ConnectedConsole != null)
-                        _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-cellular-warning", ("percent", Math.Round(100 - (chance * 100)))), InGameICChatType.Speak, false);
+                if (cellularDmg > 0 && clonePod.ConnectedConsole != null)
+                    _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-cellular-warning", ("percent", Math.Round(100 - chance * 100))), InGameICChatType.Speak, false);
 
-                    if (_robustRandom.Prob(chance))
-                    {
-                        UpdateStatus(uid, CloningPodStatus.Gore, clonePod);
-                        clonePod.FailedClone = true;
-                        AddComp<ActiveCloningPodComponent>(uid);
-                        return true;
-                    }
-                // Begin Nyano-code:
-                // arachne have no genetics. we need to stop the cloner from cloning them.
-                }
-                else
+                if (_robustRandom.Prob(chance))
                 {
-                    if (clonePod.ConnectedConsole != null)
-                        _chatSystem.TrySendInGameICMessage(clonePod.ConnectedConsole.Value, Loc.GetString("cloning-console-chat-no-genetics", ("units", cloningCost)), InGameICChatType.Speak, false);
-                    return false;
+                    UpdateStatus(uid, CloningPodStatus.Gore, clonePod);
+                    clonePod.FailedClone = true;
+                    AddComp<ActiveCloningPodComponent>(uid);
+                    return true;
                 }
-                // End Nyano-code.
             }
             // end of genetic damage checks
 
-            var mob = FetchAndSpawnMob(clonePod, pref, speciesPrototype, humanoid, bodyToClone, karmaBonus);
+            var mob = Spawn(speciesPrototype.Prototype, Transform(uid).MapPosition);
+            _humanoidSystem.CloneAppearance(bodyToClone, mob);
+
+            ///Nyano - Summary: adds the potential psionic trait to the reanimated mob. 
+            EnsureComp<PotentialPsionicComponent>(mob);
+
+            var ev = new CloningEvent(bodyToClone, mob);
+            RaiseLocalEvent(bodyToClone, ref ev);
+
+            if (!ev.NameHandled)
+                _metaSystem.SetEntityName(mob, MetaData(bodyToClone).EntityName);
 
             var cloneMindReturn = EntityManager.AddComponent<BeingClonedComponent>(mob);
             cloneMindReturn.Mind = mind;
@@ -274,16 +262,15 @@ namespace Content.Server.Cloning
             clonePod.BodyContainer.Insert(mob);
             ClonesWaitingForMind.Add(mind, mob);
             UpdateStatus(uid, CloningPodStatus.NoMind, clonePod);
-            _euiManager.OpenEui(new AcceptCloningEui(mind, this), client);
+            _euiManager.OpenEui(new AcceptCloningEui(mindEnt, mind, this), client);
 
             AddComp<ActiveCloningPodComponent>(uid);
 
-            // TODO: Ideally, components like this should be on a mind entity so this isn't neccesary.
-            // Remove this when 'mind entities' are added.
+            // TODO: Ideally, components like this should be components on the mind entity so this isn't necessary.
             // Add on special job components to the mob.
-            if (mind.CurrentJob != null)
+            if (_jobs.MindTryGetJob(mindEnt, out _, out var prototype))
             {
-                foreach (var special in mind.CurrentJob.Prototype.Special)
+                foreach (var special in prototype.Special)
                 {
                     if (special is AddComponentSpecial)
                         special.AfterEquip(mob);
@@ -321,6 +308,19 @@ namespace Content.Server.Cloning
             }
         }
 
+        /// <summary>
+        /// On emag, spawns a failed clone when cloning process fails which attacks nearby crew.
+        /// </summary>
+        private void OnEmagged(EntityUid uid, CloningPodComponent clonePod, ref GotEmaggedEvent args)
+        {
+            if (!this.IsPowered(uid, EntityManager))
+                return;
+
+            _audio.PlayPvs(clonePod.SparkSound, uid);
+            _popupSystem.PopupEntity(Loc.GetString("cloning-pod-component-upgrade-emag-requirement"), uid);
+            args.Handled = true;
+        }
+
         public void Eject(EntityUid uid, CloningPodComponent? clonePod)
         {
             if (!Resolve(uid, ref clonePod))
@@ -343,130 +343,39 @@ namespace Content.Server.Cloning
             clonePod.CloningProgress = 0f;
             UpdateStatus(uid, CloningPodStatus.Idle, clonePod);
             var transform = Transform(uid);
-            var indices = _transformSystem.GetGridOrMapTilePosition(uid);
-
+            var indices = _transformSystem.GetGridTilePositionOrDefault((uid, transform));
             var tileMix = _atmosphereSystem.GetTileMixture(transform.GridUid, null, indices, true);
+
+            if (HasComp<EmaggedComponent>(uid))
+            {
+                _audio.PlayPvs(clonePod.ScreamSound, uid);
+                Spawn(clonePod.MobSpawnId, transform.Coordinates);
+            }
 
             Solution bloodSolution = new();
 
             var i = 0;
             while (i < 1)
             {
-                tileMix?.AdjustMoles(Gas.Miasma, 6f);
+                tileMix?.AdjustMoles(Gas.Ammonia, 6f);
                 bloodSolution.AddReagent("Blood", 50);
                 if (_robustRandom.Prob(0.2f))
                     i++;
             }
             _puddleSystem.TrySpillAt(uid, bloodSolution, out _);
 
-            _material.SpawnMultipleFromMaterial(_robustRandom.Next(1, (int) (clonePod.UsedBiomass / 2.5)), clonePod.RequiredMaterial, Transform(uid).Coordinates);
+            if (!HasComp<EmaggedComponent>(uid))
+            {
+                _material.SpawnMultipleFromMaterial(_robustRandom.Next(1, (int) (clonePod.UsedBiomass / 2.5)), clonePod.RequiredMaterial, Transform(uid).Coordinates);
+            }
 
             clonePod.UsedBiomass = 0;
             RemCompDeferred<ActiveCloningPodComponent>(uid);
         }
 
-        /// <summary>
-        /// Handles fetching the mob and any appearance stuff...
-        /// </summary>
-        private EntityUid FetchAndSpawnMob(CloningPodComponent clonePod, HumanoidCharacterProfile pref, SpeciesPrototype speciesPrototype, HumanoidAppearanceComponent humanoid, EntityUid bodyToClone, float karmaBonus)
-        {
-            List<Sex> sexes = new();
-            bool switchingSpecies = false;
-            bool applyKarma = false;
-            var name = pref.Name;
-            var toSpawn = speciesPrototype.Prototype;
-            TryComp<MetempsychosisKarmaComponent>(bodyToClone, out var oldKarma);
-
-            if (TryComp<MetempsychoticMachineComponent>(clonePod.Owner, out var metem))
-            {
-                toSpawn = _metem.GetSpawnEntity(clonePod.Owner, karmaBonus, speciesPrototype, out var newSpecies, oldKarma?.Score, metem);
-                applyKarma = true;
-
-                if (newSpecies != null)
-                {
-                    sexes = newSpecies.Sexes;
-
-                    if (speciesPrototype.ID != newSpecies.ID)
-                    {
-                        switchingSpecies = true;
-                    }
-
-                    speciesPrototype = newSpecies;
-                }
-            }
-
-            var mob = Spawn(toSpawn, Transform(clonePod.Owner).MapPosition);
-            if (TryComp<HumanoidAppearanceComponent>(mob, out var newHumanoid))
-            {
-                if (switchingSpecies || HasComp<MetempsychosisKarmaComponent>(bodyToClone))
-                {
-                    pref = HumanoidCharacterProfile.RandomWithSpecies(newHumanoid.Species);
-                    if (sexes.Contains(humanoid.Sex))
-                        pref = pref.WithSex(humanoid.Sex);
-
-                    pref = pref.WithGender(humanoid.Gender);
-                    pref = pref.WithAge(humanoid.Age);
-
-                }
-                _humanoidSystem.LoadProfile(mob, pref);
-            }
-
-            if (applyKarma)
-            {
-                var karma = EnsureComp<MetempsychosisKarmaComponent>(mob);
-                karma.Score++;
-                if (oldKarma != null)
-                    karma.Score += oldKarma.Score;
-            }
-
-            var ev = new CloningEvent(bodyToClone, mob);
-            RaiseLocalEvent(bodyToClone, ref ev);
-
-            if (!ev.NameHandled)
-                MetaData(mob).EntityName = name;
-
-            var mind = EnsureComp<MindContainerComponent>(mob);
-            _mindSystem.SetExamineInfo(mob, true, mind);
-
-            var grammar = EnsureComp<GrammarComponent>(mob);
-            grammar.ProperNoun = true;
-            grammar.Gender = humanoid.Gender;
-            Dirty(grammar);
-
-            EnsureComp<PotentialPsionicComponent>(mob);
-            EnsureComp<SpeechComponent>(mob);
-            EnsureComp<EmotingComponent>(mob);
-            RemComp<ReplacementAccentComponent>(mob);
-            RemComp<MonkeyAccentComponent>(mob);
-            RemComp<SentienceTargetComponent>(mob);
-            RemComp<GhostTakeoverAvailableComponent>(mob);
-
-            _tag.AddTag(mob, "DoorBumpOpener");
-
-            return mob;
-        }
-
         public void Reset(RoundRestartCleanupEvent ev)
         {
             ClonesWaitingForMind.Clear();
-        }
-    }
-
-    /// <summary>
-    /// Raised after a new mob got spawned when cloning a humanoid
-    /// </summary>
-    [ByRefEvent]
-    public struct CloningEvent
-    {
-        public bool NameHandled = false;
-
-        public readonly EntityUid Source;
-        public readonly EntityUid Target;
-
-        public CloningEvent(EntityUid source, EntityUid target)
-        {
-            Source = source;
-            Target = target;
         }
     }
 }

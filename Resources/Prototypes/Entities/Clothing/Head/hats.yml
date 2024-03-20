@@ -19,6 +19,38 @@
     sprite: Clothing/Head/Hats/beret.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/beret.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretSecurity
+  name: security beret
+  description: A stylish clothing option for security officers.
+  components:
+  - type: Sprite
+    sprite: DeltaV/Clothing/Head/Hats/beret_security.rsi # DeltaV - resprite
+  - type: Clothing
+    sprite: DeltaV/Clothing/Head/Hats/beret_security.rsi # DeltaV - resprite
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCasa
+  name: casa
+  description: Cone-shaped hat
+  components:
+    - type: Sprite
+      sprite: Clothing/Head/Hats/casa.rsi
+    - type: Clothing
+      sprite: Clothing/Head/Hats/casa.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -30,6 +62,11 @@
     sprite: Clothing/Head/Hats/beret_rnd.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/beret_rnd.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -41,6 +78,11 @@
     sprite: Clothing/Head/Hats/beret_engineering.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/beret_engineering.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -49,20 +91,47 @@
   description: A black beret with a commander's rank emblem. For officers that are more inclined towards style than safety.
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_hos.rsi
+    sprite: DeltaV/Clothing/Head/Hats/beret_hos.rsi # DeltaV - resprite
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_hos.rsi
+    sprite: DeltaV/Clothing/Head/Hats/beret_hos.rsi # DeltaV - resprite
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatBeretWarden
   name: warden's beret
-  description: A corporate blue beret with a warden's rank emblem. For officers that are more inclined towards style than safety.
+  description: A black beret with a warden's rank emblem. For officers that are more inclined towards style than safety. # DeltaV - changed description to match sprite
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/beret_warden.rsi
+    sprite: DeltaV/Clothing/Head/Hats/beret_warden.rsi # DeltaV - resprite
   - type: Clothing
-    sprite: Clothing/Head/Hats/beret_warden.rsi
+    sprite: DeltaV/Clothing/Head/Hats/beret_warden.rsi # DeltaV - resprite
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretSeniorPhysician
+  name: physician beret
+  description: Donning the colours of medical and chemistry, physicians are the pride of this department!
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/beret_physician.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/beret_physician.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretBrigmedic
+  name: medical beret
+  description: White beret, looks like a cream pie on the head.
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/beret_brigmedic.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/beret_brigmedic.rsi
 
 - type: entity
   parent: ClothingHeadBase
@@ -96,6 +165,11 @@
     sprite: Clothing/Head/Hats/captain.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/captain.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -126,7 +200,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatChef
-  name: chefs hat
+  name: chef's hat
   description: "It's a hat used by chefs to keep hair out of your food. Judging by the food in the mess, they don't work."
   components:
   - type: Sprite
@@ -142,6 +216,11 @@
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -153,6 +232,11 @@
     sprite: Clothing/Head/Hats/brownfedora.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/brownfedora.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -186,6 +270,11 @@
     sprite: Clothing/Head/Hats/hopcap.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/hopcap.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -194,9 +283,14 @@
   description: "There's a new sheriff in station."
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/hoshat.rsi
+    sprite: DeltaV/Clothing/Head/Hats/hoshat.rsi # DeltaV - resprite
   - type: Clothing
-    sprite: Clothing/Head/Hats/hoshat.rsi
+    sprite: DeltaV/Clothing/Head/Hats/hoshat.rsi # DeltaV - resprite
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -263,20 +357,11 @@
     sprite: Clothing/Head/Hats/redwizard.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/redwizard.rsi
-  - type: Item
-    size: 10
-  - type: PressureProtection
+  - type: PressureProtection # DeltaV - Make real wizard clothes space proof
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
     coefficient: 0.2
-  - type: IngestionBlocker
-  - type: Tag
-    tags:
-    - WhitelistChameleon
-  - type: DiseaseProtection
-    protection: 0.05
-  - type: IdentityBlocker
 
 - type: entity
   parent: ClothingHeadBase
@@ -288,8 +373,6 @@
     sprite: Clothing/Head/Hats/santahat.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/santahat.rsi
-  - type: TemperatureProtection
-    coefficient: 0.33
 
 - type: entity
   parent: ClothingHeadBase
@@ -301,6 +384,8 @@
     sprite: Clothing/Head/Hats/sombrero.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/sombrero.rsi
+  - type: AddAccentClothing
+    accent: SpanishAccent
 
 - type: entity
   parent: ClothingHeadBase
@@ -312,6 +397,11 @@
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/surgcap_blue.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -345,6 +435,11 @@
     sprite: Clothing/Head/Hats/tophat.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/tophat.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -356,8 +451,6 @@
     sprite: Clothing/Head/Hats/ushanka.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/ushanka.rsi
-  - type: TemperatureProtection
-    coefficient: 0.4
   - type: AddAccentClothing
     accent: RussianAccent
 
@@ -371,31 +464,22 @@
     sprite: Clothing/Head/Hats/violetwizard.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/violetwizard.rsi
-  - type: Item
-    size: 10
-  - type: PressureProtection
+  - type: PressureProtection # DeltaV - Make real wizard clothes space proof
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
     coefficient: 0.2
-  - type: IngestionBlocker
-  - type: Tag
-    tags:
-    - WhitelistChameleon
-  - type: DiseaseProtection
-    protection: 0.05
-  - type: IdentityBlocker
 
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatWarden
   name: warden's cap
-  description: A police officer's Hat. This hat emphasizes that you are THE LAW
+  description: The responsibility weighs heavy, like a barbed crown. # DeltaV - changed description to remove THE LAW
   components:
   - type: Sprite
-    sprite: Clothing/Head/Hats/warden.rsi
+    sprite: DeltaV/Clothing/Head/Hats/warden.rsi # DeltaV - resprite
   - type: Clothing
-    sprite: Clothing/Head/Hats/warden.rsi
+    sprite: DeltaV/Clothing/Head/Hats/warden.rsi # DeltaV - resprite
 
 - type: entity
   parent: ClothingHeadBase
@@ -411,8 +495,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatWizardFake
-  name: wizard hat
-  suffix: fake
+  name: fake wizard hat
   description: It has WIZZARD written across it in sequins. Comes with a cool beard.
   components:
   - type: Sprite
@@ -430,20 +513,16 @@
     sprite: Clothing/Head/Hats/wizardhat.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/wizardhat.rsi
-  - type: Item
-    size: 10
-  - type: PressureProtection
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: PressureProtection # DeltaV - Make real wizard clothes space proof
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
     coefficient: 0.2
-  - type: IngestionBlocker
-  - type: Tag
-    tags:
-    - WhitelistChameleon
-  - type: DiseaseProtection
-    protection: 0.05
-  - type: IdentityBlocker
 
 - type: entity
   parent: ClothingHeadBase
@@ -459,7 +538,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatTrucker
-  name: truckers hat
+  name: trucker hat
   description: Formerly Chucks, this hat is yours now.
   components:
   - type: Sprite
@@ -470,8 +549,8 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadPyjamaSyndicateBlack
-  name: black pyjama hat
-  description: For keeping that head of yours warm.
+  name: syndicate black pyjama hat
+  description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/pyjamasyndicateblack.rsi
@@ -481,8 +560,8 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadPyjamaSyndicatePink
-  name: pink pyjama hat
-  description: For keeping that head of yours warm.
+  name: syndicate pink pyjama hat
+  description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/pyjamasyndicatepink.rsi
@@ -492,8 +571,8 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadPyjamaSyndicateRed
-  name: red pyjama hat
-  description: For keeping that head of yours warm.
+  name: syndicate red pyjama hat
+  description: For keeping that traitor head of yours warm.
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/pyjamasyndicatered.rsi
@@ -545,6 +624,11 @@
     sprite: Clothing/Head/Hats/nursehat.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/nursehat.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -598,6 +682,11 @@
     sprite: Clothing/Head/Hats/beret_cmo.rsi
   - type: Clothing
     sprite: Clothing/Head/Hats/beret_cmo.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - HamsterWearable
+    - WhitelistChameleon
 
 - type: entity
   parent: ClothingHeadBase
@@ -699,6 +788,7 @@
   - type: ContainerContainer
     containers:
       storagebase: !type:Container
+  - type: Tag
 
 - type: entity
   parent: ClothingHeadBase
@@ -712,4 +802,79 @@
     sprite: Clothing/Head/Hats/capcap.rsi
   - type: Tag
     tags:
+    - ClothMade
     - WhitelistChameleon
+    - HamsterWearable
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatCentcomcap
+  name: CentCom cap
+  description: An extravagant, fancy Central Commander cap.
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/comcap.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/comcap.rsi
+  - type: Tag
+    tags:
+    - ClothMade
+    - WhitelistChameleon
+    - HamsterWearable
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatGladiator
+  name: Gladiator helmet
+  description: Protects the head from harsh ash winds and toy spears.
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/gladiator.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/gladiator.rsi
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatPartyRed
+  name: red party hat
+  description: Spread a joy!
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/party_red.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/party_red.rsi
+  - type: Tag
+    tags:
+      - DroneUsable
+      - WhitelistChameleon
+      - HamsterWearable
+
+- type: entity
+  parent: ClothingHeadHatPartyRed
+  id: ClothingHeadHatPartyYellow
+  name: yellow party hat
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/party_yellow.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/party_yellow.rsi
+
+- type: entity
+  parent: ClothingHeadHatPartyRed
+  id: ClothingHeadHatPartyGreen
+  name: green party hat
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/party_green.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/party_green.rsi
+
+- type: entity
+  parent: ClothingHeadHatPartyRed
+  id: ClothingHeadHatPartyBlue
+  name: blue party hat
+  components:
+  - type: Sprite
+    sprite: Clothing/Head/Hats/party_blue.rsi
+  - type: Clothing
+    sprite: Clothing/Head/Hats/party_blue.rsi

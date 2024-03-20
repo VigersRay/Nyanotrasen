@@ -1,10 +1,12 @@
 using Content.Shared.Actions;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Actions.ActionTypes;
+using Content.Shared.Magic.Events;
 using Content.Shared.Damage;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
+using Content.Shared.Mind;
+using Content.Shared.Actions.Events;
 
 namespace Content.Shared.Abilities.Psionics
 {
@@ -15,6 +17,7 @@ namespace Content.Shared.Abilities.Psionics
         [Dependency] private readonly EntityLookupSystem _lookup = default!;
         [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
         [Dependency] private readonly IGameTiming _gameTiming = default!;
+        [Dependency] private readonly SharedMindSystem _mindSystem = default!;
 
         public override void Initialize()
         {
@@ -26,22 +29,17 @@ namespace Content.Shared.Abilities.Psionics
 
         private void OnInit(EntityUid uid, MassSleepPowerComponent component, ComponentInit args)
         {
-            if (!_prototypeManager.TryIndex<WorldTargetActionPrototype>("MassSleep", out var massSleep))
-                return;
-
-            component.MassSleepPowerAction = new WorldTargetAction(massSleep);
-            if (massSleep.UseDelay != null)
-                component.MassSleepPowerAction.Cooldown = (_gameTiming.CurTime, _gameTiming.CurTime + (TimeSpan) massSleep.UseDelay);
-            _actions.AddAction(uid, component.MassSleepPowerAction, null);
-
+            _actions.AddAction(uid, ref component.MassSleepActionEntity, component.MassSleepActionId );
+            _actions.TryGetActionData( component.MassSleepActionEntity, out var actionData );
+            if (actionData is { UseDelay: not null })
+                _actions.StartUseDelay(component.MassSleepActionEntity);
             if (TryComp<PsionicComponent>(uid, out var psionic) && psionic.PsionicAbility == null)
-                psionic.PsionicAbility = component.MassSleepPowerAction;
+                psionic.PsionicAbility = component.MassSleepActionEntity;
         }
 
         private void OnShutdown(EntityUid uid, MassSleepPowerComponent component, ComponentShutdown args)
         {
-            if (_prototypeManager.TryIndex<WorldTargetActionPrototype>("MassSleep", out var massSleep))
-                _actions.RemoveAction(uid, new WorldTargetAction(massSleep), null);
+            _actions.RemoveAction(uid, component.MassSleepActionEntity);
         }
 
         private void OnPowerUsed(EntityUid uid, MassSleepPowerComponent component, MassSleepPowerActionEvent args)
@@ -58,6 +56,4 @@ namespace Content.Shared.Abilities.Psionics
             args.Handled = true;
         }
     }
-
-    public sealed class MassSleepPowerActionEvent : WorldTargetActionEvent {}
 }

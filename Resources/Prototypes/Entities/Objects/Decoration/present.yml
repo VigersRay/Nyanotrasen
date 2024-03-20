@@ -54,6 +54,8 @@
         orGroup: GiftPool
       - id: JetpackMiniFilled
         orGroup: GiftPool
+      - id: PlushieGhost
+        orGroup: GiftPool
       - id: PlushieBee
         orGroup: GiftPool
       - id: PlushieRGBee
@@ -61,6 +63,8 @@
       - id: PlushieNuke
         orGroup: GiftPool
       - id: PlushieRouny
+        orGroup: GiftPool
+      - id: PlushieLizard #Weh!
         orGroup: GiftPool
       - id: PlushieNar
         orGroup: GiftPool
@@ -74,19 +78,25 @@
         orGroup: GiftPool
       - id: PlushieRatvar
         orGroup: GiftPool
+      - id: PlushieSpaceLizard
+        orGroup: GiftPool
       - id: PlushieSharkBlue
         orGroup: GiftPool
       - id: PlushieSharkPink
         orGroup: GiftPool
       - id: PlushieSharkGrey
         orGroup: GiftPool
-      - id: PlushieMoff
+      - id: ToyAmongPequeno
         orGroup: GiftPool
-      - id: PlushieMoffRandom
+      - id: PlushieDiona
         orGroup: GiftPool
-      - id: PlushieMoffsician
+      - id: PlushieMoth
         orGroup: GiftPool
-      - id: PlushieMoffbar
+      - id: PlushieMothRandom # Nyanotrasen Random Moth Plushie
+        orGroup: GiftPool
+      - id: PlushieMothBartender # Nyanotrasen Moth Bartender Plushie
+        orGroup: GiftPool
+      - id: PlushieMothMusician # Nyanotrasen Moth Musician Plushie
         orGroup: GiftPool
       - id: ClothingNeckCloakMoth
         orGroup: GiftPool
@@ -186,6 +196,8 @@
         orGroup: GiftPool
       - id: ClothingNeckCloakTrans
         orGroup: GiftPool
+      - id: ClothingNeckCloakAdmin
+        orGroup: GiftPool
       - id: ToySkeleton
         orGroup: GiftPool
       - id: Basketball
@@ -195,6 +207,14 @@
       - id: BalloonCorgi
         orGroup: GiftPool
       - id: PonderingOrb
+        orGroup: GiftPool
+      - id: Skub
+        orGroup: GiftPool
+      - id: ClothingEyesGlassesGarGiga
+        orGroup: GiftPool
+      - id: ClothingEyesGlassesGarOrange
+        orGroup: GiftPool
+      - id: ClothingEyesGlassesGar
         orGroup: GiftPool
       - id: ClothingNeckBling
         orGroup: GiftPool
@@ -221,6 +241,8 @@
       - id: FlashlightLantern
         orGroup: GiftPool
       - id: Spear
+        orGroup: GiftPool
+      - id: LidSalami
         orGroup: GiftPool
       - id: Soap
         orGroup: GiftPool
@@ -318,6 +340,8 @@
         orGroup: GiftPool
       - id: Ash
         orGroup: GiftPool
+      - id: Coal1
+        orGroup: GiftPool
       - id: MiningDrill
         orGroup: GiftPool
       - id: CowToolboxFilled
@@ -344,6 +368,60 @@
         prob: .001
         orGroup: GiftPool
       - id: RGBStaff
+        orGroup: GiftPool
+      - id: ToyRenault # DeltaV Toy, see Resources/Prototypes/DeltaV/Entities/Objects/Fun/toys.yml
+        orGroup: GiftPool
+      - id: ToySiobhan # DeltaV Toy, see Resources/Prototypes/DeltaV/Entities/Objects/Fun/toys.yml
+        orGroup: GiftPool
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  id: PresentRandomAsh
+  parent: [PresentBase, BaseItem]
+  suffix: Filled Ash
+  components:
+  - type: SpawnItemsOnUse
+    items:
+      - id: PresentTrash
+      - id: Ash # No coal yet!
+        orGroup: GiftPool
+    sound:
+      path: /Audio/Effects/unwrap.ogg
+
+- type: entity
+  id: PresentRandomCash
+  parent: [PresentBase, BaseItem]
+  suffix: Filled Cash
+  components:
+  - type: SpawnItemsOnUse
+    items:
+      - id: PresentTrash
+      - id: SpaceCash
+        prob: .01
+        orGroup: GiftPool
+      - id: SpaceCash10
+        prob: .1
+        orGroup: GiftPool
+      - id: SpaceCash100
+        prob: .5
+        orGroup: GiftPool
+      - id: SpaceCash500
+        orGroup: GiftPool
+      - id: SpaceCash1000
+        prob: .01
+        orGroup: GiftPool
+      - id: SpaceCash2500
+        prob: .004
+        orGroup: GiftPool
+      - id: SpaceCash5000
+        prob: .002
+        orGroup: GiftPool
+      - id: SpaceCash10000
+        prob: .001
+        orGroup: GiftPool
+      - id: SpaceCash1000000
+        prob: .000001
         orGroup: GiftPool
     sound:
       path: /Audio/Effects/unwrap.ogg

@@ -1,4 +1,4 @@
-- type: entity
+﻿- type: entity
   abstract: true
   parent: BaseItem
   id: BaseHandheldInstrument
@@ -17,7 +17,7 @@
       type: InstrumentBoundUserInterface
   - type: Item
     size: 24
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 200
 
 #These are for instruments that are larger, can't be picked up, or have collision
@@ -69,7 +69,7 @@
         - HighImpassable
         - MidImpassable
         - BulletImpassable
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 300
 
 - type: entity

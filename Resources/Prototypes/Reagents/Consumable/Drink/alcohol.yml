@@ -120,12 +120,12 @@
   boilingPoint: 78.2
   meltingPoint: -114.1
   metabolisms:
-    Poison:
+    Alcohol:
       effects:
       - !type:HealthChange
         conditions:
         - !type:ReagentThreshold
-          min: 5
+          min: 15
         - !type:OrganType
           type: Dwarf
           shouldHave: false
@@ -136,7 +136,7 @@
       - !type:HealthChange
         conditions:
         - !type:ReagentThreshold
-          min: 5
+          min: 15
         - !type:OrganType
           type: Dwarf
         damage:
@@ -145,7 +145,7 @@
       - !type:HealthChange
         conditions:
         - !type:ReagentThreshold
-          min: 5
+          min: 15
         - !type:OrganType
           type: Dwarf
         damage:
@@ -156,15 +156,13 @@
         conditions:
         - !type:ReagentThreshold
           reagent: Ethanol
-          min: 3
+          min: 12
         # dwarves immune to vomiting from alcohol
         - !type:OrganType
           type: Dwarf
           shouldHave: false
-    Alcohol:
-      effects:
       - !type:Drunk
-        boozePower: 20
+        boozePower: 2
 
 - type: reagent
   id: Gin
@@ -269,6 +267,16 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.2
+
+##Commented out in favor of Nyano sake/soju
+#- type: reagent
+#  id: Sake
+#  name: reagent-name-sake
+#  parent: BaseAlcohol
+#  desc: reagent-desc-sake
+#  physicalDesc: reagent-physical-desc-strong-smelling
+#  flavor: sake
+#  color: "#DDDDDD"
 
 - type: reagent
   id: Tequila
@@ -400,15 +408,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/alliescocktail.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.15
 
 - type: reagent
   id: Aloe
@@ -487,7 +486,7 @@
         reagent: Ethanol
         amount: 0.15
       - !type:AdjustReagent
-        reagent: Radium
+        reagent: Uranium
         amount: 0.05
 
 - type: reagent
@@ -521,15 +520,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/bahama_mama.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.06
 
 - type: reagent
   id: BananaHonk
@@ -657,7 +647,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: DemonsBlood
@@ -701,10 +691,6 @@
         factor: 2
       - !type:SatiateHunger
         factor: -2
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-          shouldHave: false
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.05
@@ -788,7 +774,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: GinTonic
@@ -808,7 +794,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: Goldschlager
@@ -969,15 +955,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/manhattanglass.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.15
 
 - type: reagent
   id: ManhattanProject
@@ -990,15 +967,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/proj_manhattanglass.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.15
 
 - type: reagent
   id: ManlyDorf
@@ -1023,14 +991,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/margaritaglass.rsi
     state: icon
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.16
 
 - type: reagent
   id: Martini
@@ -1181,7 +1141,30 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
+
+- type: reagent
+  id: CogChamp
+  name: reagent-name-cogchamp
+  parent: BaseAlcohol
+  desc: reagent-desc-cogchamp
+  physicalDesc: reagent-physical-desc-ground-brass
+  flavor: cogchamp
+  color: "#B5A642"
+  metamorphicSprite:
+    sprite: Objects/Consumable/Drinks/cogchamp.rsi
+    state: icon
+  metabolisms:
+    Drink:
+      effects:
+        - !type:GenericStatusEffect
+          key: RatvarianLanguage
+          component: RatvarianLanguage
+        - !type:SatiateThirst
+          factor: 2
+        - !type:AdjustReagent
+          reagent: Ethanol
+          amount: 0.15
 
 - type: reagent
   id: Silencer
@@ -1226,15 +1209,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/snowwhite.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.06
 
 - type: reagent
   id: SuiDream
@@ -1247,15 +1221,6 @@
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/sdreamglass.rsi
     state: icon
-  #nyano addition below
-  metabolisms:
-    Drink:
-      effects:
-      - !type:SatiateThirst
-        factor: 2
-      - !type:AdjustReagent
-        reagent: Ethanol
-        amount: 0.18
 
 - type: reagent
   id: SyndicateBomb
@@ -1288,6 +1253,18 @@
       - !type:AdjustReagent
         reagent: Ethanol
         amount: 0.15
+
+- type: reagent
+  id: TheMartinez
+  name: reagent-name-the-martinez
+  parent: BaseAlcohol
+  desc: reagent-desc-the-martinez
+  physicalDesc: reagent-physical-desc-vibrant
+  flavor: themartinez
+  color: "#75b1f0"
+  metamorphicSprite:
+    sprite: Objects/Consumable/Drinks/the_martinez.rsi
+    state: icon
 
 - type: reagent
   id: ThreeMileIsland
@@ -1362,7 +1339,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.20
+        amount: 0.07
 
 - type: reagent
   id: WhiskeyCola
@@ -1382,7 +1359,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
 
 - type: reagent
   id: WhiskeySoda
@@ -1402,7 +1379,24 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Ethanol
-        amount: 0.15
+        amount: 0.07
+
+- type: reagent
+  id: WhiteGilgamesh
+  name: reagent-name-white-gilgamesh
+  parent: BaseDrink
+  desc: reagent-desc-white-gilgamesh
+  physicalDesc: reagent-physical-desc-creamy
+  flavor: white-gilgamesh
+  color: "#e5d27e"
+  metabolisms:
+    Drink:
+      effects:
+        - !type:SatiateThirst
+          factor: 1
+        - !type:AdjustReagent
+          reagent: Ethanol
+          amount: 0.15
 
 - type: reagent
   id: WhiteRussian

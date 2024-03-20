@@ -1,10 +1,8 @@
 using System.Linq;
 using Content.Server.Destructible.Thresholds;
 using Content.Server.Destructible.Thresholds.Behaviors;
-using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
-using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 using static Content.IntegrationTests.Tests.Destructible.DestructibleTestPrototypes;
@@ -16,18 +14,14 @@ namespace Content.IntegrationTests.Tests.Destructible
         [Test]
         public async Task Test()
         {
-            await using var pairTracker = await PoolManager.GetServerClient();
-            var server = pairTracker.Pair.Server;
+            await using var pair = await PoolManager.GetServerClient();
+            var server = pair.Server;
 
-            var testMap = await PoolManager.CreateTestMap(pairTracker);
+            var testMap = await pair.CreateTestMap();
 
             var sEntityManager = server.ResolveDependency<IEntityManager>();
             var sPrototypeManager = server.ResolveDependency<IPrototypeManager>();
             var sEntitySystemManager = server.ResolveDependency<IEntitySystemManager>();
-            var sConfigurationManager = server.ResolveDependency<IConfigurationManager>();
-
-            // DamageVariance is causing issues with this test.
-            sConfigurationManager.SetCVar(CCVars.DamageVariance, 0f);
 
             EntityUid sDestructibleEntity = default;
             TestDestructibleListenerSystem sTestThresholdListenerSystem = null;
@@ -94,7 +88,7 @@ namespace Content.IntegrationTests.Tests.Destructible
 
                 Assert.That(found, Is.True);
             });
-            await pairTracker.CleanReturnAsync();
+            await pair.CleanReturnAsync();
         }
     }
 }

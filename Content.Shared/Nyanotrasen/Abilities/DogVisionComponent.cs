@@ -1,10 +1,8 @@
 using Robust.Shared.GameStates;
+namespace Content.Shared.Abilities;
 
-namespace Content.Shared.Abilities
-{
-    [RegisterComponent]
-    [NetworkedComponent]
+[RegisterComponent]
+[NetworkedComponent]
 
-    public sealed class DogVisionComponent : Component
-    {}
-}
+public sealed partial class DogVisionComponent : Component
+{}

@@ -1,4 +1,5 @@
 health-analyzer-window-no-patient-data-text = No patient data.
+health-analyzer-window-entity-unknown-text = unknown
 health-analyzer-window-entity-health-text = {$entityName}'s health:
 health-analyzer-window-entity-temperature-text = Temperature: {$temperature}
 health-analyzer-window-entity-blood-level-text = Blood Level: {$bloodLevel}
@@ -28,6 +29,3 @@ health-analyzer-window-damage-type-Radiation = Radiation
 
 health-analyzer-window-damage-group-Genetic = Genetic
 health-analyzer-window-damage-type-Cellular = Cellular
-
-health-analyzer-window-damage-group-Immaterial = Immaterial
-health-analyzer-window-damage-type-Holy = Holy

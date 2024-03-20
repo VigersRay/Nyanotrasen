@@ -11,5 +11,5 @@
     tags:
       - DroneUsable
       - StationMapElectronics
-  - type: DynamicPrice
-    price: 15
+  - type: StaticPrice
+    price: 15 

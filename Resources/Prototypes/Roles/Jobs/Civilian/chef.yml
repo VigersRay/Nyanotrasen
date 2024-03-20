@@ -3,20 +3,24 @@
   name: job-name-chef
   description: job-description-chef
   playTimeTracker: JobChef
+  requirements:
+    - !type:DepartmentTimeRequirement
+      department: Civilian
+      time: 3600 #DeltaV 1 hour
   startingGear: ChefGear
-  icon: "Chef"
+  icon: "JobIconChef"
   supervisors: job-supervisors-hop
   access:
   - Service
+  - Maintenance
   - Kitchen
   extendedAccess:
   - Hydroponics
-  - Bar
-  - Maintenance
-  special:
+  - Bar #Nyano - Summary: After this line, Professional Che is a component to be added. Very important.
+  special: 
   - !type:AddComponentSpecial
     components:
-    - type: ProfessionalChef
+    - type: ProfessionalChef #Nyano - End Summary. 
 
 - type: startingGear
   id: ChefGear
@@ -24,10 +28,11 @@
     jumpsuit: ClothingUniformJumpsuitChef
     head: ClothingHeadHatChef
     back: ClothingBackpackFilled
+    mask: ClothingMaskItalianMoustache
     shoes: ClothingShoesColorBlack
     id: ChefPDA
     ears: ClothingHeadsetService
     outerClothing: ClothingOuterApronChef
-  innerclothingskirt: ClothingUniformJumpskirtChef
+  innerClothingSkirt: ClothingUniformJumpskirtChef
   satchel: ClothingBackpackSatchelFilled
   duffelbag: ClothingBackpackDuffelFilled

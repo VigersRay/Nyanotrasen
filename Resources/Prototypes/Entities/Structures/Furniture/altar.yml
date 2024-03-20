@@ -2,7 +2,7 @@
   id: AltarBase
   parent: BaseStructure
   name: altar
-  description: Altar of the Gods. Those with some divine potential can sacrifice psionics on top of it.
+  description: Altar of the Gods.
   abstract: true
   components:
   - type: Anchorable
@@ -25,14 +25,8 @@
         - TableLayer
   - type: Sprite
     snapCardinals: true
+  - type: Climbable
   - type: Clickable
-  - type: SacrificialAltar
-  - type: Strap
-    position: Down
-    rotation: -90
-  - type: GuideHelp
-    guides:
-    - AltarsGolemancy
 
 - type: entity
   id: AltarNanotrasen
@@ -62,15 +56,15 @@
           path: /Audio/Effects/metalbreak.ogg
       - !type:SpawnEntitiesBehavior
         spawn:
-          SheetPlasteel1:
+          SheetSteel1:
             min: 1
             max: 5
-          MaterialBluespace:
+          MaterialCloth1:
             min: 1
-            max: 2
+            max: 3
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: nanotrasen
 
@@ -85,7 +79,7 @@
   - type: Icon
     sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: chaos
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: chaos
 
@@ -100,7 +94,7 @@
   - type: Icon
     sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: druid
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: druid
 
@@ -115,7 +109,7 @@
   - type: Icon
     sprite: Structures/Furniture/Altars/Gods/nanotrasen.rsi
     state: toolbox
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: toolbox
 
@@ -137,7 +131,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: spacechristian
 
@@ -159,7 +153,7 @@
     radius: 1.5
     energy: 1
     color: "#ff6347"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: satana
 
@@ -181,7 +175,7 @@
     radius: 1.5
     energy: 1
     color: "#e0ffff"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: technology
 
@@ -215,18 +209,18 @@
           path: /Audio/Effects/woodhit.ogg
       - !type:SpawnEntitiesBehavior
         spawn:
-          SheetPlasteel1:
+          MaterialWoodPlank:
             min: 1
             max: 5
-          MaterialBluespace:
+          MaterialCloth1:
             min: 1
-            max: 2
+            max: 3
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: Tag
     tags:
     - Wooden
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: festival
 
@@ -248,7 +242,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: maint
 
@@ -270,7 +264,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: blue
 
@@ -282,17 +276,17 @@
   - type: Sprite
     sprite: Structures/Furniture/Altars/Gods/convertaltar.rsi
     layers:
-    - state: burden
+    - state: convertaltar
     - state: lightning
       shader: unshaded
   - type: Icon
     sprite: Structures/Furniture/Altars/Gods/convertaltar.rsi
-    state: burden
+    state: convertaltar
   - type: PointLight
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: burden
 
@@ -314,7 +308,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: convert
 
@@ -336,7 +330,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: orange
 
@@ -358,7 +352,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: red
 
@@ -380,7 +374,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: white
 
@@ -402,7 +396,7 @@
     radius: 1.5
     energy: 1
     color: "#fbceb1"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: yellow
 
@@ -437,19 +431,16 @@
           path: /Audio/Effects/metalbreak.ogg
       - !type:SpawnEntitiesBehavior
         spawn:
-          SheetPlasteel1:
+          SheetSteel1:
             min: 1
             max: 5
-          MaterialBluespace:
-            min: 1
-            max: 2
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: PointLight
     radius: 1.5
     energy: 1
     color: "#f08080"
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: heaven
 
@@ -462,6 +453,20 @@
     sprite: Structures/Furniture/Altars/Cults/fangs.rsi
   - type: Icon
     sprite: Structures/Furniture/Altars/Cults/fangs.rsi
-  - type: Construction
+  - type: Construction #Nyano
     graph: Altar
     node: fanged
+
+
+- type: entity
+  id: AltarBananium
+  parent: AltarBase
+  name: honkmother altar
+  description: A bananium altar dedicated to the honkmother.
+  components:
+  - type: Sprite
+    sprite: Structures/Furniture/Altars/Cults/bananium.rsi
+    state: full
+  - type: Construction
+    graph: BananiumAltarGraph
+    node: bananiumAltar

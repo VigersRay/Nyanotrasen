@@ -8,7 +8,6 @@ flavor-profile-unknown = Tastes indescribable.
 # will go in front so you don't get this like "Tastes like tomatoes, sweet and spicy",
 # instead, you get "Tastes sweet, spicy and like tomatoes".
 
-flavor-base-acidic = acidic
 flavor-base-savory = savory
 flavor-base-sweet = sweet
 flavor-base-salty = salty
@@ -44,6 +43,7 @@ flavor-base-piquant = piquant
 flavor-base-sharp = sharp
 flavor-base-syrupy = syrupy
 flavor-base-spaceshroom = mysterious
+flavor-base-clean = clean
 
 # lmao
 flavor-base-terrible = terrible
@@ -71,6 +71,7 @@ flavor-complex-bread = like bread
 flavor-complex-batter = like batter
 flavor-complex-butter = like butter
 flavor-complex-egg = like egg
+flavor-complex-raw-egg = like raw egg
 flavor-complex-bacon = like bacon
 flavor-complex-chicken = like chicken
 flavor-complex-duck = like duck
@@ -85,6 +86,7 @@ flavor-complex-dough = like dough
 flavor-complex-sweet-dough = like sweet dough
 flavor-complex-tofu = like tofu
 flavor-complex-miso = like miso
+flavor-complex-lemoon = like laurel
 flavor-complex-muffin = like a muffin
 flavor-complex-peas = like peas
 flavor-complex-pineapple = like pineapple
@@ -93,18 +95,20 @@ flavor-complex-eggplant = like eggplant
 flavor-complex-carrot = like carrots
 flavor-complex-cabbage = like cabbages
 flavor-complex-potatoes = like potatoes
+flavor-complex-pumpkin = like pumpkins
 flavor-complex-mushroom = like mushrooms
 flavor-complex-tomato = like tomatoes
 flavor-complex-corn = like corn
 flavor-complex-banana = like bananas
 flavor-complex-apple = like apples
+flavor-complex-cotton = like cottons
 flavor-complex-bungo = like bungo
 flavor-complex-raisins = like dried grapes
 flavor-complex-orange = like oranges
 flavor-complex-watermelon = like watermelon
-flavor-complex-nuggie = like "chicken"
 flavor-complex-garlic = like garlic
 flavor-complex-grape = like grapes
+flavor-complex-berry = like berries
 flavor-complex-meatballs = like meatballs
 flavor-complex-nettles = like nettles
 flavor-complex-jungle = like jungle
@@ -149,6 +153,7 @@ flavor-complex-parents = like someone's parents
 flavor-complex-plastic = like plastic
 flavor-complex-glue = like glue
 flavor-complex-spaceshroom-cooked = like space umami
+flavor-complex-lost-friendship = like lost friendship
 
 # Drink-specific flavors.
 
@@ -196,6 +201,7 @@ flavor-complex-cuba-libre = like spiked cola
 flavor-complex-gin-tonic = like spiked lemon-lime soda
 flavor-complex-screwdriver = like spiked orange juice
 flavor-complex-themartinez = like violets and lemon vodka
+flavor-complex-cogchamp = like brass
 flavor-complex-white-gilgamesh = like lightly carbonated cream
 flavor-complex-antifreeze = warm
 
@@ -211,22 +217,4 @@ flavor-complex-carpet = like a handful of fur
 flavor-complex-bee = unbeelievable
 flavor-complex-sax = like jazz
 flavor-complex-bottledlightning = like lightning in a bottle
-
-## Nyano???
-flavor-complex-enthralling = enthralling
-flavor-complex-sublime = sublime
-flavor-complex-holy = heavenly
-flavor-base-seeds = seeds
-flavor-complex-cotton = like cotton
-flavor-complex-vanilla = like vanilla
-flavor-complex-soju = like bold, alcoholic rice
-flavor-complex-orangecreamcicle = like creamy, alcoholic orange juice
-flavor-complex-silverjack = like a rockstars dream
-flavor-complex-brainbomb = like liver damage
-flavor-complex-atomicpunch = like bittersweet radiation
-flavor-complex-circusjuice = extremely funny
-flavor-complex-pinkdrink = overwhelmingly like pink
-flavor-complex-sapopicante = like tomatoes and spices
-flavor-complex-graveyard = like a strong cold brew
-flavor-complex-bubbletea = like creamy sweetness
-flavor-complex-corncob = like a sick joke
+flavor-complex-punishment = like punishment

@@ -1,31 +1,11 @@
 - type: entity
-  parent: Clothing
+  parent: ClothingBackpack
   id: ClothingBackpackSatchel
   name: satchel
   description: A trendy looking satchel.
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/satchel.rsi
-    state: icon
-  - type: Item
-    size: 9999
-  - type: Clothing
-    quickEquip: false
-    slots:
-    - back
-  - type: Storage
-    capacity: 100
-  - type: ContainerContainer
-    containers:
-      storagebase: !type:Container
-        ents: []
-  - type: UserInterface
-    interfaces:
-    - key: enum.StorageUiKey.Key
-      type: StorageBoundUserInterface
-  # to prevent bag open/honk spam
-  - type: UseDelay
-    delay: 0.5
 
 - type: entity
   parent: ClothingBackpackSatchel
@@ -114,7 +94,7 @@
 - type: entity
   parent: ClothingBackpackSatchel
   id: ClothingBackpackSatchelScience
-  name: science satchel
+  name: epistemics satchel # DeltaV - Epistemics Department replacing Science
   description: Useful for holding research materials.
   components:
   - type: Sprite
@@ -128,6 +108,15 @@
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/security.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: ClothingBackpackSatchelBrigmedic
+  name: corpsman satchel # DeltaV - rename brigmedic to corpsman
+  description: A sterile satchel for medical related needs.
+  components:
+  - type: Sprite
+    sprite: DeltaV/Clothing/Back/Satchels/brigmedic.rsi # DeltaV - resprite
 
 - type: entity
   parent: ClothingBackpackSatchel
@@ -146,6 +135,15 @@
   components:
   - type: Sprite
     sprite: Clothing/Back/Satchels/hydroponics.rsi
+
+- type: entity
+  parent: ClothingBackpackSatchel
+  id: ClothingBackpackSatchelCargo
+  name: logistics satchel # DeltaV - Logistics Department replacing Cargo
+  description: A robust satchel for stealing logistics's loot. # DeltaV - Logistics Department replacing Cargo
+  components:
+    - type: Sprite
+      sprite: Clothing/Back/Satchels/cargo.rsi
 
 - type: entity
   parent: ClothingBackpackSatchel
@@ -170,6 +168,4 @@
     - state: icon-unlit
       shader: unshaded
   - type: Storage
-    capacity: 5000
-    popup: false
-  - type: OfHolding
+    capacity: 9999

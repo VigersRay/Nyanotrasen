@@ -1,40 +1,6 @@
 - type: entity
-  parent: BasePlushie
-  id: BasePlushieMoff
-  abstract: true
-  components:
-  - type: Sprite
-    sprite: Nyanotrasen/Objects/Fun/Toys/moff.rsi
-  - type: EmitSoundOnUse
-    sound:
-      path: /Audio/Nyanotrasen/Voice/Moth/squeak_moth.ogg
-  - type: EmitSoundOnLand
-    sound:
-      path: /Audio/Nyanotrasen/Voice/Moth/scream_moth.ogg
-  - type: EmitSoundOnActivate
-    sound:
-      path: /Audio/Nyanotrasen/Voice/Moth/squeak_moth.ogg
-  - type: EmitSoundOnTrigger
-    sound:
-      path: /Audio/Nyanotrasen/Voice/Moth/squeak_moth.ogg
-  - type: UseDelay
-    delay: 2
-
-- type: entity
-  parent: BasePlushieMoff
-  id: PlushieMoff
-  name: moth plushie
-  description: A cute little moff you can hold in the palm of your hand!
-  components:
-  - type: Sprite
-    state: moff
-  - type: Construction
-    graph: MoffPlushie
-    node: plush
-
-- type: entity
-  parent: BasePlushieMoff
-  id: PlushieMoffRandom
+  parent: PlushieMoth
+  id: PlushieMothRandom
   name: moth plushie
   suffix: Random
   description: A cute little mothperson that you can hold in the palm of your hand.
@@ -76,19 +42,21 @@
           moff14: ""
 
 - type: entity
-  parent: BasePlushieMoff
-  id: PlushieMoffsician
+  parent: PlushieMoth
+  id: PlushieMothMusician
   name: moth musician plushie
   description: A plushie depicting an adorable mothperson with a tiny synthesizer and tiny glasses.
   components:
   - type: Sprite
+    sprite: Nyanotrasen/Objects/Fun/Toys/moff.rsi
     state: moffmusician
 
 - type: entity
-  parent: BasePlushieMoff
-  id: PlushieMoffbar
+  parent: PlushieMoth
+  id: PlushieMothBartender
   name: moth bartender plushie
   description: A plushie depicting an adorable mothperson with a tiny tophat and tiny kevlar vest. It smells like cigarettes.
   components:
   - type: Sprite
+    sprite: Nyanotrasen/Objects/Fun/Toys/moff.rsi
     state: moffbartender

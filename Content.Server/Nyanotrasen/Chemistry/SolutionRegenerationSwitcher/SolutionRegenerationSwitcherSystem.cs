@@ -1,6 +1,7 @@
 using Robust.Shared.Prototypes;
 using Content.Server.Chemistry.Components;
 using Content.Server.Popups;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Verbs;
 
@@ -69,12 +70,18 @@ namespace Content.Server.Chemistry.EntitySystems
                 _sawmill.Error($"Can't get PrimaryReagentId for {ToPrettyString(uid)} on index {component.CurrentIndex}.");
                 return;
             }
+            ReagentPrototype? proto;
 
-            if (!_prototypeManager.TryIndex(primaryId, out ReagentPrototype? proto))
+            //Only reagents with spritePath property can change appearance of transformable containers!
+            if (!string.IsNullOrWhiteSpace(primaryId?.Prototype))
             {
-                _sawmill.Error($"Can't get get reagent prototype {primaryId} for {ToPrettyString(uid)}");
-                return;
+                if (!_prototypeManager.TryIndex(primaryId.Value.Prototype, out proto))
+                {
+                    _sawmill.Error($"Can't get get reagent prototype {primaryId} for {ToPrettyString(uid)}");
+                    return;
+                }
             }
+            else return;
 
             // Empty out the current solution.
             if (!component.KeepSolution)

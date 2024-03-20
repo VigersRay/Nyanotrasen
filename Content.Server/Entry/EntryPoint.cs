@@ -21,29 +21,26 @@ using Content.Server.ServerUpdates;
 using Content.Server.Voting.Managers;
 using Content.Shared.CCVar;
 using Content.Shared.Kitchen;
+using Content.Shared.Localizations;
 using Robust.Server;
-using Robust.Shared.Configuration;
 using Robust.Server.ServerStatus;
+using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using Content.Server.Station.Systems;
-using Content.Server.Redial;
-using Content.Shared.Localizations;
 
 namespace Content.Server.Entry
 {
     public sealed class EntryPoint : GameServer
     {
-        private const string ConfigPresetsDir = "/ConfigPresets/";
+        internal const string ConfigPresetsDir = "/ConfigPresets/";
         private const string ConfigPresetsDirBuild = $"{ConfigPresetsDir}Build/";
 
         private EuiManager _euiManager = default!;
         private IVoteManager _voteManager = default!;
         private ServerUpdateManager _updateManager = default!;
         private PlayTimeTrackingManager? _playTimeTracking;
-        private RedialManager? _redial;
         private IEntitySystemManager? _sysMan;
         private IServerDbManager? _dbManager;
 
@@ -94,7 +91,6 @@ namespace Content.Server.Entry
                 _voteManager = IoCManager.Resolve<IVoteManager>();
                 _updateManager = IoCManager.Resolve<ServerUpdateManager>();
                 _playTimeTracking = IoCManager.Resolve<PlayTimeTrackingManager>();
-                _redial = IoCManager.Resolve<RedialManager>();
                 _sysMan = IoCManager.Resolve<IEntitySystemManager>();
                 _dbManager = IoCManager.Resolve<IServerDbManager>();
 
@@ -113,7 +109,6 @@ namespace Content.Server.Entry
                 _voteManager.Initialize();
                 _updateManager.Initialize();
                 _playTimeTracking.Initialize();
-                _redial.Initialize();
             }
         }
 
@@ -167,7 +162,6 @@ namespace Content.Server.Entry
                 case ModUpdateLevel.FramePostEngine:
                     _updateManager.Update();
                     _playTimeTracking?.Update();
-                    _redial?.Update();
                     break;
             }
         }

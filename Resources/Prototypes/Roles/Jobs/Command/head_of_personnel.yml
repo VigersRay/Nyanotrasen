@@ -3,65 +3,84 @@
   name: job-name-hop
   description: job-description-hop
   playTimeTracker: JobHeadOfPersonnel
+  antagAdvantage: 6 # DeltaV - Reduced TC: Head of Staff
   requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 3600
-    - !type:DepartmentTimeRequirement
-      department: Medical
-      time: 3600
-    - !type:DepartmentTimeRequirement
-      department: Security
-      time: 3600
-    - !type:OverallPlaytimeRequirement
-      time: 54000
-  weight: 20
+    - !type:RoleTimeRequirement
+      role: JobChef
+      time: 14400 # DeltaV - 4 hours
+    - !type:RoleTimeRequirement
+      role: JobBartender
+      time: 14400 # DeltaV - 4 hours
+    - !type:RoleTimeRequirement
+      role: JobJanitor
+      time: 14400 # DeltaV - 4 hours
+    - !type:DepartmentTimeRequirement # DeltaV - Civilian dept time requirement
+      department: Civilian
+      time: 72000 # 20 hours
+    - !type:OverallPlaytimeRequirement # DeltaV - Playtime requirement
+      time: 90000 # 25 hours
+  weight: 10 # DeltaV - Changed HoP weight from 20 to 10 due to them not being more important than other Heads
   startingGear: HoPGear
-  icon: "HeadOfPersonnel"
+  icon: "JobIconHeadOfPersonnel"
   requireAdminNotify: true
   supervisors: job-supervisors-captain
   canBeAntag: false
-  whitelistRequired: true
   access:
   - Command
   - HeadOfPersonnel
   - Bar
   - Service
-  - Mail
-  - Cargo
   - Maintenance
   - Janitor
   - Theatre
   - Kitchen
+#  - Chapel
   - Hydroponics
+  - External
   # I mean they'll give themselves the rest of the access levels *anyways*.
   # As of 15/03/23 they can't do that so here's MOST of the rest of the access levels.
   # Head level access that isn't their own was deliberately left out, get AA from the captain instead.
-  - Chemistry
-  - Engineering
-  # - Quartermaster
-  - Research
-  - Salvage
-  - Security
-  - Brig
-  - Cargo
-  - Atmospherics
-  - Medical
+  # Delta V - fuck all of this HoP is a service role
+#  - Chemistry
+#  - Engineering
+#  - Research
+#  - Detective
+#  - Salvage
+#  - Security # NoooOoOo!! My HoPcurity!1
+#  - Brig # Lawyer access # Delta V: Removed
+  - Lawyer
+#  - Cargo
+#  - Atmospherics
+#  - Medical
+  - Boxer # DeltaV - Add Boxer access
+  - Clown # DeltaV - Add Clown access
+  - Library # DeltaV - Add Library access
+  - Mime # DeltaV - Add Mime access
+  - Musician # DeltaV - Add Musician access
+  - Reporter # DeltaV - Add Reporter access
+  - Zookeeper # DeltaV - Add Zookeeper access
   special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
     components:
-    - type: PsionicBonusChance
+      - type: CommandStaff
+  - !type:AddComponentSpecial
+    components:
+    - type: PsionicBonusChance #Nyano - Summary: makes it more likely to become psionic.
       flatBonus: 0.025
 
 - type: startingGear
   id: HoPGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
-    back: ClothingBackpackFilled
-    shoes: ClothingShoesColorBrown
+    back: ClothingBackpackHOPFilled
+    shoes: ClothingShoesLeather # DeltaV - HoP needs something better than plebe shoes.
     head: ClothingHeadHatHopcap
     id: HoPPDA
-    ears: ClothingHeadsetAltCommand
-  innerclothingskirt: ClothingUniformJumpskirtHoP
-  satchel: ClothingBackpackSatchelFilled
-  duffelbag: ClothingBackpackDuffelFilled
+    ears: ClothingHeadsetHoP # DeltaV - HoP is now a service role, replaces their all channels headset.
+    gloves: ClothingHandsGlovesHop
+    belt: BoxFolderClipboard
+  innerClothingSkirt: ClothingUniformJumpskirtHoP
+  satchel: ClothingBackpackSatchelHOPFilled
+  duffelbag: ClothingBackpackDuffelHOPFilled

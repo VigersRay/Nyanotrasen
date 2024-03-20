@@ -11,19 +11,14 @@ public sealed partial class ResearchSystem
         SubscribeLocalEvent<ResearchPointSourceComponent, ResearchServerGetPointsPerSecondEvent>(OnGetPointsPerSecond);
     }
 
-    private void OnGetPointsPerSecond(EntityUid uid, ResearchPointSourceComponent component, ref ResearchServerGetPointsPerSecondEvent args)
+    private void OnGetPointsPerSecond(Entity<ResearchPointSourceComponent> source, ref ResearchServerGetPointsPerSecondEvent args)
     {
-        if (CanProduce(component))
-        {
-            args.Points += component.PointsPerSecond;
-            // Begin Nyano-code: limit passive point generation.
-            args.Sources++;
-            // End Nyano-code.
-        }
+        if (CanProduce(source))
+            args.Points += source.Comp.PointsPerSecond;
     }
 
-    public bool CanProduce(ResearchPointSourceComponent component)
+    public bool CanProduce(Entity<ResearchPointSourceComponent> source)
     {
-        return component.Active && this.IsPowered(component.Owner, EntityManager);
+        return source.Comp.Active && this.IsPowered(source, EntityManager);
     }
 }

@@ -56,9 +56,8 @@
   - type: IntrinsicRadioReceiver
   - type: ActiveRadio
     channels:
-    - Engineering
+    - Supply
   - type: SalvageMagnet
-    salvageChannel: Engineering
   - type: ApcPowerReceiver
     powerLoad: 2500 # TODO change this to a HV power draw that really hits the grid hard WHEN active
   - type: Machine
@@ -79,7 +78,7 @@
 - type: weightedRandomEntity
   id: RandomAsteroidPool
   weights:
-    AsteroidSalvageSmall: 3
+    AsteroidSalvageSmall: 0 #Delta V: remove chance for small chunks
     AsteroidSalvageMedium: 7
     AsteroidSalvageLarge: 5
     AsteroidSalvageHuge: 3

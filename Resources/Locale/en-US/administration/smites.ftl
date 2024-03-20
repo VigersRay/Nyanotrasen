@@ -33,7 +33,7 @@ admin-smite-become-bread-description = It turns them into bread. Really, that's 
 admin-smite-ghostkick-description = Silently kicks the user, dropping their connection.
 admin-smite-nyanify-description = Forcibly add cat ears, there is no escape.
 admin-smite-kill-sign-description = Marks a player for death by their fellows.
-admin-smite-clown-description = Clowns them. The suit cannot be removed.
+admin-smite-cluwne-description = Cluwnes them. The suit cannot be removed and the station's crew may murder them freely.
 admin-smite-anger-pointing-arrows-description = Angers the pointing arrows, causing them to assault this entity explosively.
 admin-smite-dust-description = Reduces the target to a small pile of ash.
 admin-smite-buffering-description = Causes the target to randomly start buffering, freezing them in place for a short timespan while they load.
@@ -55,7 +55,8 @@ admin-smite-lung-removal-description = Removes their lungs, drowning them.
 admin-smite-remove-hand-description = Removes only one of their hands instead of all of them.
 admin-smite-disarm-prone-description = Makes them get disarmed 100% of the time and cuffed instantly.
 admin-smite-garbage-can-description = Turn them into a garbage bin to emphasize what they remind you of.
-
+admin-smite-super-bonk-description = Slams them on every single table on the Station and beyond.
+admin-smite-super-bonk-lite-description= Slams them on every single table on the Station and beyond. Stops when the target is dead.
 
 ## Tricks descriptions
 

@@ -36,12 +36,12 @@
   - type: SpawnPoint
     spawn_type: LateJoin
 
-# Cargo
+# Logistics
 
 - type: entity
   id: SpawnPointQuartermaster
   parent: SpawnPointJobBase
-  name: quartermaster
+  name: logistics officer # DeltaV - Logistics Department replacing Cargo
   components:
   - type: SpawnPoint
     job_id: Quartermaster
@@ -50,12 +50,38 @@
       - state: green
       - state: qm
 
+
+- type: entity
+  id: SpawnPointCargoTechnician
+  parent: SpawnPointJobBase
+  name: cargotechnician
+  components:
+  - type: SpawnPoint
+    job_id: CargoTechnician
+  - type: Sprite
+    layers:
+      - state: green
+      - state: cargo_tech
+
+- type: entity
+  id: SpawnPointSalvageSpecialist
+  parent: SpawnPointJobBase
+  name: salvagespecialist
+  components:
+  - type: SpawnPoint
+    job_id: SalvageSpecialist
+  - type: Sprite
+    layers:
+      - state: green
+      - sprite: DeltaV/Markers/jobs.rsi # DeltaV - Salvage specialist look change
+        state: salvagespecialist
+
 # Civilian
 
 - type: entity
   id: SpawnPointAssistant # TODO rename, but requires map changes.
   parent: SpawnPointJobBase
-  name: assistant
+  name: passenger
   components:
   - type: SpawnPoint
     job_id: Passenger
@@ -63,6 +89,30 @@
     layers:
       - state: green
       - state: passenger
+
+- type: entity
+  id: SpawnPointTechnicalAssistant
+  parent: SpawnPointAssistant
+  name: technical assistant
+  components:
+  - type: SpawnPoint
+    job_id: TechnicalAssistant
+  - type: Sprite
+    layers:
+      - state: green
+      - state: technicalassistant
+
+- type: entity
+  id: SpawnPointMedicalIntern
+  parent: SpawnPointAssistant
+  name: medical intern
+  components:
+  - type: SpawnPoint
+    job_id: MedicalIntern
+  - type: Sprite
+    layers:
+      - state: green
+      - state: medicalintern
 
 - type: entity
   id: SpawnPointSecurityCadet
@@ -75,6 +125,30 @@
     layers:
       - state: green
       - state: security_cadet
+
+- type: entity
+  id: SpawnPointResearchAssistant
+  parent: SpawnPointAssistant
+  name: research assistant
+  components:
+  - type: SpawnPoint
+    job_id: ResearchAssistant
+  - type: Sprite
+    layers:
+      - state: green
+      - state: researchassistant
+
+- type: entity
+  id: SpawnPointServiceWorker
+  parent: SpawnPointAssistant
+  name: service worker
+  components:
+  - type: SpawnPoint
+    job_id: ServiceWorker
+  - type: Sprite
+    layers:
+      - state: green
+      - state: serviceworker
 
 - type: entity
   id: SpawnPointBartender
@@ -149,6 +223,18 @@
       - state: chaplain
 
 - type: entity
+  id: SpawnPointLibrarian
+  parent: SpawnPointJobBase
+  name: librarian
+  components:
+  - type: SpawnPoint
+    job_id: Librarian
+  - type: Sprite
+    layers:
+      - state: green
+      - state: librarian
+
+- type: entity
   id: SpawnPointLawyer
   parent: SpawnPointJobBase
   name: lawyer
@@ -177,12 +263,40 @@
   parent: SpawnPointJobBase
   name: musician
   components:
-    - type: SpawnPoint
-      job_id: Musician
-    - type: Sprite
-      layers:
-        - state: green
-        - state: musician
+  - type: SpawnPoint
+    job_id: Musician
+  - type: Sprite
+    layers:
+      - state: green
+      - state: musician
+
+- type: entity
+  id: SpawnPointBoxer
+  parent: SpawnPointJobBase
+  name: boxer
+  components:
+  - type: SpawnPoint
+    job_id: Boxer
+  - type: Sprite
+    layers:
+      - state: green
+      - state: boxer
+
+- type: entity
+  id: SpawnPointBorg
+  parent: SpawnPointJobBase
+  name: cyborg
+  components:
+  - type: SpawnPoint
+    job_id: Borg
+  - type: Sprite
+    layers:
+    - state: green
+    - sprite: Mobs/Silicon/chassis.rsi
+      state: robot
+    - sprite: Mobs/Silicon/chassis.rsi
+      state: robot_e
+
 # Command
 
 - type: entity
@@ -224,6 +338,18 @@
       - state: ce
 
 - type: entity
+  id: SpawnPointSeniorEngineer
+  parent: SpawnPointJobBase
+  name: seniorengineer
+  components:
+  - type: SpawnPoint
+    job_id: SeniorEngineer
+  - type: Sprite
+    layers:
+      - state: green
+      - state: seniorengineer
+
+- type: entity
   id: SpawnPointStationEngineer
   parent: SpawnPointJobBase
   name: stationengineer
@@ -240,12 +366,12 @@
   parent: SpawnPointJobBase
   name: atmospherics
   components:
-    - type: SpawnPoint
-      job_id: AtmosphericTechnician
-    - type: Sprite
-      layers:
-        - state: green
-        - state: atmospherics
+  - type: SpawnPoint
+    job_id: AtmosphericTechnician
+  - type: Sprite
+    layers:
+      - state: green
+      - state: atmospherics
 
 # Medical
 
@@ -262,6 +388,18 @@
       - state: cmo
 
 - type: entity
+  id: SpawnPointSeniorPhysician
+  parent: SpawnPointJobBase
+  name: seniorphysician
+  components:
+  - type: SpawnPoint
+    job_id: SeniorPhysician
+  - type: Sprite
+    layers:
+      - state: green
+      - state: seniorphysician
+
+- type: entity
   id: SpawnPointMedicalDoctor
   parent: SpawnPointJobBase
   name: medicaldoctor
@@ -272,7 +410,7 @@
     layers:
       - state: green
       - state: doctor
-      
+
 - type: entity
   id: SpawnPointParamedic
   parent: SpawnPointJobBase
@@ -284,6 +422,58 @@
     layers:
       - state: green
       - state: paramedic
+
+- type: entity
+  id: SpawnPointChemist
+  parent: SpawnPointJobBase
+  name: chemist
+  components:
+  - type: SpawnPoint
+    job_id: Chemist
+  - type: Sprite
+    layers:
+      - state: green
+      - state: chemist
+
+# Science
+
+- type: entity
+  id: SpawnPointResearchDirector
+  parent: SpawnPointJobBase
+  name: mystagogue # DeltaV - Epistemics Department replacing Science
+  components:
+  - type: SpawnPoint
+    job_id: ResearchDirector
+  - type: Sprite
+    layers:
+      - state: green
+      - sprite: DeltaV/Markers/jobs.rsi # DeltaV - Epistemics new labcoats
+        state: mystagogue
+
+- type: entity
+  id: SpawnPointSeniorResearcher
+  parent: SpawnPointJobBase
+  name: seniorresearcher
+  components:
+  - type: SpawnPoint
+    job_id: SeniorResearcher
+  - type: Sprite
+    layers:
+      - state: green
+      - state: seniorresearcher
+
+- type: entity
+  id: SpawnPointScientist
+  parent: SpawnPointJobBase
+  name: scientist
+  components:
+  - type: SpawnPoint
+    job_id: Scientist
+  - type: Sprite
+    layers:
+      - state: green
+      - sprite: DeltaV/Markers/jobs.rsi # DeltaV - Epistemics new labcoats
+        state: scientist
 
 # Security
 
@@ -312,6 +502,18 @@
       - state: warden
 
 - type: entity
+  id: SpawnPointSeniorOfficer
+  parent: SpawnPointJobBase
+  name: seniorofficer
+  components:
+  - type: SpawnPoint
+    job_id: SeniorOfficer
+  - type: Sprite
+    layers:
+      - state: green
+      - state: seniorofficer
+
+- type: entity
   id: SpawnPointSecurityOfficer
   parent: SpawnPointJobBase
   name: securityofficer
@@ -322,6 +524,30 @@
     layers:
       - state: green
       - state: security_officer
+
+- type: entity
+  id: SpawnPointDetective
+  parent: SpawnPointJobBase
+  name: detective
+  components:
+  - type: SpawnPoint
+    job_id: Detective
+  - type: Sprite
+    layers:
+      - state: green
+      - state: detective
+
+- type: entity
+  id: SpawnPointBrigmedic
+  parent: SpawnPointJobBase
+  name: corpsman # DeltaV - rename brigmedic to corpsman
+  components:
+  - type: SpawnPoint #Delta V
+    job_id: Brigmedic
+  - type: Sprite
+    layers:
+      - state: green
+      - state: brigmedic
 
 # SPECIAL
 # ERT

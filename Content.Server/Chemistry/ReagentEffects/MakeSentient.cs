@@ -1,14 +1,14 @@
 using Content.Server.Ghost.Roles.Components;
-using Content.Server.Mind.Components;
 using Content.Server.Speech.Components;
 using Content.Shared.Chemistry.Reagent;
-using Content.Server.StationEvents.Components;
-using Content.Server.Psionics;
+using Content.Shared.Mind.Components;
 using Robust.Shared.Prototypes;
+using Content.Server.Psionics; //Nyano - Summary: pulls in the ability for the sentient creature to become psionic.
+using Content.Shared.Humanoid; //Delta-V - Banning humanoids from becoming ghost roles.
 
 namespace Content.Server.Chemistry.ReagentEffects;
 
-public sealed class MakeSentient : ReagentEffect
+public sealed partial class MakeSentient : ReagentEffect
 {
     protected override string? ReagentEffectGuidebookText(IPrototypeManager prototype, IEntitySystemManager entSys)
         => Loc.GetString("reagent-effect-guidebook-make-sentient", ("chance", Probability));
@@ -18,34 +18,38 @@ public sealed class MakeSentient : ReagentEffect
         var entityManager = args.EntityManager;
         var uid = args.SolutionEntity;
 
-        // This makes it so it doesn't affect things that are already sentient
-        if (entityManager.HasComponent<MindContainerComponent>(uid))
+        // Let affected entities speak normally to make this effect different from, say, the "random sentience" event
+        // This also works on entities that already have a mind
+        // We call this before the mind check to allow things like player-controlled mice to be able to benefit from the effect
+        entityManager.RemoveComponent<ReplacementAccentComponent>(uid);
+        entityManager.RemoveComponent<MonkeyAccentComponent>(uid);
+
+        // Stops from adding a ghost role to things like people who already have a mind
+        if (entityManager.TryGetComponent<MindContainerComponent>(uid, out var mindContainer) && mindContainer.HasMind)
         {
             return;
         }
 
-        // This piece of code makes things able to speak "normally". One thing of note is that monkeys have a unique accent and won't be affected by this.
-        entityManager.RemoveComponent<ReplacementAccentComponent>(uid);
+        // Don't add a ghost role to things that already have ghost roles
+        if (entityManager.TryGetComponent(uid, out GhostRoleComponent? ghostRole))
+        {
+            return;
+        }
 
-        // Monke talk. This makes cognizine a cure to AMIV's long term damage funnily enough, do with this information what you will.
-        entityManager.RemoveComponent<MonkeyAccentComponent>(uid);
-
-        entityManager.RemoveComponent<SentienceTargetComponent>(uid);
-        entityManager.EnsureComponent<PotentialPsionicComponent>(uid);
-
-        // No idea what anything past this point does
-        if (entityManager.TryGetComponent(uid, out GhostRoleComponent? ghostRole) ||
-            entityManager.TryGetComponent(uid, out GhostTakeoverAvailableComponent? takeOver))
+        // Delta-V: Do not allow humanoids to become sentient. Intended to stop people from
+        // repeatedly cloning themselves and using cognizine on their bodies.
+        // HumanoidAppearanceComponent is common to all player species, and is also used for the
+        // Ripley pilot whitelist, so there's a precedent for using it for this kind of check.
+        if (entityManager.HasComponent<HumanoidAppearanceComponent>(uid))
         {
             return;
         }
 
         ghostRole = entityManager.AddComponent<GhostRoleComponent>(uid);
-        entityManager.AddComponent<GhostTakeoverAvailableComponent>(uid);
+        entityManager.EnsureComponent<GhostTakeoverAvailableComponent>(uid);
+        entityManager.EnsureComponent<PotentialPsionicComponent>(uid); //Nyano - Summary:. Makes the animated body able to get psionics. 
 
         var entityData = entityManager.GetComponent<MetaDataComponent>(uid);
-
-        entityData.EntityName = Loc.GetString("glimmer-event-awakened-prefix", ("entity", uid));
         ghostRole.RoleName = entityData.EntityName;
         ghostRole.RoleDescription = Loc.GetString("ghost-role-information-cognizine-description");
     }

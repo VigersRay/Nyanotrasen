@@ -3,15 +3,14 @@
   name: job-name-atmostech
   description: job-description-atmostech
   playTimeTracker: JobAtmosphericTechnician
+  antagAdvantage: 10 # DeltaV - Reduced TC: External Access + Fireaxe + Free Hardsuit
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 14400
+      time: 36000 # DeltaV - 10 hours
   startingGear: AtmosphericTechnicianGear
-  icon: "AtmosphericTechnician"
+  icon: "JobIconAtmosphericTechnician"
   supervisors: job-supervisors-ce
-  whitelistRequired: true
-  antagAdvantage: 5 # Fire axe, air alarms
   access:
   - Maintenance
   - Engineering
@@ -28,6 +27,6 @@
     id: AtmosPDA
     belt: ClothingBeltUtilityEngineering
     ears: ClothingHeadsetEngineering
-  innerclothingskirt: ClothingUniformJumpskirtAtmos
+  innerClothingSkirt: ClothingUniformJumpskirtAtmos
   satchel: ClothingBackpackSatchelAtmosphericsFilled
   duffelbag: ClothingBackpackDuffelAtmosphericsFilled

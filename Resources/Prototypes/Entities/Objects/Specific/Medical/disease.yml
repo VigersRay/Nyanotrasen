@@ -13,27 +13,20 @@
     tags:
     - Recyclable
     - Trash
-  - type: DiseaseSwab
   - type: BotanySwab
+  - type: GuideHelp
+    guides:
+  # - Virology (when it's back)
+    - Botany
 
 - type: entity
   parent: BaseItem
   id: Vaccine
-  name: vaccine
+  name: Vaccine
   description: Prevents people who DON'T already have a disease from catching it.
   components:
   - type: Item
     size: 3
   - type: Sprite
     sprite: Objects/Specific/Medical/medipen.rsi
-    layers:
-    - state: salpen
-      map: [ "enum.ToggleVisuals.Layer" ]
-  - type: DiseaseVaccine
-  - type: Appearance
-  - type: GenericVisualizer
-    visuals:
-     enum.ToggleVisuals.Toggled:
-        enum.ToggleVisuals.Layer:
-          True: {state: salpen}
-          False: {state: salpen_empty}
+    state: salpen

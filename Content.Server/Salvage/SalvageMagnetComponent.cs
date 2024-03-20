@@ -11,7 +11,7 @@ namespace Content.Server.Salvage
     /// </summary>
     [NetworkedComponent, RegisterComponent]
     [Access(typeof(SalvageSystem))]
-    public sealed class SalvageMagnetComponent : SharedSalvageMagnetComponent
+    public sealed partial class SalvageMagnetComponent : SharedSalvageMagnetComponent
     {
         /// <summary>
         /// Maximum distance from the offset position that will be used as a salvage's spawnpoint.
@@ -77,7 +77,7 @@ namespace Content.Server.Salvage
         public TimeSpan CooldownTime = TimeSpan.FromSeconds(60);
 
         [DataField("salvageChannel", customTypeSerializer: typeof(PrototypeIdSerializer<RadioChannelPrototype>))]
-        public string SalvageChannel = "Engineering";
+        public string SalvageChannel = "Supply";
 
         /// <summary>
         /// Current how much charge the magnet currently has
@@ -102,7 +102,7 @@ namespace Content.Server.Salvage
         /// generated rather than a static salvage prototype.
         /// </summary>
         [DataField("asteroidChance"), ViewVariables(VVAccess.ReadWrite)]
-        public float AsteroidChance = 0.6f;
+        public float AsteroidChance = 0.35f; /// Delta V: reduce the amount of asteroids
 
         /// <summary>
         /// A weighted random prototype corresponding to

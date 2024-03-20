@@ -4,6 +4,10 @@
   id: BoxHandcuff
   description: A box full of handcuffs.
   components:
+  - type: Storage
+    whitelist:
+      components:
+      - Handcuff
   - type: StorageFill
     contents:
       - id: Handcuffs
@@ -36,7 +40,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: ClothingEyesGlassesSecurity
+      - id: ClothingEyesHudSecurity
         amount: 4
   - type: Sprite
     layers:
@@ -70,7 +74,5 @@
         amount: 10
   - type: Sprite
     layers:
-      - sprite: Objects/Storage/boxes.rsi
-        state: box_security
-      - sprite: Nyanotrasen/Objects/Storage/forensic_box.rsi
-        state: overlay
+      - state: box_security
+      - state: forensic

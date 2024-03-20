@@ -1,6 +1,8 @@
 using Content.Server.Interaction;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.Weapons.Melee;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
@@ -26,6 +28,11 @@ public sealed partial class NPCCombatSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedContainerSystem _containers = default!;
 
+
+    /// <summary>
+    /// If disabled we'll move into range but not attack.
+    /// </summary>
+    public bool Enabled = true;
 
     /// <summary>
     /// If disabled we'll move into range but not attack.

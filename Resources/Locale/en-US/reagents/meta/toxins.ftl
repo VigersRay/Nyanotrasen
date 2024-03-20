@@ -13,6 +13,9 @@ reagent-desc-polytrinic-acid = An extremely corrosive chemical substance. Severe
 reagent-name-chloral-hydrate = chloral hydrate
 reagent-desc-chloral-hydrate = A sedative and hypnotic chemical. Commonly used to put other people to sleep, whether they want to or not.
 
+reagent-name-ferrochromic-acid = ferrochromic acid
+reagent-desc-ferrochromic-acid = A mildy corrosive solution, unable of causing severe danger unless ingested.
+
 reagent-name-fluorosulfuric-acid = fluorosulfuric acid
 reagent-desc-fluorosulfuric-acid = A highly corrosive chemical, capable of leaving quite a mark on your skin.
 
@@ -55,5 +58,17 @@ reagent-desc-allicin = An organosulfur compound found in alliums like garlic, on
 reagent-name-pax = pax
 reagent-desc-pax = A psychiatric chemical which prevents the patient from directly harming anyone.
 
+reagent-name-honk = honk
+reagent-desc-honk = A toxin found in bananium. Causes severe honking and internal bleeding, may also cause the patient to mutate.
+
 reagent-name-lead = lead
 reagent-desc-lead = A slow-acting but incredibly lethal toxin found in steel, albiet in trace amounts. Tasteless.
+
+reagent-name-bungotoxin = bungotoxin
+reagent-desc-bungotoxin = A moderately slow-acting poison found within the pit of the bungo fruit.
+
+reagent-name-vestine = vestine
+reagent-desc-vestine = Has an adverse reaction within the body causing major jittering. While not particularly useful on it's own, it can be used to produce a small variety of chemicals.
+
+reagent-name-tazinide = tazinide
+reagent-desc-tazinide = A highly dangerous metallic mixture which can interfere with most movement through an electrifying current.

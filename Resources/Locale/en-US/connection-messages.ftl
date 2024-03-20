@@ -1,20 +1,31 @@
-whitelist-not-whitelisted = You are not whitelisted. To apply for whitelisting, connect to the Discord at www.nyanotrasen.moe
-whitelist-end-round-kick = Non-whitelisted players are automatically kicked at round end. To apply for whitelisting, connect to the Discord at www.nyanotrasen.moe
+﻿whitelist-not-whitelisted = You are not whitelisted.
 
-command-whitelistadd-description = Adds the player with the given username to the server whitelist.
-command-whitelistadd-help = whitelistadd <username>
-command-whitelistadd-existing = {$username} is already on the whitelist!
-command-whitelistadd-added = {$username} added to the whitelist
-command-whitelistadd-not-found = Unable to find '{$username}'
+# proper handling for having a min/max or not
+whitelist-playercount-invalid = {$min ->
+    [0] The whitelist for this server only applies below {$max} players.
+    *[other] The whitelist for this server only applies above {$min} {$max ->
+        [2147483647] -> players, so you may be able to join later.
+       *[other] -> players and below {$max} players, so you may be able to join later.
+    }
+}
+whitelist-not-whitelisted-rp = You are not whitelisted. To become whitelisted, visit our Discord (which can be found at https://spacestation14.io) and check the #rp-whitelist channel.
 
-command-whitelistremove-description = Removes the player with the given username from the server whitelist.
-command-whitelistremove-help = whitelistremove <username>
-command-whitelistremove-existing = {$username} is not on the whitelist!
-command-whitelistremove-removed = {$username} removed from the whitelist
-command-whitelistremove-not-found = Unable to find '{$username}'
+cmd-whitelistadd-desc = Adds the player with the given username to the server whitelist.
+cmd-whitelistadd-help = Usage: whitelistadd <username>
+cmd-whitelistadd-existing = {$username} is already on the whitelist!
+cmd-whitelistadd-added = {$username} added to the whitelist
+cmd-whitelistadd-not-found = Unable to find '{$username}'
+cmd-whitelistadd-arg-player = [player]
 
-command-kicknonwhitelisted-description = Kicks all non-whitelisted players from the server.
-command-kicknonwhitelisted-help = kicknonwhitelisted
+cmd-whitelistremove-desc = Removes the player with the given username from the server whitelist.
+cmd-whitelistremove-help = Usage: whitelistremove <username>
+cmd-whitelistremove-existing = {$username} is not on the whitelist!
+cmd-whitelistremove-removed = {$username} removed from the whitelist
+cmd-whitelistremove-not-found = Unable to find '{$username}'
+cmd-whitelistremove-arg-player = [player]
+
+cmd-kicknonwhitelisted-desc = Kicks all non-whitelisted players from the server.
+cmd-kicknonwhitelisted-help = Usage: kicknonwhitelisted
 
 ban-banned-permanent = This ban will only be removed via appeal.
 ban-banned-permanent-appeal = This ban will only be removed via appeal. You can appeal at {$link}
@@ -24,8 +35,7 @@ ban-banned-2 = The ban reason is: "{$reason}"
 ban-banned-3 = Attempts to circumvent this ban such as creating a new account will be logged.
 
 soft-player-cap-full = The server is full!
-panic-bunker-account-denied = Due to Russian raiders recently, we are not accepting connections from new accounts right now.
-                              If you speak good English and are really interested, join the Discord at www.nyanotrasen.moe
-panic-bunker-no-admins = No admins are on, and your account is new to us.
-                         To ensure game quality, we unfortunately have to reject this connection.
-                         If you're interested in Nyanotrasen, please check out the website and Discord at www.nyanotrasen.moe
+panic-bunker-account-denied = This server is in panic bunker mode, often enabled as a precaution against raids. New connections by accounts not meeting certain requirements are temporarily not accepted. Try again later
+panic-bunker-account-denied-reason = This server is in panic bunker mode, often enabled as a precaution against raids. New connections by accounts not meeting certain requirements are temporarily not accepted. Try again later. Reason: "{$reason}"
+panic-bunker-account-reason-account = Your Space Station 14 account is too new. It must be older than {$minutes} minutes
+panic-bunker-account-reason-overall = Your overall playtime on the server must be greater than {$hours} hours

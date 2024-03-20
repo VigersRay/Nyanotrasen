@@ -1,5 +1,6 @@
 # TODO: Find remaining cans and move to drinks_cans
 # TODO: Find empty containers (e.g. mug, pitcher) and move to their own yml
+# When adding new drinks also add to random spawner located in Resources\Prototypes\Entities\Markers\Spawners\Random\Food_Drinks\drinks_glass.yml
 - type: entity
   parent: BaseItem
   id: DrinkBase
@@ -40,8 +41,6 @@
   id: DrinkGlassBase
   abstract: true
   components:
-  - type: Drink
-    isOpen: true
   - type: Damageable
     damageContainer: Inorganic
     damageModifierSet: Glass
@@ -509,6 +508,13 @@
   - type: Drink
   - type: Sprite
     sprite: Objects/Consumable/Drinks/chocolateglass.rsi
+  - type: SolutionContainerManager
+    solutions:
+      drink:
+        maxVol: 30
+        reagents:
+        - ReagentId: HotCocoa
+          Quantity: 30
 
 - type: entity
   parent: DrinkGlassBase
@@ -1529,22 +1535,23 @@
   - type: Sprite
     sprite: Objects/Consumable/Drinks/rumglass.rsi
 
-- type: entity
-  parent: DrinkGlassBase
-  id: DrinkSakeGlass
-  name: sake glass
-  description: Wine made from rice, it's sake!
-  components:
-  - type: SolutionContainerManager
-    solutions:
-      drink:
-        maxVol: 30
-        reagents:
-        - ReagentId: Sake
-          Quantity: 30
-  - type: Drink
-  - type: Sprite
-    sprite: Objects/Consumable/Drinks/sakeglass.rsi
+##Commented out in favor of Nyano sake/soju
+#- type: entity
+#  parent: DrinkGlassBase
+#  id: DrinkSakeGlass
+#  name: sake glass
+#  description: Wine made from rice, it's sake!
+#  components:
+#  - type: SolutionContainerManager
+#    solutions:
+#      drink:
+#        maxVol: 30
+#        reagents:
+#        - ReagentId: Sake
+#          Quantity: 30
+#  - type: Drink
+#  - type: Sprite
+#    sprite: Objects/Consumable/Drinks/ginvodkaglass.rsi
 
 - type: entity
   parent: DrinkGlassBase
@@ -1579,6 +1586,23 @@
   - type: Drink
   - type: Sprite
     sprite: Objects/Consumable/Drinks/screwdriverglass.rsi
+
+- type: entity
+  parent: DrinkGlassBase
+  id: DrinkCogChampBase
+  name: cogchamp glass
+  description: This mix of Cognac, Screwdriver and Welding Fuel will have you seeing His light surely!
+  components:
+    - type: SolutionContainerManager
+      solutions:
+        drink:
+          maxVol: 30
+          reagents:
+            - ReagentId: CogChamp
+              Quantity: 30
+    - type: Drink
+    - type: Sprite
+      sprite: Objects/Consumable/Drinks/cogchamp.rsi
 
 - type: entity
   parent: DrinkGlassBase
@@ -1830,6 +1854,22 @@
   - type: Drink
   - type: Sprite
     sprite: Objects/Consumable/Drinks/tequillasunriseglass.rsi
+
+- type: entity
+  parent: DrinkGlassBase
+  id: DrinkTheMartinez
+  name: The Martinez glass
+  description: The edgerunner legend.  Remembered by a drink, Forgotten by a drunk.
+  components:
+    - type: SolutionContainerManager
+      solutions:
+        drink:
+          maxVol: 30
+          reagents:
+            - ReagentId: TheMartinez
+              Quantity: 30
+    - type: Sprite
+      sprite: Objects/Consumable/Drinks/the_martinez.rsi
 
 - type: entity
   parent: DrinkGlassBase
@@ -2156,32 +2196,16 @@
 
 - type: entity
   parent: DrinkGlassBase
-  id: DrinkKvassGlass
-  name: kvass glass
-  description: A cool refreshing drink with a taste of socialism.
+  id: DrinkBloodGlass
+  name: blood glass
+  description: Drink like a vampire!
   components:
     - type: SolutionContainerManager
       solutions:
         drink:
           maxVol: 30
           reagents:
-            - ReagentId: Kvass
+            - ReagentId: Blood
               Quantity: 30
     - type: Sprite
-      sprite: Objects/Consumable/Drinks/kvass.rsi
-
-- type: entity
-  parent: DrinkGlassBase
-  id: DrinkTheMartinez
-  name: The Martinez glass
-  description: The edgerunner legend.  Remembered by a drink, Forgotten by a drunk.
-  components:
-    - type: SolutionContainerManager
-      solutions:
-        drink:
-          maxVol: 30
-          reagents:
-            - ReagentId: TheMartinez
-              Quantity: 30
-    - type: Sprite
-      sprite: Objects/Consumable/Drinks/the_martinez.rsi
+      sprite: Objects/Consumable/Drinks/bloodglass.rsi

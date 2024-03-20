@@ -13,10 +13,11 @@
     state: icon
   - type: ItemCooldown
   - type: MeleeWeapon
+    wideAnimationRotation: 135
+    swingLeft: true
     damage:
       types:
-        Slash: 3.5
-        Blunt: 3
+        Slash: 10
   - type: Item
     sprite: Objects/Tools/Hydroponics/hoe.rsi
 
@@ -34,6 +35,7 @@
     state: icon
   - type: ItemCooldown
   - type: MeleeWeapon
+    wideAnimationRotation: 90
     damage:
       types:
         Slash: 7
@@ -52,17 +54,17 @@
     state: icon
   - type: ItemCooldown
   - type: MeleeWeapon
-    range: 1.85
+    wideAnimationRotation: 135
     damage:
       types:
-        Slash: 7
+        Slash: 10
   - type: Item
     size: 20
   - type: Clothing
     sprite: Objects/Tools/Hydroponics/scythe.rsi
     slots:
     - back
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 40
 
 - type: entity
@@ -80,16 +82,12 @@
     state: icon
   - type: ItemCooldown
   - type: MeleeWeapon
-    attackRate: 1.1
-    range: 1.4
+    wideAnimationRotation: 135
+    swingLeft: true
     damage:
       types:
-        Slash: 9
-        Piercing: 2.5
-  - type: MeleeBloodletter
-    bloodReduction:
-      types:
-        Slash: 8.0
+        Slash: 10
+        Piercing: 5
   - type: Item
     sprite: Objects/Tools/Hydroponics/hatchet.rsi
 
@@ -108,12 +106,11 @@
     state: icon
   - type: ItemCooldown
   - type: MeleeWeapon
+    wideAnimationRotation: 45
     damage:
       types:
-        Blunt: 9
-        Slash: 2.5 # I guess you can stab it into them?
-  - type: StaminaDamageOnHit
-    damage: 5
+        Blunt: 10
+        Piercing: 5 # I guess you can stab it into them?
   - type: Item
     sprite: Objects/Tools/Hydroponics/spade.rsi
 

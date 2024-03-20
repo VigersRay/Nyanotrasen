@@ -1,14 +1,14 @@
 using Content.Shared.Access.Systems;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.GameStates;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
 namespace Content.Shared.Access.Components;
 
-[RegisterComponent, NetworkedComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedIdCardConsoleSystem))]
-public sealed class IdCardConsoleComponent : Component
+public sealed partial class IdCardConsoleComponent : Component
 {
     public const int MaxFullNameLength = 30;
     public const int MaxJobTitleLength = 30;
@@ -16,10 +16,10 @@ public sealed class IdCardConsoleComponent : Component
     public static string PrivilegedIdCardSlotId = "IdCardConsole-privilegedId";
     public static string TargetIdCardSlotId = "IdCardConsole-targetId";
 
-    [DataField("privilegedIdSlot")]
+    [DataField]
     public ItemSlot PrivilegedIdSlot = new();
 
-    [DataField("targetIdSlot")]
+    [DataField]
     public ItemSlot TargetIdSlot = new();
 
     [Serializable, NetSerializable]
@@ -41,21 +41,22 @@ public sealed class IdCardConsoleComponent : Component
 
     // Put this on shared so we just send the state once in PVS range rather than every time the UI updates.
 
-    [DataField("accessLevels", customTypeSerializer: typeof(PrototypeIdListSerializer<AccessLevelPrototype>))]
-    public List<string> AccessLevels = new()
+    [DataField, AutoNetworkedField]
+    public List<ProtoId<AccessLevelPrototype>> AccessLevels = new()
     {
         "Armory",
         "Atmospherics",
         "Bar",
-        "Brig",
+        //"Brig", Delta V: Removed Brig Access
+        "Boxer",  // DeltaV - Add Boxer access
         "Detective",
         "Captain",
         "Cargo",
-        "Mail",
         "Chapel",
         "Chemistry",
         "ChiefEngineer",
         "ChiefMedicalOfficer",
+        "Clown", // DeltaV - Add Clown access
         "Command",
         "Engineering",
         "External",
@@ -64,15 +65,26 @@ public sealed class IdCardConsoleComponent : Component
         "Hydroponics",
         "Janitor",
         "Kitchen",
+        "Lawyer",
+        "Library",  // DeltaV - Add Library access 
         "Maintenance",
         "Medical",
+        "Mime", // DeltaV - Add Mime access
+        "Musician", // DeltaV - Add Musician access
+        "Paramedic", // DeltaV - Add Paramedic access
+        "Psychologist", // DeltaV - Add Psychologist access
         "Quartermaster",
+        "Reporter", // DeltaV - Add Reporter access
         "Research",
         "ResearchDirector",
         "Salvage",
         "Security",
         "Service",
         "Theatre",
+        "Orders", // DeltaV - Orders, see Resources/Prototypes/DeltaV/Access/cargo.yml
+        "Mail", // Nyanotrasen - Mail, see Resources/Prototypes/Nyanotrasen/Access/cargo.yml
+        "Mantis", // DeltaV - Psionic Mantis, see Resources/Prototypes/DeltaV/Access/epistemics.yml
+        "Zookeeper",  // DeltaV - Add Zookeeper access
     };
 
     [Serializable, NetSerializable]

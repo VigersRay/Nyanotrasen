@@ -14,9 +14,15 @@
   id: Paramedic
   name: id-card-access-level-paramedic
 
+- type: accessLevel
+  id: Paramedic
+  name: id-card-access-level-paramedic
+
 - type: accessGroup
   id: Medical
   tags:
   - ChiefMedicalOfficer
   - Medical
   - Chemistry
+  - Paramedic # DeltaV - Add Paramedic access
+  - Psychologist # DeltaV - Add Psychologist access

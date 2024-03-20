@@ -2,9 +2,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitColorGrey # Tide
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/Color/grey.rsi
-    state: icon
   result: ClothingUniformJumpsuitColorGrey
   completetime: 4
   materials:
@@ -12,39 +9,13 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtColorGrey
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/Color/grey.rsi
-    state: icon
   result: ClothingUniformJumpskirtColorGrey
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitAtmos
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/atmos.rsi
-    state: icon
-  result: ClothingUniformJumpsuitAtmos
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtAtmos
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/atmosf.rsi
-    state: icon
-  result: ClothingUniformJumpskirtAtmos
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitBartender
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/bartender.rsi
-    state: icon
   result: ClothingUniformJumpsuitBartender
   completetime: 4
   materials:
@@ -52,29 +23,13 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtBartender
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/bartender.rsi
-    state: icon
   result: ClothingUniformJumpskirtBartender
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitBartenderPurple
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/bartender_purple.rsi
-    state: icon
-  result: ClothingUniformJumpsuitBartenderPurple
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitCaptain
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/captain.rsi
-    state: icon
   result: ClothingUniformJumpsuitCaptain
   completetime: 4
   materials:
@@ -82,32 +37,16 @@
     Durathread: 100
 
 - type: latheRecipe
-  id: ClothingUniformJumpskirtCaptain
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/captain.rsi
-    state: icon
-  result: ClothingUniformJumpskirtCaptain
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitCapFormal
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/capformal.rsi
-    state: icon
   result: ClothingUniformJumpsuitCapFormal
   completetime: 4
   materials:
     Cloth: 300
     Durathread: 100
 
+
 - type: latheRecipe
   id: ClothingUniformJumpskirtCapFormalDress
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/capformaldress.rsi
-    state: icon
   result: ClothingUniformJumpskirtCapFormalDress
   completetime: 4
   materials:
@@ -115,10 +54,15 @@
     Durathread: 100
 
 - type: latheRecipe
+  id: ClothingUniformJumpskirtCaptain
+  result: ClothingUniformJumpskirtCaptain
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
   id: ClothingUniformJumpsuitCargo
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/cargotech.rsi
-    state: icon
   result: ClothingUniformJumpsuitCargo
   completetime: 4
   materials:
@@ -126,9 +70,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtCargo
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/cargotech.rsi
-    state: icon
   result: ClothingUniformJumpskirtCargo
   completetime: 4
   materials:
@@ -136,19 +77,53 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitSalvageSpecialist
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/salvage.rsi
-    state: icon
   result: ClothingUniformJumpsuitSalvageSpecialist
   completetime: 4
   materials:
     Cloth: 500 #It's armored but I don't want to include durathread for a non-head
 
 - type: latheRecipe
+  id: ClothingUniformJumpsuitCentcomAgent
+  result: ClothingUniformJumpsuitCentcomAgent
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitCentcomFormal
+  result: ClothingUniformJumpsuitCentcomFormal
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtCentcomFormalDress
+  result: ClothingUniformJumpskirtCentcomFormalDress
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitCentcomOfficer
+  result: ClothingUniformJumpsuitCentcomOfficer
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitCentcomOfficial
+  result: ClothingUniformJumpsuitCentcomOfficial
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
   id: ClothingUniformJumpsuitChiefEngineer
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/ce.rsi
-    state: icon
   result: ClothingUniformJumpsuitChiefEngineer
   completetime: 4
   materials:
@@ -157,9 +132,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtChiefEngineer
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/ce.rsi
-    state: icon
   result: ClothingUniformJumpskirtChiefEngineer
   completetime: 4
   materials:
@@ -167,10 +139,21 @@
     Durathread: 100
 
 - type: latheRecipe
+  id: ClothingUniformJumpsuitChiefEngineerTurtle
+  result: ClothingUniformJumpsuitChiefEngineerTurtle
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtChiefEngineerTurtle
+  result: ClothingUniformJumpskirtChiefEngineerTurtle
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
   id: ClothingUniformJumpsuitChaplain
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/chaplain.rsi
-    state: icon
   result: ClothingUniformJumpsuitChaplain
   completetime: 4
   materials:
@@ -178,9 +161,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtChaplain
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/chaplain.rsi
-    state: icon
   result: ClothingUniformJumpskirtChaplain
   completetime: 4
   materials:
@@ -188,9 +168,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitChef
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/chef.rsi
-    state: icon
   result: ClothingUniformJumpsuitChef
   completetime: 4
   materials:
@@ -198,49 +175,34 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtChef
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/chef.rsi
-    state: icon
   result: ClothingUniformJumpskirtChef
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
+  id: ClothingUniformJumpsuitChemistry
+  result: ClothingUniformJumpsuitChemistry
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtChemistry
+  result: ClothingUniformJumpskirtChemistry
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
   id: ClothingUniformJumpsuitClown
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/clown.rsi
-    state: icon
   result: ClothingUniformJumpsuitClown
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitJester
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/jester.rsi
-    state: icon
-  result: ClothingUniformJumpsuitJester
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitJesterAlt
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/jester2.rsi
-    state: icon
-  result: ClothingUniformJumpsuitJesterAlt
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitCMO
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/cmo.rsi
-    state: icon
   result: ClothingUniformJumpsuitCMO
   completetime: 4
   materials:
@@ -249,9 +211,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtCMO
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/cmo.rsi
-    state: icon
   result: ClothingUniformJumpskirtCMO
   completetime: 4
   materials:
@@ -259,70 +218,7 @@
     Durathread: 100
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitCossack
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/cossack.rsi
-    state: icon
-  result: ClothingUniformJumpsuitCossack
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitEngineering
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/engineering.rsi
-    state: icon
-  result: ClothingUniformJumpsuitEngineering
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtEngineering
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/engineering.rsi
-    state: icon
-  result: ClothingUniformJumpskirtEngineering
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitEngineeringHazard
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/engineering_hazard.rsi
-    state: icon
-  result: ClothingUniformJumpsuitEngineeringHazard
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitMantis
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/mantis_uniform.rsi
-    state: icon
-  result: ClothingUniformJumpsuitMantis
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformSkirtMantis
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpskirt/mantis_jumpskirt.rsi
-    state: icon
-  result: ClothingUniformSkirtMantis
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitDetective
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/detective.rsi
-    state: icon
   result: ClothingUniformJumpsuitDetective
   completetime: 4
   materials:
@@ -330,39 +226,27 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtDetective
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/detective.rsi
-    state: icon
   result: ClothingUniformJumpskirtDetective
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitDetectiveGrey
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/detective_grey.rsi
-    state: icon
-  result: ClothingUniformJumpsuitDetectiveGrey
+  id: ClothingUniformJumpsuitEngineering
+  result: ClothingUniformJumpsuitEngineering
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpskirtDetectiveGrey
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/detective_grey.rsi
-    state: icon
-  result: ClothingUniformJumpskirtDetectiveGrey
+  id: ClothingUniformJumpskirtEngineering
+  result: ClothingUniformJumpskirtEngineering
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitHoP
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hop.rsi
-    state: icon
   result: ClothingUniformJumpsuitHoP
   completetime: 4
   materials:
@@ -371,9 +255,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtHoP
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/hop.rsi
-    state: icon
   result: ClothingUniformJumpskirtHoP
   completetime: 4
   materials:
@@ -382,9 +263,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitHoS
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hos.rsi
-    state: icon
   result: ClothingUniformJumpsuitHoS
   completetime: 4
   materials:
@@ -393,9 +271,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtHoS
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/hos.rsi
-    state: icon
   result: ClothingUniformJumpskirtHoS
   completetime: 4
   materials:
@@ -403,8 +278,56 @@
     Durathread: 100
 
 - type: latheRecipe
+  id: ClothingUniformJumpsuitHosFormal
+  result: ClothingUniformJumpsuitHosFormal
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtHosFormal
+  result: ClothingUniformJumpskirtHosFormal
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitHoSParadeMale
+  result: ClothingUniformJumpsuitHoSParadeMale
+  completetime: 5
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtHoSParadeMale
+  result: ClothingUniformJumpskirtHoSParadeMale
+  completetime: 5
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
   id: ClothingUniformJumpsuitHoSAlt
   result: ClothingUniformJumpsuitHoSAlt
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitHoSBlue
+  result: ClothingUniformJumpsuitHoSBlue
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitHoSGrey
+  result: ClothingUniformJumpsuitHoSGrey
   completetime: 4
   materials:
     Cloth: 300
@@ -419,76 +342,7 @@
     Durathread: 100
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitHoSBlue
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hos_blue.rsi
-    state: icon
-  result: ClothingUniformJumpsuitHoSBlue
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitHoSGrey
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hos_grey.rsi
-    state: icon
-  result: ClothingUniformJumpsuitHoSGrey
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitHosFormal
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hosformal.rsi
-    state: icon
-  result: ClothingUniformJumpsuitHosFormal
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtHosFormal
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/hosformaldress.rsi
-    state: icon
-  result: ClothingUniformJumpskirtHosFormal
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitHoSParadeMale
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hos_parade.rsi
-    state: icon
-  result: ClothingUniformJumpsuitHoSParadeMale
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtHoSParadeMale
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/hos_parade.rsi
-    state: icon
-  result: ClothingUniformJumpskirtHoSParadeMale
-  completetime: 4
-  materials:
-    Cloth: 300
-    Durathread: 100
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitHydroponics
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/hydro.rsi
-    state: icon
   result: ClothingUniformJumpsuitHydroponics
   completetime: 4
   materials:
@@ -496,9 +350,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtHydroponics
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/hydro.rsi
-    state: icon
   result: ClothingUniformJumpskirtHydroponics
   completetime: 4
   materials:
@@ -506,9 +357,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitJanitor
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/janitor.rsi
-    state: icon
   result: ClothingUniformJumpsuitJanitor
   completetime: 4
   materials:
@@ -516,169 +364,34 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtJanitor
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/janitor.rsi
-    state: icon
   result: ClothingUniformJumpskirtJanitor
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpskirtJanimaid
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/janimaid.rsi
-    state: icon
-  result: ClothingUniformJumpskirtJanimaid
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtJanimaidmini
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/janimaidmini.rsi
-    state: icon
-  result: ClothingUniformJumpskirtJanimaidmini
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitJournalist
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/journalist.rsi
-    state: icon
-  result: ClothingUniformJumpsuitJournalist
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitLawyerBlack
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/lawyerblack.rsi
-    state: icon
   result: ClothingUniformJumpsuitLawyerBlack
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpskirtLawyerBlack
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/lawyerblack.rsi
-    state: icon
-  result: ClothingUniformJumpskirtLawyerBlack
+  id: ClothingUniformJumpsuitLibrarian
+  result: ClothingUniformJumpsuitLibrarian
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitLawyerBlue
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/lawyerblue.rsi
-    state: icon
-  result: ClothingUniformJumpsuitLawyerBlue
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtLawyerBlue
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/lawyerblue.rsi
-    state: icon
-  result: ClothingUniformJumpskirtLawyerBlue
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitLawyerGood
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/lawyergood.rsi
-    state: icon
-  result: ClothingUniformJumpsuitLawyerGood
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtLawyerGood
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/lawyergood.rsi
-    state: icon
-  result: ClothingUniformJumpskirtLawyerGood
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitLawyerPurple
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/lawyerpurple.rsi
-    state: icon
-  result: ClothingUniformJumpsuitLawyerPurple
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtLawyerPurple
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/lawyerpurple.rsi
-    state: icon
-  result: ClothingUniformJumpskirtLawyerPurple
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitLawyerRed
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/lawyerred.rsi
-    state: icon
-  result: ClothingUniformJumpsuitLawyerRed
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtLawyerRed
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/lawyerred.rsi
-    state: icon
-  result: ClothingUniformJumpskirtLawyerRed
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformMailCarrier
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/mailman.rsi
-    state: icon
-  result: ClothingUniformMailCarrier
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformSkirtMailCarrier
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpskirt/mailman.rsi
-    state: icon
-  result: ClothingUniformSkirtMailCarrier
+  id: ClothingUniformJumpskirtColorLightBrown #Librarian
+  result: ClothingUniformJumpskirtColorLightBrown
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitMedicalDoctor
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/medical.rsi
-    state: icon
   result: ClothingUniformJumpsuitMedicalDoctor
   completetime: 4
   materials:
@@ -686,77 +399,13 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtMedicalDoctor
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/medical.rsi
-    state: icon
   result: ClothingUniformJumpskirtMedicalDoctor
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitChemistry
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/chemistry.rsi
-    state: icon
-  result: ClothingUniformJumpsuitChemistry
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtChemistry
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/chemistry.rsi
-    state: icon
-  result: ClothingUniformJumpskirtChemistry
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitVirology
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/virology.rsi
-    state: icon
-  result: ClothingUniformJumpsuitVirology
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtVirology
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/virology.rsi
-    state: icon
-  result: ClothingUniformJumpskirtVirology
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitGenetics
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/genetics.rsi
-    state: icon
-  result: ClothingUniformJumpsuitGenetics
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpskirtGenetics
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/genetics.rsi
-    state: icon
-  result: ClothingUniformJumpskirtGenetics
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitMime
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/mime.rsi
-    state: icon
   result: ClothingUniformJumpsuitMime
   completetime: 4
   materials:
@@ -764,71 +413,34 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtMime
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/mime.rsi
-    state: icon
   result: ClothingUniformJumpskirtMime
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitMonasticRobeDark
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_dark.rsi
-    state: icon
-  result: ClothingUniformJumpsuitMonasticRobeDark
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitMonasticRobeLight
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/monastic_robe_light.rsi
-    state: icon
-  result: ClothingUniformJumpsuitMonasticRobeLight
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitMusician
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/musician.rsi
-    state: icon
   result: ClothingUniformJumpsuitMusician
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitMystagogue
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/rnd.rsi
-    state: icon
-  result: ClothingUniformJumpsuitMystagogue
+  id: ClothingUniformJumpsuitOperative
+  result: ClothingUniformJumpsuitOperative
   completetime: 4
   materials:
     Cloth: 300
-    Durathread: 100
 
 - type: latheRecipe
-  id: ClothingUniformJumpskirtMystagogue
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/rnd.rsi
-    state: icon
-  result: ClothingUniformJumpskirtMystagogue
+  id: ClothingUniformJumpskirtOperative
+  result: ClothingUniformJumpskirtOperative
   completetime: 4
   materials:
     Cloth: 300
-    Durathread: 100
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitParamedic
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/paramedic.rsi
-    state: icon
   result: ClothingUniformJumpsuitParamedic
   completetime: 4
   materials:
@@ -836,29 +448,13 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtParamedic
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/paramedic.rsi
-    state: icon
   result: ClothingUniformJumpskirtParamedic
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitPrisonGuard
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/prisonguard.rsi
-    state: icon
-  result: ClothingUniformJumpsuitPrisonGuard
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitPrisoner
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/prisoner.rsi
-    state: icon
   result: ClothingUniformJumpsuitPrisoner
   completetime: 4
   materials:
@@ -866,29 +462,13 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtPrisoner
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/prisoner.rsi
-    state: icon
   result: ClothingUniformJumpskirtPrisoner
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitPsychologist
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/psychologist.rsi
-    state: icon
-  result: ClothingUniformJumpsuitPsychologist
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
   id: ClothingUniformJumpsuitQM
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/qm.rsi
-    state: icon
   result: ClothingUniformJumpsuitQM
   completetime: 4
   materials:
@@ -896,29 +476,57 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtQM
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/qm.rsi
-    state: icon
   result: ClothingUniformJumpskirtQM
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitReporter
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/reporter.rsi
-    state: icon
-  result: ClothingUniformJumpsuitReporter
+  id: ClothingUniformJumpsuitQMTurtleneck
+  result: ClothingUniformJumpsuitQMTurtleneck
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtQMTurtleneck
+  result: ClothingUniformJumpskirtQMTurtleneck
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitResearchDirector
+  result: ClothingUniformJumpsuitResearchDirector
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtResearchDirector
+  result: ClothingUniformJumpskirtResearchDirector
+  completetime: 4
+  materials:
+    Cloth: 300
+    Durathread: 100
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitScientist
+  result: ClothingUniformJumpsuitScientist
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtScientist
+  result: ClothingUniformJumpskirtScientist
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitSec
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/security.rsi
-    state: icon
   result: ClothingUniformJumpsuitSec
   completetime: 4
   materials:
@@ -926,39 +534,62 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtSec
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/security.rsi
-    state: icon
   result: ClothingUniformJumpskirtSec
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitSecBlue
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/security_blue.rsi
-    state: icon
-  result: ClothingUniformJumpsuitSecBlue
+  id: ClothingUniformJumpsuitBrigmedic
+  result: ClothingUniformJumpsuitBrigmedic
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitSecGrey
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/security_grey.rsi
-    state: icon
-  result: ClothingUniformJumpsuitSecGrey
+  id: ClothingUniformJumpskirtBrigmedic
+  result: ClothingUniformJumpskirtBrigmedic
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitSyndieFormal
+  result: ClothingUniformJumpsuitSyndieFormal
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpskirtSyndieFormalDress
+  result: ClothingUniformJumpskirtSyndieFormalDress
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitPyjamaSyndicateBlack
+  result: ClothingUniformJumpsuitPyjamaSyndicateBlack
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitPyjamaSyndicatePink
+  result: ClothingUniformJumpsuitPyjamaSyndicatePink
+  completetime: 4
+  materials:
+    Cloth: 300
+
+- type: latheRecipe
+  id: ClothingUniformJumpsuitPyjamaSyndicateRed
+  result: ClothingUniformJumpsuitPyjamaSyndicateRed
   completetime: 4
   materials:
     Cloth: 300
 
 - type: latheRecipe
   id: ClothingUniformJumpsuitWarden
-  icon:
-    sprite: Clothing/Uniforms/Jumpsuit/warden.rsi
-    state: icon
   result: ClothingUniformJumpsuitWarden
   completetime: 4
   materials:
@@ -966,9 +597,6 @@
 
 - type: latheRecipe
   id: ClothingUniformJumpskirtWarden
-  icon:
-    sprite: Clothing/Uniforms/Jumpskirt/warden.rsi
-    state: icon
   result: ClothingUniformJumpskirtWarden
   completetime: 4
   materials:
@@ -976,9 +604,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterCap
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatcap.rsi
-    state: icon
   result: ClothingOuterWinterCap
   completetime: 3.2
   materials:
@@ -987,9 +612,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterCE
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatce.rsi
-    state: icon
   result: ClothingOuterWinterCE
   completetime: 3.2
   materials:
@@ -997,10 +619,15 @@
     Durathread: 300
 
 - type: latheRecipe
+  id: ClothingOuterWinterCentcom
+  result: ClothingOuterWinterCentcom
+  completetime: 3.2
+  materials:
+    Cloth: 300
+    Durathread: 300
+
+- type: latheRecipe
   id: ClothingOuterWinterCMO
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatcmo.rsi
-    state: icon
   result: ClothingOuterWinterCMO
   completetime: 3.2
   materials:
@@ -1009,9 +636,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterHoP
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coathop.rsi
-    state: icon
   result: ClothingOuterWinterHoP
   completetime: 3.2
   materials:
@@ -1020,9 +644,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterHoS
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coathos.rsi
-    state: icon
   result: ClothingOuterWinterHoS
   completetime: 3.2
   materials:
@@ -1031,9 +652,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterQM
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatqm.rsi
-    state: icon
   result: ClothingOuterWinterQM
   completetime: 3.2
   materials:
@@ -1041,11 +659,8 @@
     Durathread: 300
 
 - type: latheRecipe
-  id: ClothingOuterWinterMystagogue
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatrd.rsi
-    state: icon
-  result: ClothingOuterWinterMystagogue
+  id: ClothingOuterWinterRD
+  result: ClothingOuterWinterRD
   completetime: 3.2
   materials:
     Cloth: 300
@@ -1053,9 +668,6 @@
 
 - type: latheRecipe
   id: ClothingNeckMantleCap
-  icon:
-    sprite: Clothing/Neck/mantles/capmantle.rsi
-    state: icon
   result: ClothingNeckMantleCap
   completetime: 2.8
   materials:
@@ -1064,9 +676,6 @@
 
 - type: latheRecipe
   id: ClothingNeckMantleCE
-  icon:
-    sprite: Clothing/Neck/mantles/cemantle.rsi
-    state: icon
   result: ClothingNeckMantleCE
   completetime: 2.8
   materials:
@@ -1075,9 +684,6 @@
 
 - type: latheRecipe
   id: ClothingNeckMantleCMO
-  icon:
-    sprite: Clothing/Neck/mantles/cmomantle.rsi
-    state: icon
   result: ClothingNeckMantleCMO
   completetime: 2.8
   materials:
@@ -1086,9 +692,6 @@
 
 - type: latheRecipe
   id: ClothingNeckMantleHOP
-  icon:
-    sprite: Clothing/Neck/mantles/hopmantle.rsi
-    state: icon
   result: ClothingNeckMantleHOP
   completetime: 2.8
   materials:
@@ -1097,9 +700,6 @@
 
 - type: latheRecipe
   id: ClothingNeckMantleHOS
-  icon:
-    sprite: Clothing/Neck/mantles/hosmantle.rsi
-    state: icon
   result: ClothingNeckMantleHOS
   completetime: 2.8
   materials:
@@ -1107,21 +707,24 @@
     Durathread: 150
 
 - type: latheRecipe
-  id: ClothingNeckMantleMystagogue
-  icon:
-    sprite: Clothing/Neck/mantles/rdmantle.rsi
-    state: icon
-  result: ClothingNeckMantleMystagogue
+  id: ClothingNeckMantleRD
+  result: ClothingNeckMantleRD
   completetime: 2.8
   materials:
     Cloth: 150
     Durathread: 150
 
 - type: latheRecipe
+  id: ClothingNeckMantleQM
+  result: ClothingNeckMantleQM
+  completetime: 2.8
+  materials:
+    Cloth: 150
+    Durathread: 150
+
+
+- type: latheRecipe
   id: ClothingOuterWinterMusician
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatnomi.rsi
-    state: icon
   result: ClothingOuterWinterMusician
   completetime: 3.2
   materials:
@@ -1129,9 +732,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterClown
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatclown.rsi
-    state: icon
   result: ClothingOuterWinterClown
   completetime: 3.2
   materials:
@@ -1139,9 +739,6 @@
 
 - type: latheRecipe
   id: ClothingOuterWinterMime
-  icon:
-    sprite: Clothing/OuterClothing/WinterCoats/coatmime.rsi
-    state: icon
   result: ClothingOuterWinterMime
   completetime: 3.2
   materials:
@@ -1267,38 +864,15 @@
     Cloth: 500
 
 - type: latheRecipe
-  id: ClothingOuterWinterWarden
-  result: ClothingOuterWinterWarden
+  id: ClothingOuterWinterSyndie
+  result: ClothingOuterWinterSyndie
   completetime: 3.2
   materials:
     Cloth: 500
 
 - type: latheRecipe
-  id: ClothingUniformJumpsuitTshirtJeansGray
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/tshirtjeansgray.rsi
-    state: icon
-  result: ClothingUniformJumpsuitTshirtJeansGray
-  completetime: 4
+  id: ClothingOuterWinterSyndieCap
+  result: ClothingOuterWinterSyndieCap
+  completetime: 3.2
   materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitTshirtJeansPeach
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/tshirtjeanspeach.rsi
-    state: icon
-  result: ClothingUniformJumpsuitTshirtJeansPeach
-  completetime: 4
-  materials:
-    Cloth: 300
-
-- type: latheRecipe
-  id: ClothingUniformJumpsuitTshirtJeans
-  icon:
-    sprite: Nyanotrasen/Clothing/Uniforms/Jumpsuit/tshirtjeans.rsi
-    state: icon
-  result: ClothingUniformJumpsuitTshirtJeans
-  completetime: 4
-  materials:
-    Cloth: 300
+    Cloth: 500

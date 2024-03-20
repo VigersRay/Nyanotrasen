@@ -3,6 +3,7 @@ using Content.Server.Research.Components;
 using Content.Server.UserInterface;
 using Content.Shared.Access.Components;
 using Content.Shared.Research.Components;
+using Content.Shared.Research.Prototypes;
 
 namespace Content.Server.Research.Systems;
 
@@ -25,7 +26,10 @@ public sealed partial class ResearchSystem
         if (!this.IsPowered(uid, EntityManager))
             return;
 
-        if (TryComp<AccessReaderComponent>(uid, out var access) && !_accessReader.IsAllowed(ent, access))
+        if (!PrototypeManager.TryIndex<TechnologyPrototype>(args.Id, out var technologyPrototype))
+            return;
+
+        if (TryComp<AccessReaderComponent>(uid, out var access) && !_accessReader.IsAllowed(ent, uid, access))
         {
             _popup.PopupEntity(Loc.GetString("research-console-no-access-popup"), ent);
             return;
@@ -34,6 +38,10 @@ public sealed partial class ResearchSystem
         if (!UnlockTechnology(uid, args.Id, ent))
             return;
 
+        var message = Loc.GetString("research-console-unlock-technology-radio-broadcast",
+            ("technology", Loc.GetString(technologyPrototype.Name)),
+            ("amount", technologyPrototype.Cost));
+        _radio.SendRadioMessage(uid, message, component.AnnouncementChannel, uid, escapeMarkup: false);
         SyncClientWithServer(uid);
         UpdateConsoleInterface(uid, component);
     }
@@ -50,19 +58,14 @@ public sealed partial class ResearchSystem
 
         ResearchConsoleBoundInterfaceState state;
 
-        if (TryGetClientServer(uid, out var server, out var serverComponent, clientComponent) &&
-            clientComponent.ConnectedToServer)
+        if (TryGetClientServer(uid, out _, out var serverComponent, clientComponent))
         {
-            // Begin Nyano-code: limit passive point generation.
-            var points = serverComponent.Points;
-            var pointsPerSecond = GetPointsPerSecond(server.Value, serverComponent);
-            var pointsLimit = serverComponent.PassiveLimitPerSource * serverComponent.PointSourcesLastUpdate;
-            state = new ResearchConsoleBoundInterfaceState(points, pointsPerSecond, pointsLimit);
-            // End Nyano-code.
+            var points = clientComponent.ConnectedToServer ? serverComponent.Points : 0;
+            state = new ResearchConsoleBoundInterfaceState(points);
         }
         else
         {
-            state = new ResearchConsoleBoundInterfaceState(default, default, default);
+            state = new ResearchConsoleBoundInterfaceState(default);
         }
 
         _uiSystem.TrySetUiState(uid, ResearchConsoleUiKey.Key, state);

@@ -5,41 +5,39 @@
   desc: reagent-desc-blood
   flavor: metallic
   color: "#800000"
+  metamorphicSprite:
+    sprite: Objects/Consumable/Drinks/bloodglass.rsi
+    state: icon
   recognizable: true
   physicalDesc: reagent-physical-desc-ferrous
   slippery: false
   metabolisms:
     Drink:
-      # Quenching!
       effects:
       - !type:SatiateThirst
         factor: 1.5
-      - !type:SatiateHunger
-        factor: 0.5
+        conditions:
+          - !type:OrganType
+            type: Human
+            shouldHave: false
+    Food:
+      effects:
+        - !type:AdjustReagent
+          reagent: UncookedAnimalProteins
+          amount: 0.5
+    Medicine:
+      effects:
+      - !type:HealthChange
         conditions:
         - !type:OrganType
-          type: Vampiric
-      - !type:AdjustReagent
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-        reagent: Water
-        amount: 0.15
-      - !type:AdjustReagent
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-        reagent: Protein
-        amount: 0.15
-      - !type:AdjustReagent
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-        reagent: Omnizine
-        amount: 0.2
+          type: Bloodsucker
+        damage:
+          groups:
+            Brute: -4
+            Burn: -2
   plantMetabolism:
-  - !type:PlantAdjustWater
-    amount: 0.5
+    - !type:PlantAdjustWater
+      amount: 0.5
 
 - type: reagent
   id: Slime
@@ -60,17 +58,49 @@
       effects:
       - !type:SatiateHunger
         factor: 1.5
-        conditions:
-        - !type:OrganType
-          type: Vampiric
-          shouldHave: false
+
+- type: reagent
+  parent: Blood
+  id: CopperBlood
+  name: reagent-name-hemocyanin-blood
+  group: Biological
+  desc: reagent-desc-hemocyanin-blood
+  flavor: metallic
+  color: "#162581"
+  recognizable: true
+  physicalDesc: reagent-physical-desc-ferrous
+  slippery: false
+
+- type: reagent
+  id: ZombieBlood
+  name: reagent-name-zombie-blood
+  group: Biological
+  desc: reagent-desc-zombie-blood
+  physicalDesc: reagent-physical-desc-necrotic
+  flavor: bitter
+  color: "#2b0700"
+  slippery: false
+  metabolisms:
+    Drink:
+      # Disgusting!
+      effects:
+      - !type:SatiateThirst
+        factor: -0.5
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 4
+      - !type:ChemVomit
+        probability: 0.25
 
 - type: reagent
   id: Ichor
   name: reagent-name-ichor
   group: Biological
   desc: reagent-desc-ichor
-  physicalDesc: reagent-physical-desc-enigmatic
+  physicalDesc: reagent-physical-desc-roaring
   flavor: metallic
   color: "#f4692e"
   recognizable: true

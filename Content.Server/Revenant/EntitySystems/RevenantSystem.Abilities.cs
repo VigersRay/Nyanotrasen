@@ -1,11 +1,16 @@
-using System.Linq;
 using Content.Shared.Popups;
 using Content.Shared.Damage;
 using Content.Shared.Revenant;
+using Robust.Shared.Random;
+using Robust.Shared.Map;
 using Content.Shared.Tag;
+using Content.Server.Storage.Components;
+using Content.Server.Light.Components;
+using Content.Server.Ghost;
+using Robust.Shared.Physics;
 using Content.Shared.Throwing;
+using Content.Server.Storage.EntitySystems;
 using Content.Shared.Interaction;
-using Content.Shared.Abilities.Psionics;
 using Content.Shared.Item;
 using Content.Shared.Bed.Sleep;
 using System.Linq;
@@ -13,25 +18,16 @@ using System.Numerics;
 using Content.Server.Maps;
 using Content.Server.Revenant.Components;
 using Content.Shared.DoAfter;
-using Content.Shared.Mobs;
 using Content.Shared.Emag.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
+using Content.Shared.Maps;
+using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Revenant.Components;
-using Content.Server.Storage.Components;
-using Content.Server.Light.Components;
-using Content.Server.Ghost;
-using Content.Server.Storage.EntitySystems;
-using Content.Server.Disease;
-using Content.Server.Disease.Components;
-using Content.Shared.Revenant.EntitySystems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Utility;
-using Robust.Shared.Physics;
-using Robust.Shared.Random;
-using Robust.Shared.Map;
 
 namespace Content.Server.Revenant.EntitySystems;
 
@@ -40,10 +36,8 @@ public sealed partial class RevenantSystem
     [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly EntityStorageSystem _entityStorage = default!;
-    [Dependency] private readonly DiseaseSystem _disease = default!;
     [Dependency] private readonly EmagSystem _emag = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] private readonly SharedPsionicAbilitiesSystem _psionics = default!;
     [Dependency] private readonly MobThresholdSystem _mobThresholdSystem = default!;
     [Dependency] private readonly GhostSystem _ghost = default!;
     [Dependency] private readonly TileSystem _tile = default!;
@@ -89,7 +83,7 @@ public sealed partial class RevenantSystem
 
     private void BeginSoulSearchDoAfter(EntityUid uid, EntityUid target, RevenantComponent revenant)
     {
-        var searchDoAfter = new DoAfterArgs(uid, revenant.SoulSearchDuration, new SoulEvent(), uid, target: target)
+        var searchDoAfter = new DoAfterArgs(EntityManager, uid, revenant.SoulSearchDuration, new SoulEvent(), uid, target: target)
         {
             BreakOnUserMove = true,
             BreakOnDamage = true,
@@ -137,13 +131,13 @@ public sealed partial class RevenantSystem
             return;
         }
 
-        if (TryComp<MobStateComponent>(target, out var mobstate) && mobstate.CurrentState == Shared.Mobs.MobState.Alive && !HasComp<SleepingComponent>(target))
+        if (TryComp<MobStateComponent>(target, out var mobstate) && mobstate.CurrentState == MobState.Alive && !HasComp<SleepingComponent>(target))
         {
             _popup.PopupEntity(Loc.GetString("revenant-soul-too-powerful"), target, uid);
             return;
         }
 
-        var doAfter = new DoAfterArgs(uid, revenant.HarvestDebuffs.X, new HarvestEvent(), uid, target: target)
+        var doAfter = new DoAfterArgs(EntityManager, uid, revenant.HarvestDebuffs.X, new HarvestEvent(), uid, target: target)
         {
             DistanceThreshold = 2,
             BreakOnUserMove = true,
@@ -192,7 +186,7 @@ public sealed partial class RevenantSystem
         if (_mobState.IsAlive(args.Args.Target.Value) || _mobState.IsCritical(args.Args.Target.Value))
         {
             _popup.PopupEntity(Loc.GetString("revenant-max-essence-increased"), uid, uid);
-            component.EssenceRegenCap = Math.Min((float) component.EssenceCeiling, (float) component.EssenceRegenCap + component.MaxEssenceUpgradeAmount);
+            component.EssenceRegenCap += component.MaxEssenceUpgradeAmount;
         }
 
         //KILL THEMMMM
@@ -200,9 +194,8 @@ public sealed partial class RevenantSystem
         if (!_mobThresholdSystem.TryGetThresholdForState(args.Args.Target.Value, MobState.Dead, out var damage))
             return;
         DamageSpecifier dspec = new();
-        dspec.DamageDict.Add("Poison", damage.Value);
+        dspec.DamageDict.Add("Cold", damage.Value);
         _damage.TryChangeDamage(args.Args.Target, dspec, true, origin: uid);
-        _psionics.LogPowerUsed(uid, "a soul draining power", 2, 6);
 
         args.Handled = true;
     }
@@ -267,7 +260,6 @@ public sealed partial class RevenantSystem
             if (lights.HasComponent(ent))
                 _ghost.DoGhostBooEvent(ent);
         }
-        _psionics.LogPowerUsed(uid, Loc.GetString("revenant-psionic-power"));
     }
 
     private void OnOverloadLightsAction(EntityUid uid, RevenantComponent component, RevenantOverloadLightsActionEvent args)
@@ -303,8 +295,6 @@ public sealed partial class RevenantSystem
             var comp = EnsureComp<RevenantOverloadedLightsComponent>(allLight.First());
             comp.Target = ent; //who they gon fire at?
         }
-
-        _psionics.LogPowerUsed(uid, Loc.GetString("revenant-psionic-power"));
     }
 
     private void OnBlightAction(EntityUid uid, RevenantComponent component, RevenantBlightActionEvent args)
@@ -316,14 +306,7 @@ public sealed partial class RevenantSystem
             return;
 
         args.Handled = true;
-
-        var emo = GetEntityQuery<DiseaseCarrierComponent>();
-        foreach (var ent in _lookup.GetEntitiesInRange(uid, component.BlightRadius))
-        {
-            if (emo.TryGetComponent(ent, out var comp))
-                _disease.TryAddDisease(ent, component.BlightDiseasePrototypeId, comp);
-        }
-        _psionics.LogPowerUsed(uid, Loc.GetString("revenant-psionic-power"), 6, 10);
+        // TODO: When disease refactor is in.
     }
 
     private void OnMalfunctionAction(EntityUid uid, RevenantComponent component, RevenantMalfunctionActionEvent args)
@@ -338,8 +321,13 @@ public sealed partial class RevenantSystem
 
         foreach (var ent in _lookup.GetEntitiesInRange(uid, component.MalfunctionRadius))
         {
-            _emag.DoEmagEffect(ent, ent); //it emags itself. spooky.
+            if (component.MalfunctionWhitelist?.IsValid(ent, EntityManager) == false)
+                continue;
+
+            if (component.MalfunctionBlacklist?.IsValid(ent, EntityManager) == true)
+                continue;
+
+            _emag.DoEmagEffect(uid, ent); //it does not emag itself. adorable.
         }
-        _psionics.LogPowerUsed(uid, Loc.GetString("revenant-psionic-power"), 6, 10);
     }
 }

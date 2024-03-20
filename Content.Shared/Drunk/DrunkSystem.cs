@@ -6,6 +6,7 @@ namespace Content.Shared.Drunk;
 
 public abstract class SharedDrunkSystem : EntitySystem
 {
+    [ValidatePrototypeId<StatusEffectPrototype>]
     public const string DrunkKey = "Drunk";
 
     [Dependency] private readonly StatusEffectsSystem _statusEffectsSystem = default!;
@@ -21,7 +22,9 @@ public abstract class SharedDrunkSystem : EntitySystem
             boozePower *= trait.BoozeStrengthMultiplier;
 
         if (applySlur)
+        {
             _slurredSystem.DoSlur(uid, TimeSpan.FromSeconds(boozePower), status);
+        }
 
         if (!_statusEffectsSystem.HasStatusEffect(uid, DrunkKey, status))
         {

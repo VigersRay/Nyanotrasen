@@ -46,7 +46,7 @@
               amount: 2
               doAfter: 3
 
-        - to: shuttleWindow
+        - to: shuttleWindow #Nyano
           steps:
             - material: Plasteel
               amount: 2
@@ -195,7 +195,7 @@
             - tool: Anchoring
               doAfter: 3
 
-    - node: shuttleWindow
+    - node: shuttleWindow #Nyano
       entity: ShuttleWindow
       edges:
         - to: start

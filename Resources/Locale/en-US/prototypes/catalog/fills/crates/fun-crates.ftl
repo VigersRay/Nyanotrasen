@@ -1,9 +1,6 @@
 ent-CrateFunPlushie = Plushie crate
     .desc = A buncha soft plushies. Throw them around and then wonder how you're gonna explain this purchase to NT.
 
-ent-CrateFunCrewmates = Crewmate crate
-    .desc = A set of five crewmates, impostors not included. Or are they?
-
 ent-CrateFunInstrumentsVariety = Variety instrument collection
     .desc = Get your sad station movin' and groovin' with this catch-all variety pack! Contains seven different instruments.
 
@@ -29,7 +26,7 @@ ent-CrateFunBoardGames = Board game crate
     .desc = Game nights have been proven to either decrease boredom or increase murderous rage depending on the game.
 
 ent-CrateFunATV = ATV crate
-    .desc = An Absolutely Taxable Vehicle to help cargo with hauling.
+    .desc = An Absolutely Taxable Vehicle to help logistics with hauling.
 
 ent-CrateFunSadTromboneImplants = Sad Trombone Implants
     .desc = Death's never been so fun before! Implant these to make dying a bit more happy.
@@ -48,3 +45,12 @@ ent-CrateFunSyndicateSegway = Syndicate segway crate
 
 ent-CrateFunBoxing = Boxing Crate
     .desc = Want to set up an underground fight club or host a tournament amongst station crew? This crate is for you!
+
+ent-CrateFunBikeHornImplants = Bike Horn Implants
+    .desc = A thousand honks a day keeps security officers away!
+
+ent-CrateFunMysteryFigurines = Mystery Figure Crate
+    .desc = A collection of 10 Mystery Figurine boxes. Duplicates non refundable.
+
+ent-CrateFunDartsSet = Dartboard Box Set
+    .desc = A box with everything you need for a fun game of darts.

@@ -14,7 +14,7 @@
   - type: Tag
     tags:
     - TimerSignalElectronics
-  - type: DynamicPrice
+  - type: StaticPrice
     price: 15
 
 - type: entity
